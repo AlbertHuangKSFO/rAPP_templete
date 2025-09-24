@@ -1,0 +1,532 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+ 
+openapi: "3.0.3"
+info:
+  x-api-id: bd830fcc-497b-4948-9111-8ebf412c6136
+  x-audience: external-public
+  title: "Data Registration API"
+  description: "Data Registration Service"
+  version: "2.0.0-alpha.2"
+tags:
+  - name: "Get data jobs"
+    description: "Get all data jobs for a specific data type."
+  - name: "Get data job"
+    description: "Get a specific data job for a data type."
+  - name: "Get data type"
+    description: "Get a specific data types."
+  - name: "Get data types"
+    description: "Get all registered data types."
+  - name: "Update data job"
+    description: "Update status of a data job."
+
+servers:
+  - url: "https://{eic-host}/dmm-data-collection-controller"
+    description: "The prefix needed to access each of these endpoints is 'dmm-data-collection-controller'"
+
+paths:
+  /data-registration/v2/production-capabilities/{registrationId}/data-jobs:
+    get:
+      description: 'To get all data jobs for a given registrationId'
+      tags:
+        - Get data jobs
+      summary: "This API is used by Apps as data producer to get all data jobs."
+      operationId: "Producer Get Data Jobs"
+      parameters:
+        - name: registrationId
+          in: path
+          description: Identifier of the data type
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 'The resource was retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetDataJobResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+  /data-registration/v2/production-capabilities/{registrationId}/data-jobs/{dataJobId}:
+    get:
+      description: 'To get a data job for a given data job id'
+      tags:
+        - Get data job
+      summary: "This API is used by Apps as data producer to get a data job"
+      operationId: "Producer Get a Data Job"
+      parameters:
+        - name: registrationId
+          in: path
+          description: Identifier of the data type
+          required: true
+          schema:
+            type: string
+        - name: dataJobId
+          in: path
+          description: Identifier of a Data Job to be retrieved
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 'The resource was retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDataJobResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      description: |
+        **Note:** If the status of the data job is NOT_RUNNING, this API should not be used as the consumer is not ready to receive data.
+
+        To update a data job status for a given consumerId
+      tags:
+        - Update data job
+      summary: "This API is used by rApps as data producer to update data job status"
+      operationId: "Producer Update a Data Job"
+      parameters:
+        - name: registrationId
+          in: path
+          description: Identifier of the producer that registered the data jobs
+          required: true
+          schema:
+            type: string
+        - name: dataJobId
+          in: path
+          description: Identifier of a Data Job to be retrieved
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDataJobStatusReq'
+      responses:
+        "200":
+          description: 'Data job is successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateDataJobStatusReq"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+  /data-registration/v2/production-capabilities:
+    get:
+      description: 'To get all dmeTypes related capabilities for a given app'
+      tags:
+        - Get data types
+      summary: "This API is used by Apps as data producer to get all data types"
+      operationId: "Producer Get a production capabilities"
+      responses:
+        "200":
+          description: 'All resources was retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DmeTypeRelatedCapabilitiesRes"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+  /data-registration/v2/production-capabilities/{registrationId}:
+    get:
+      description: 'To get a dmeTypes related capabilities for a given app and a given registrationId'
+      tags:
+        - Get data type
+      summary: "This API is used by Apps as data producer to get a specific data type"
+      operationId: "Producer Get a production capability"
+      parameters:
+        - name: registrationId
+          in: path
+          description: 'A successful registration identified by registrationId '
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 'All resources was retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DmeTypeRelatedCapabilitiesRes"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+   
+components:
+  responses:
+    '400':
+      description: 'Bad Request'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '404':
+      description: 'Not Found'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '409':
+      description: 'Conflict'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '500':
+      description: 'Internal Server Error'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    DataJobInfo:
+      type: object
+      description: 'Information related to create a data job'
+      required:
+        - dataDeliveryMode
+        - dmeTypeId
+        - productionJobDefinition
+        - dataDeliveryMethod
+      properties:
+        dataDeliveryMode:
+          description: 'This indicates continuous data delivery (data subscription)'
+          type: string
+          enum:
+            - "CONTINUOUS"
+            - "ONE_TIME"
+        dataDeliverySchemaId:
+          description: 'This is an optional param'
+          type: string
+        dmeTypeId:
+          type: string
+          pattern: ^[^:]*:[^:]{1,}:(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+        productionJobDefinition:
+          $ref: "#/components/schemas/ProductionJobDefinitionReqDTO"
+        dataDeliveryMethod:
+          description: 'This indicates supported delivery mechanism'
+          type: string
+          enum:
+            - "STREAMING_KAFKA"
+    StreamingConfigurationKafka:
+      description: 'The StreamingConfigurationKafka data type signals a data streaming configuration for the Kafka protocol.'
+      type: object
+      properties:
+        topicName:
+          description: 'Name of the Kafka topic'
+          type: string
+        kafkaBootstrapServers:
+          description: 'Server configuration'
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerAddressWithPort'
+      required: [ "topicName", "kafkaBootstrapServers" ]
+    ServerAddressWithPort:
+      description: 'Server configuration'
+      type: object
+      properties:
+        hostname:
+          description: 'string identifying a hostname shall be formatted according to clause 2.3.1 as defined in IETF RFC 1035 [19]'
+          type: string
+        portAddress:
+          description: 'Port address, e.g. 9092'
+          type: integer
+          minimum: 1
+          maximum: 65535
+      required: [ "hostname", "portAddress" ]
+    ProblemDetails:
+      description: 'A problem detail to carry details in an HTTP response according to RFC 7807'
+      type: object
+      properties:
+        type:
+          description: 'a URI reference according to IETF RFC 3986 that identifies the problem type'
+          type: string
+          default: "about:blank"
+        title:
+          description: 'human-readable summary of the problem type'
+          type: string
+        status:
+          description: 'the HTTP status code'
+          type: number
+        detail:
+          description: 'human-readable explanation '
+          type: string
+        instance:
+          description: 'URI reference that identifies the specific occurrence of the problem'
+          type: string
+    ProductionJobDefinitionReqDTO:
+      title: ProductionJobDefinitionReq
+      type: object
+      additionalProperties: true
+    UpdateDataJobStatusReq:
+      title: DataJobStatusRequest
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          description: Allowed values - NOT_STARTED, RUNNING, FAILED, CANCELLED.
+          type: string
+        progressPercentage:
+          description: Allowed values 0-100 , NULL
+          type: integer
+        progressStateInfo:
+          description: |
+            Allowed values depend on status:
+              - NOT_STARTED: EMPTY
+              - RUNNING: OK, FAILED, EMPTY, PARTIALLY_FAILED
+              - FAILED: EMPTY
+          type: string
+        resultStateInfo:
+          description: |
+            Allowed values depend on status:
+              - NOT_STARTED: EMPTY
+              - RUNNING: EMPTY
+              - FAILED: ANY STRING
+          type: string
+        endTime:
+          type: string
+          format: date-time
+    DataJobInfoStatusDTO:
+      title: DataJobInfoStatus
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          description: |
+            Allowed values - NOT_STARTED, NOT_RUNNING, RUNNING'
+            Once the status has been updated from NOT_STARTED, it cannot be changed back to NOT_STARTED.
+          type: string
+        progressPercentage:
+          type: integer
+        progressStateInfo:
+          description: |
+            Allowed values depend on status:
+              - NOT_STARTED: EMPTY
+              - RUNNING: OK, FAILED, EMPTY, PARTIALLY_FAILED
+              - FAILED: EMPTY
+          type: string
+        resultStateInfo:
+          description: |
+            Allowed values depend on status:
+              - NOT_STARTED: EMPTY
+              - RUNNING: EMPTY
+              - FAILED: ANY STRING
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    GetDataJobResponse:
+      title: DataJobInfoResV3
+      type: object
+      required:
+        - dmeTypeId
+        - dataDeliveryMode
+        - dataDeliveryMethod
+        - productionJobDefinition
+        - dataDeliverySchemaId
+      properties:
+        dataJobName:
+          type: string
+        dmeTypeId:
+          type: string
+        dataDeliverySchemaId:
+          type: string
+        dataDeliveryMode:
+          description: This indicates continuous data delivery (data subscription)
+          type: string
+          enum:
+            - "CONTINUOUS"
+            - "ONE_TIME"
+        dataDeliveryMethod:
+          description: This indicates supported delivery mechanism.present it supports STREAMING_KAFKA only
+            STREAMING_KAFKA – Kafka based streaming delivery mechanism.
+          type: string
+          enum:
+            - "STREAMING_KAFKA"
+        productionJobDefinition:
+          $ref: '#/components/schemas/ProductionJobDefinitionReqDTO'
+        streamingConfigurationKafka:
+          $ref: '#/components/schemas/StreamingConfigurationKafka'
+        dataJobInfoStatus:
+          $ref: '#/components/schemas/DataJobInfoStatusDTO'
+    DmeTypeRelatedCapabilitiesRes:
+      description: 'DME type related capabilities'
+      type: object
+      properties:
+        registrationId:
+          description: 'Identifier of DME type related capabilities'
+          type: integer
+        dmeTypeDefinition:
+          description: 'Information related to the registration as producer of a DME type'
+          type: object
+          properties:
+            dmeTypeId:
+              $ref: '#/components/schemas/DmeTypeIdStruct'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+            dataProductionSchema:
+              type: object
+              description: 'Schema that defines the information necessary to formulate a data request or data subscription. If this attribute is not present, the schema is assumed to be known from the DME type definition that is referenced by dataTypeId'
+            dataDeliverySchemas:
+              description: 'List of delivery schemas supported by the producer for the DME type being registered.'
+              type: array
+              items:
+                $ref: '#/components/schemas/DeliverySchema'
+            dataDeliveryMechanisms:
+              description: 'Defining the delivery mechanism supported by Data Producer '
+              type: array
+              items:
+                $ref: '#/components/schemas/DataDeliveryMechanismRes'
+        constraints:
+          description: 'Formulates producer constraints or constraints applicable to the consumption related to the DME type based on the dataProductionSchema'
+          type: object
+        dataAccessEndpoint:
+          $ref: '#/components/schemas/DataAccessEndpoint'
+        dataDeliveryModes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataDeliveryMode'
+    DmeTypeIdStruct:
+      description: 'Defining the attributes of data type identifier'
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: 'Indicating the entity responsible for the DME type definition.'
+        name:
+          type: string
+          description: 'Name of the data type. The string can be any character except ":" (colon)'
+          pattern: '^[^:]{1,}$'
+        version:
+          type: string
+          description: 'Version of the data type. The versioning and allowed characters are according to SemVer [11]'
+      required: ["namespace","name","version"]
+    Metadata:
+      description: 'Metadata that can be used in discovering the DME type'
+      properties:
+        dataCategory:
+          description: 'Defines the category of the DME type e.g., PM counters'
+          type: array
+          items:
+            type: string
+            minItems: 1
+        rat:
+          description: 'Defines the radio access technology e.g., 5G'
+          type: array
+          items:
+            type: string
+            minItems: 1
+            required: ["dataCategory"]
+    DeliverySchema:
+      description: 'Delivery schema for a DME type'
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/SchemaTypes'
+        deliverySchemaId:
+          type: string
+          description: A Data Producer may support one or more delivery schemas and for each supported schema type a delivery schema identifier is assigned. A Data Consumer uses this attribute while creating a data job and request to deliver the data using specific schema type which is identified by this attribute.
+        schema:
+          type: string
+          description: 'The schema serialized to string. If this attribute is not present, the schema is assumed to be known from the DME type definition that is referenced by dmeTypeId'
+      required: [ “type“,“deliverySchemaId“ ]
+    DataDeliveryMechanismRes:
+      description: 'Defining the attributes of delivery mechanism supported by Data Producer'
+      type: object
+      properties:
+        dataDeliveryMethod:
+          description: 'Delivery Method supported by a Data Producer'
+          type: string
+        kafkaDeliveryConfiguration:
+          $ref: '#/components/schemas/KafkaDeliveryConfiguration'
+    KafkaDeliveryConfiguration:
+      description: 'These configuration will be applied if STREAMING_KAFKA is selected as delivery method'
+      type: object
+      properties:
+        numPartitions:
+          description: 'Number of partitions'
+          type: integer
+        cleanUpPolicy:
+          description: 'cleanUpPolicy is based on cleanup.policy defined in the Kafka Documentation. '
+          type: string
+        compressionType:
+          description: 'compressionType is based on compression.type defined in the Kafka Documentation.'
+          type: string
+        retentionBytes:
+          description: 'retentionBytes is based on retention.bytes defined in the Kafka Documentation. This attribute is applicable ONLY when cleanUpPolicy is set to DELETE'
+          type: integer
+        retentionMs:
+          description: 'retentionMs is based on retention.ms defined in the Kafka Documentation. This attribute is applicable ONLY when cleanUpPolicy is set to DELETE'
+          type: integer
+      required: [ "cleanUpPolicy", "compressionType" ]
+    DataAccessEndpoint:
+      type: object
+      description: Represents the description of an API's interface.
+      properties:
+        apiName:
+          type: string
+        apiVersion:
+          type: string
+        apiSpecificSuffixes:
+          type: string
+          description: >
+            A string representing a sequence of path segments that starts with the slash character.
+        resourceName:
+          type: string
+    DataDeliveryMode:
+      description: ''
+      type: string
+      enum:
+        - CONTINUOUS
+        - ONE_TIME
+    SchemaTypes:
+      description: 'Type of the schema supported by Data Producers'
+      type: string
+      enum:
+        - JSON_SCHEMA
+        - XML_SCHEMA
+        - AVRO_SCHEMA
+        - PROTOBUF_SCHEMA

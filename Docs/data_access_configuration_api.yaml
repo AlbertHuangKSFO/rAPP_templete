@@ -1,0 +1,560 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+openapi: "3.0.3"
+info:
+  x-api-id: bd830fcc-497b-4948-9111-8ebf412c6136
+  x-audience: external-public
+  description: "Throughout this API guide the `IAM_CLIENT_ID` for the App is used as consumerId, see [App Access to REST APIs](#tutorials/app-authentication)."
+  version: "2.0.0-alpha.2"
+  title: "Data Access API"
+tags:
+  - name: "Create data job at runtime"
+    description: "Creating a data job at runtime for an App."
+  - name: "Get data jobs"
+    description: "Get all data jobs for a given App."
+  - name: "Get individual data job"
+    description: "Get specific data job for a given App."
+  - name: "Update Production Job Definition for a data job"
+    description: "Updating valid production job definition for existing data jobs of an App."
+  - name: "Delete an existing data job created at runtime"
+    description: "Deleting a data job at runtime for an App."
+
+servers:
+  - url: "https://{eic-host}/dmm-data-collection-controller"
+    description: "The prefix needed to access each of these endpoints is 'dmm-data-collection-controller'"
+
+paths:
+  /data-access/v2/data-jobs:
+    get:
+      description: 'To get all data jobs'
+      tags:
+        - Get data jobs
+      summary: "This API is used by rApps as data consumer to get data jobs"
+      operationId: "Get data jobs"
+      parameters:
+        - name: status
+          in: query
+          description: status of data job
+          required: false
+          schema:
+            type: string
+            enum:
+              - "NOT_STARTED"
+              - "NOT_RUNNING"
+              - "RUNNING"
+              - "FINISHED"
+              - "FAILED"
+              - "PARTIALLY_FAILED"
+              - "CANCELLED"
+        - name: dataJobName
+          in: query
+          description: name of data job
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 'All resources was retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GetDataJobResponseV3"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      description: 'This API is used by rApps as data consumer to create data job at runtime for data types defined in data claim.'
+      operationId: "Create data job at runtime"
+      tags:
+        - Create data job at runtime
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobInfoV3'
+      responses:
+        '201':
+          description: 'Success case 201 created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobInfoForCreateResponse'
+          headers:
+            Location:
+              description: 'Contains the URI of the newly created resource'
+              required: true
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+  /data-access/v2/data-jobs/{dataJobId}:
+    get:
+      description: 'To get a data job'
+      tags:
+        - Get individual data job
+      summary: "This API is used by rApps as data consumer to get a specific data job"
+      operationId: "Get individual data job"
+      parameters:
+        - name: dataJobId
+          in: path
+          description: Identifier of a Data Job to be retrieved
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 'All resources was retrieved successfully.'
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/GetDataJobResponseV3"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      description: 'The consumer uses this operation to update an existing data job'
+      tags:
+        - Update Production Job Definition for a data job
+      summary: "This API is used by rApps as data consumer to update an existing data job"
+      operationId: "Update Production Job Definition for a data job"
+      parameters:
+        - name: dataJobId
+          in: path
+          description: Identifier of a Data Job to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Data Job Info defined in body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobInfoForUpdate'
+      responses:
+        "200":
+          description: 'Success case 200 updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataJobInfoForUpdateResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      description: 'To delete a data job'
+      tags:
+        - Delete an existing data job created at runtime
+      summary: "This API is used by rApps as data consumer to delete an existing data job created at runtime for data types defined in data claim."
+      operationId: "Delete data job at runtime"
+      parameters:
+        - name: dataJobId
+          in: path
+          description: Identifier of a Data Job to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: 'The resource was deleted successfully.'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  responses:
+    '400':
+      description: 'Bad Request'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '401':
+      description: 'Unauthorized'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '404':
+      description: 'Not Found'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '405':
+      description: 'Method Not Allowed'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '409':
+      description: 'Conflict'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '500':
+      description: 'Internal Server Error'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          description: 'a URI reference according to IETF RFC 3986 that identifies the problem type'
+          type: string
+          default: "about:blank"
+        title:
+          description: 'human-readable summary of the problem type'
+          type: string
+        status:
+          description: 'the HTTP status code'
+          type: number
+        detail:
+          description: 'human-readable explanation '
+          type: string
+        instance:
+          description: 'URI reference that identifies the specific occurrence of the problem'
+          type: string
+    DataJobInfoStatusV2:
+      title: DataJobInfoStatus
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          description: Expected values - NOT_STARTED, NOT_RUNNING, RUNNING, FAILED, PARTIALLY_FAILED, FINISHED, CANCELLED.
+          type: string
+        progressPercentage:
+          type: integer
+        progressStateInfo:
+          description: Expected values - OK, FAILED, PARTIALLY_FAILED.
+          type: string
+        resultStateInfo:
+          description:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    DataJobInfoStatus:
+      title: DataJobInfoStatus
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          description: |
+            Allowed values - NOT_RUNNING, RUNNING. 
+             - A Data job cannot be updated from NOT_STARTED to NOT_RUNNING.
+             - A Data job cannot be updated from RUNNING to NOT_RUNNING.
+             - This is the only value that can be updated.
+          type: string
+        progressPercentage:
+          type: integer
+        progressStateInfo:
+          description: Expected values - OK, FAILED, PARTIALLY_FAILED.
+          type: string
+        resultStateInfo:
+          description:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    StreamingConfigurationKafkaV2:
+      description: 'The StreamingConfigurationKafka data type signals a data streaming configuration for the Kafka protocol.'
+      type: object
+      properties:
+        topicName:
+          description: 'Name of the Kafka topic'
+          type: string
+        kafkaBootstrapServers:
+          description: 'Server configuration'
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerAddressWithPortV2'
+      required: [ "topicName", "kafkaBootstrapServers" ]
+    ServerAddressWithPortV2:
+      description: 'Server configuration'
+      type: object
+      properties:
+        hostname:
+          description: 'string identifying a hostname shall be formatted according to clause 2.3.1 as defined in IETF RFC 1035 [19]'
+          type: string
+        portAddress:
+          description: 'Port address, e.g. 9092'
+          type: integer
+          minimum: 1
+          maximum: 65535
+      required: [ "hostname", "portAddress" ]
+    ProductionJobDefinitionReqDTOV2:
+      title: ProductionJobDefinitionReq
+      type: object
+      description: This is the only value that can be updated.
+      properties:
+        targetSelector:
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        dataSelector:
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    GetDataJobResponseV3:
+      title: DataJobInfoResV3
+      type: object
+      required:
+        - dmeTypeId
+        - dataDeliveryMode
+        - dataDeliveryMethod
+        - productionJobDefinition
+        - dataDeliverySchemaId
+      properties:
+        dataJobName:
+          type: string
+        dmeTypeId:
+          type: string
+        dataDeliverySchemaId:
+          type: string
+        dataDeliveryMode:
+          description: This indicates continuous data delivery (data subscription)
+          type: string
+          enum:
+            - "CONTINUOUS"
+            - "ONE_TIME"
+        dataDeliveryMethod:
+          description: This indicates supported delivery mechanism.present it supports STREAMING_KAFKA only
+            STREAMING_KAFKA – Kafka based streaming delivery mechanism.
+          type: string
+          enum:
+            - "STREAMING_KAFKA"
+        productionJobDefinition:
+          $ref: '#/components/schemas/ProductionJobDefinitionReqDTOV2'
+        streamingConfigurationKafka:
+          $ref: '#/components/schemas/StreamingConfigurationKafkaV2'
+        dataJobInfoStatus:
+          $ref: '#/components/schemas/DataJobInfoStatusV2'
+    DataJobInfoForUpdate:
+      title: DataJobInfoForUpdate
+      type: object
+      description: 'Information related to update a data job'
+      required:
+        - dataDeliveryMode
+        - dmeTypeId
+        - productionJobDefinition
+        - dataDeliveryMethod
+        - dataDeliverySchemaId
+      properties:
+        dataDeliveryMode:
+          description: 'This indicates the requested is for continuous data consumption'
+          type: string
+          enum:
+            - "CONTINUOUS"
+            - "ONE_TIME"
+        dmeTypeId:
+          type: string
+          pattern: ^[^:]*:[^:]{1,}:(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+        productionJobDefinition:
+          $ref: "#/components/schemas/ProductionJobDefinitionReqDTOV2"
+        dataDeliveryMethod:
+          description: 'This indicates supported delivery mechanism'
+          type: string
+          enum:
+            - "STREAMING_KAFKA"
+        dataDeliverySchemaId:
+          type: string
+        streamingConfigurationKafka:
+          required: false
+          $ref: '#/components/schemas/StreamingConfigurationKafkaV2'
+        dataJobInfoStatus:
+          $ref: '#/components/schemas/DataJobInfoStatus'
+    DataJobInfoV3:
+      description: 'Information related to a data job'
+      allOf:
+        - type: object
+          properties:
+            dataDeliveryMode:
+              description: 'This indicates whether the requested data is a one-time data consumption or continuous data consumption'
+              type: string
+              enum:
+                - "CONTINUOUS"
+                - "ONE_TIME"
+            dmeTypeId:
+              type: string
+              pattern: ^[^:]*:[^:]{1,}:(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+            productionJobDefinition:
+              description: 'Job description based on the DME type specific dataProductionSchema'
+              $ref: "#/components/schemas/ProductionJobDefinitionReqDTOV2"
+            dataDeliveryMethod:
+              description: 'This indicates supported delivery mechanism'
+              type: string
+              enum:
+                - "STREAMING_KAFKA"
+            dataDeliverySchemaId:
+              description: 'A delivery schema identifier provided by a Data Producer during the data registration procedure'
+              type: string
+          required: [ dataDeliveryMode, dmeTypeId, productionJobDefinition, dataDeliveryMethod, dataDeliverySchemaId]
+    DataJobInfoForUpdateResponse:
+      title: DataJobInfoForUpdateResponse
+      type: object
+      description: 'Information related to update a data job'
+      required:
+        - dataDeliveryMode
+        - dmeTypeId
+        - productionJobDefinition
+        - dataDeliveryMethod
+        - dataDeliverySchemaId
+      properties:
+        dataDeliveryMode:
+          description: 'This indicates the requested is for continuous data consumption'
+          type: string
+          enum:
+            - "CONTINUOUS"
+            - "ONE_TIME"
+        dmeTypeId:
+          type: string
+          pattern: ^[^:]*:[^:]{1,}:(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+        productionJobDefinition:
+          $ref: "#/components/schemas/ProductionJobDefinitionReqDTOV2"
+        dataDeliveryMethod:
+          description: 'This indicates supported delivery mechanism'
+          type: string
+          enum:
+            - "STREAMING_KAFKA"
+        dataDeliverySchemaId:
+          type: string
+        streamingConfigurationKafka:
+          required: false
+          $ref: '#/components/schemas/StreamingConfigurationKafkaV2'
+        dataJobInfoStatus:
+          $ref: '#/components/schemas/DataJobInfoStatusForUpdate'
+    DataJobInfoStatusForUpdate:
+      title: DataJobInfoStatusForUpdate
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          description: Expected values - NOT_STARTED, NOT_RUNNING, RUNNING 
+          type: string
+        progressPercentage:
+          type: integer
+        progressStateInfo:
+          description: Expected values - OK, FAILED, PARTIALLY_FAILED.
+          type: string
+        resultStateInfo:
+          description:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    DataJobInfoForCreateResponse:
+      title: DataJobInfoForCreateResponse
+      type: object
+      description: 'Information related to update a data job'
+      required:
+        - dataDeliveryMode
+        - dmeTypeId
+        - productionJobDefinition
+        - dataDeliveryMethod
+        - dataDeliverySchemaId
+      properties:
+        dataDeliveryMode:
+          description: 'This indicates the requested is for continuous data consumption'
+          type: string
+          enum:
+            - "CONTINUOUS"
+            - "ONE_TIME"
+        dmeTypeId:
+          type: string
+          pattern: ^[^:]*:[^:]{1,}:(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+        productionJobDefinition:
+          $ref: "#/components/schemas/ProductionJobDefinitionReqDTOV2"
+        dataDeliveryMethod:
+          description: 'This indicates supported delivery mechanism'
+          type: string
+          enum:
+            - "STREAMING_KAFKA"
+        dataDeliverySchemaId:
+          type: string
+        streamingConfigurationKafka:
+          required: false
+          $ref: '#/components/schemas/StreamingConfigurationKafkaV2'
+        dataJobInfoStatus:
+          $ref: '#/components/schemas/DataJobInfoStatusForCreate'
+    DataJobInfoStatusForCreate:
+      title: DataJobInfoStatusForCreate
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          description: Expected values - NOT_STARTED, RUNNING
+          type: string
+        progressPercentage:
+          type: integer
+        progressStateInfo:
+          description: Expected values - OK, FAILED, PARTIALLY_FAILED.
+          type: string
+        resultStateInfo:
+          description:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time

@@ -1,0 +1,796 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+openapi: 3.0.2
+info:
+  version: 1.0.0-alpha.1
+  title: CM Job API
+tags:
+  - name: CM Job
+    description: "Provides interface to manage RAN OAM CM Jobs."
+servers:
+  - url: https://{eic-host}/ran-oam-cm/1.0.0-alpha.1
+paths:
+  /plan-management/plan-activation-jobs:
+    post:
+      summary: Create CM Job
+      description: Create a CM Job to activate a planned configuration in the live network.
+      tags:
+        - CM Job
+      operationId: 'createCmJob'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CmJob'
+            examples:
+              application/o-ran-yang-patch+json:
+                $ref: '#/components/examples/CmJobRequestExample'
+      responses:
+        '201':
+          description: >-
+            Success Case ("201 Created").
+            The CM job was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmJobResponse'
+              examples:
+                cmJobResponse:
+                  $ref: '#/components/examples/CmJobResponseExample'
+        '400':
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/BadRequestErrorExample'
+        default:
+          description: Error case
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/ServerErrorExample'
+  /plan-management/plan-activation-jobs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/IdInPath'
+    get:
+      summary: Get CM Job
+      description: Get a CM Job.
+      tags:
+        - CM Job
+      operationId: 'getCmJob'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 Ok").
+            Successfully got the CM Job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmJob'
+              examples:
+                application/o-ran-yang-patch+json:
+                  $ref: '#/components/examples/CmJobExample'
+        '404':
+          description: Job not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/NotFoundErrorExample'
+        default:
+          description: Error case
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/ServerErrorExample'
+  /plan-management/plan-activation-jobs/{id}/plan-descriptor:
+    parameters:
+      - $ref: '#/components/parameters/IdInPath'
+    get:
+      summary: Get CM Job Plan Descriptor
+      description: Get the Plan Descriptor of a CM Job.
+      tags:
+        - CM Job
+      operationId: 'getCmJobPlanDescriptor'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 Ok").
+            Successfully the plan descriptor of a CM Job resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmJobPlanDescriptor'
+              examples:
+                application/o-ran-yang-patch+json:
+                  $ref: '#/components/examples/CmJobPlanDescriptorExample'
+        '404':
+          description: Job not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/NotFoundErrorExample'
+        default:
+          description: Error case
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/ServerErrorExample'
+  /plan-management/plan-activation-jobs/{id}/results:
+    parameters:
+      - $ref: '#/components/parameters/IdInPath'
+    get:
+      summary: Get CM Job Result
+      description: Get the Result of a CM Job.
+      tags:
+        - CM Job
+      operationId: 'getCmJobResult'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 Ok").
+            Successfully read the result properties of a CM Job resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmJobResult'
+              examples:
+                ok:
+                  $ref: '#/components/examples/CmJobResultOkExample'
+                nok:
+                  $ref: '#/components/examples/CmJobResultNokExample'
+        '404':
+          description: Job not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/NotFoundErrorExample'
+        default:
+          description: Error case
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/ServerErrorExample'
+  /plan-management/plan-activation-jobs/{id}/status:
+    parameters:
+      - $ref: '#/components/parameters/IdInPath'
+    get:
+      summary: Get CM Job Status
+      description: Get the Status of a CM Job.
+      tags:
+        - CM Job
+      operationId: 'getCmJobStatus'
+      responses:
+        '200':
+          description: >-
+            Success case ("200 Ok").
+            Successfully read the status properties of a CM Job resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CmJobStatus'
+              examples:
+                notStarted:
+                  $ref: '#/components/examples/CmJobStatusNotStartedExample'
+                running:
+                  $ref: '#/components/examples/CmJobStatusRunningExample'
+                failed:
+                  $ref: '#/components/examples/CmJobStatusFailedExample'
+                completed:
+                  $ref: '#/components/examples/CmJobStatusCompletedExample'
+        '404':
+          description: Job not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/NotFoundErrorExample'
+        default:
+          description: Error case
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                errorResponse:
+                  $ref: '#/components/examples/ServerErrorExample'
+components:
+  schemas:
+    CmJob:
+      description: >-
+        CM Job describes multiple CM changes to the network.
+      type: object
+      properties:
+        id:
+          description: >-
+            Id of the job. The id can be provided by the App, in case it is not provided, an id is automatically
+            generated and returned in response body. Also, if it is provided, but it already exists, a new one is generated. The '?' and '/' characters are not allowed to use in the id.
+          type: string
+        name:
+          description: >-
+            Name of the job.
+          type: string
+          minLength: 1
+        description:
+          description: >-
+            Description about the job.
+          type: string
+        isFallbackEnabled:
+          description: >-
+            Value for enabling fallback. - Reserved for future use
+          type: boolean
+          default: false
+        planDescriptor:
+          $ref: '#/components/schemas/CmJobPlanDescriptor'
+      required:
+        - planDescriptor
+    CmJobPlanDescriptor:
+      description: >-
+        Plan Descriptor contains intended configuration changes.
+      type: object
+      required:
+        - configuration
+      properties:
+        applyMode:
+          description: >-
+            Apply mode of the job. - Reserved for future use
+          type: string
+          enum:
+            - ATOMIC
+            - BEST_EFFORT
+          default: BEST_EFFORT
+        customProperties:
+          description: >-
+            Custom properties of the job. Stores additional information from the user.
+          type: object
+        configurationContentType:
+          description: >-
+            Configuration content type of the job.
+          type: string
+          enum:
+            - application/yang-patch+json
+            - application/o-ran-yang-patch+json
+          default: application/o-ran-yang-patch+json
+        'configuration':
+          type: object
+          properties:
+            patch-id:
+              description: >-
+                Unique id of the patch.
+              type: string
+              minLength: 1
+            edit:
+              description: >-
+                Array of operations. There is exactly one edit inside a job.
+              type: array
+              items:
+                $ref: '#/components/schemas/CmJobConfigurationEdit'
+          required:
+            - patch-id
+            - edit
+    CmJobConfigurationEdit:
+      type: object
+      properties:
+        edit-id:
+          description: >-
+            Edit ID of the operation. Its value must be unique inside a job. - Reserved for future use
+          type: string
+        operation:
+          description: >-
+            Type of the operation.
+          type: string
+          enum:
+            - create
+            - merge
+            - remove
+        target:
+          description: >-
+            FDN of the managed object.
+          type: string
+          minLength: 1
+        value:
+          type: object
+      required:
+        - operation
+        - target
+    CmJobResponse:
+      type: object
+      properties:
+        id:
+          description: >-
+            Id of the job.
+          type: string
+        name:
+          description: >-
+            Name of the job
+          type: string
+        description:
+          description: >-
+            Description about the job.
+          type: string
+        isFallbackEnabled:
+          description: >-
+            Value for enabling fallback. - Reserved for future use
+          type: boolean
+        isCancelled:
+          description: >-
+            Value for cancel state. - Reserved for future use
+          type: boolean
+        _links:
+          description: >-
+            Contains URIs of other endpoints regarding the specified job.
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+            planDescriptor:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+            results:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+            status:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+      required:
+        - job-id
+    CmJobStatus:
+      type: object
+      properties:
+        state:
+          description: >-
+            Status of the specified job.
+              - NOT_STARTED if the job has been created but not initiated.
+              - RUNNING if the activation of the job has been initiated.
+              - FAILED if at least one operation has failed.
+              - COMPLETED if every operation has successfully finished its execution.
+          type: string
+          enum:
+            - NOT_STARTED
+            - RUNNING
+            - COMPLETED
+            - FAILED
+        startedAt:
+          description: >-
+            Execution start time of the first sub job.
+          type: string
+        completedAt:
+          description: >-
+            Execution complete time of the last sub job.
+          type: string
+        summary:
+          $ref: '#/components/schemas/CmJobSummary'
+      required:
+        - state
+        - startedAt
+        - summary
+    CmJobResult:
+      type: object
+      properties:
+        summary:
+          $ref: '#/components/schemas/CmJobSummary'
+        patch-id:
+          description: >-
+            Id of the patch.
+          type: string
+        ok:
+          description: >-
+            True if all operations were successful.
+          type: boolean
+        editStatus:
+          description: >-
+            If there is at least one unsuccessful operation.
+          type: object
+          properties:
+            edit:
+              type: array
+              items:
+                $ref: '#/components/schemas/CmJobResultEdit'
+    CmJobSummary:
+      type: object
+      properties:
+        total:
+          description: >-
+            Sum of total executed and failed operations.
+          type: integer
+        executed:
+          description: >-
+            Sum of executed operations and execution errors.
+          type: integer
+        succeeded:
+          description: >-
+            Successfully executed operations.
+          type: integer
+        failed:
+          description: >-
+            Sum of invalid operations and execution errors.
+          type: integer
+    CmJobResultEdit:
+      type: object
+      properties:
+        edit-id:
+          description: >-
+            Id of the edit. - Reserved for future use
+          type: string
+        ems-id:
+          description: >-
+            Id of the ems.
+          type: string
+        ok:
+          description: >-
+            True if edit was successful.
+          type: boolean
+        errors:
+          description: >-
+            If edit was unsuccessful.
+          type: object
+          properties:
+            error:
+              type: array
+              items:
+                $ref: '#/components/schemas/CmJobResultEditError'
+    CmJobResultEditError:
+      type: object
+      properties:
+        errorType:
+          description: >-
+            Type of the error.
+          type: string
+          enum:
+            - transport
+            - rpc
+            - protocol
+            - application
+        errorTag:
+          description: >-
+            Descriptive error tag.
+          type: string
+          enum:
+            - "in-use"
+            - "invalid-value"
+            - "too-big"
+            - "missing-attribute"
+            - "bad-attribute"
+            - "unknown-attribute"
+            - "bad-element"
+            - "unknown-element"
+            - "unknown-namespace"
+            - "access-denied"
+            - "lock-denied"
+            - "resource-denied"
+            - "rollback-failed"
+            - "data-exists"
+            - "data-missing"
+            - "operation-not-supported"
+            - "operation-failed"
+            - "partial-operation"
+            - "malformed-message"
+        errorPath:
+          description: >-
+            Target of the erroneous object.
+          type: string
+        errorMessage:
+          description: >-
+            User friendly error message about the error.
+          type: string
+    ErrorResponse:
+      description: >-
+        Default schema for the response message body in case the request
+        is not successful.
+      type: object
+      properties:
+        error:
+          description: Presence of this key in response body indicates an error.
+          type: object
+          properties:
+            errorInfo:
+              description: Error information in human-readable string format.
+              type: string
+
+  examples:
+    CmJobExample:
+      value:
+        id: myjob-111
+        name: job-xyz
+        description: dublin-concert-expansion
+        isFallbackEnabled: true
+        isCancelled: false
+        planDescriptor:
+          applyMode: BEST_EFFORT
+          customProperties:
+            operatorProperty1: prop-value-1
+            operatorProperty2: prop-value-2
+            rAppId: r-app-id-2
+          configurationContentType: application/o-ran-yang-patch+json
+          configuration:
+            patch-id: GNBDUFunction-changes-001
+            edit:
+              - operation: create
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001
+                value:
+                  GNBDUFunction:
+                    - id: "1"
+                      attributes:
+                        gNBDUId: "1"
+                        gNBId: "1"
+                        gNBIdLength: "1"
+                        pwsEtwsPrimaryInd: "8"
+                        dUpLMNId:
+                          mcc: "300"
+                          mnc: "50"
+              - operation: create
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001
+                value:
+                  GNBDUFunction:
+                    - id: "2"
+                      attributes:
+                        gNBDUId: "2"
+                        gNBId: "2"
+                        gNBIdLength: "2"
+                        pwsEtwsPrimaryInd: "8"
+                        dUpLMNId:
+                          mcc: "300"
+                          mnc: "50"
+              - operation: merge
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=3
+                value:
+                  attributes:
+                    pwsEtwsPrimaryInd: "8"
+                    dUpLMNId:
+                      mcc: "300"
+                      mnc: "50"
+              - operation: remove
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=4
+    CmJobRequestExample:
+      value:
+        id: myjob-111
+        name: job-xyz
+        description: dublin-concert-expansion
+        planDescriptor:
+          customProperties:
+            operatorProperty1: prop-value-1
+            operatorProperty2: prop-value-2
+          configuration:
+            patch-id: GNBDUFunction-changes-001
+            edit:
+              - operation: create
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001
+                value:
+                  GNBDUFunction:
+                    - id: "1"
+                      attributes:
+                        gNBDUId: "1"
+                        gNBId: "1"
+                        gNBIdLength: "1"
+                        pwsEtwsPrimaryInd: "8"
+                        dUpLMNId:
+                          mcc: "300"
+                          mnc: "50"
+              - operation: create
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001
+                value:
+                  GNBDUFunction:
+                    - id: "2"
+                      attributes:
+                        gNBDUId: "2"
+                        gNBId: "2"
+                        gNBIdLength: "2"
+                        pwsEtwsPrimaryInd: "8"
+                        dUpLMNId:
+                          mcc: "300"
+                          mnc: "50"
+              - operation: merge
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=3
+                value:
+                  attributes:
+                    pwsEtwsPrimaryInd: "8"
+                    dUpLMNId:
+                      mcc: "300"
+                      mnc: "50"
+              - operation: remove
+                target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=4
+    CmJobPlanDescriptorExample:
+      value:
+        applyMode: BEST_EFFORT
+        customProperties:
+          operatorProperty1: prop-value-1
+          operatorProperty2: prop-value-2
+          rAppId: r-app-id-2
+        configurationContentType: application/o-ran-yang-patch+json
+        configuration:
+          patch-id: GNBDUFunction-changes-001
+          edit:
+            - operation: create
+              target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001
+              value:
+                GNBDUFunction:
+                  - id: "1"
+                    attributes:
+                      gNBDUId: "1"
+                      gNBId: "1"
+                      gNBIdLength: "1"
+                      pwsEtwsPrimaryInd: "8"
+                      dUpLMNId:
+                        mcc: "300"
+                        mnc: "50"
+            - operation: create
+              target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001
+              value:
+                GNBDUFunction:
+                  - id: "2"
+                    attributes:
+                      gNBDUId: "2"
+                      gNBId: "2"
+                      gNBIdLength: "2"
+                      pwsEtwsPrimaryInd: "8"
+                      dUpLMNId:
+                        mcc: "300"
+                        mnc: "50"
+            - operation: merge
+              target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=3
+              value:
+                attributes:
+                  pwsEtwsPrimaryInd: "8"
+                  dUpLMNId:
+                    mcc: "300"
+                    mnc: "50"
+            - operation: remove
+              target: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=4
+    CmJobResponseExample:
+      value:
+        id: myjob-111
+        name: job-xyz
+        description: dublin-concert-expansion
+        isFallbackEnabled: true
+        isCancelled: false
+        _links:
+          self:
+            href: /ran-oam-cm/1.0.0-alpha.1/plan-management/plan-activation-jobs/myjob-111
+          planDescriptor:
+            href: /ran-oam-cm/1.0.0-alpha.1/plan-management/plan-activation-jobs/myjob-111/plan-descriptor
+          results:
+            href: /ran-oam-cm/1.0.0-alpha.1/plan-management/plan-activation-jobs/myjob-111/results
+          status:
+            href: /ran-oam-cm/1.0.0-alpha.1/plan-management/plan-activation-jobs/myjob-111/status
+    CmJobStatusNotStartedExample:
+      value:
+        state: NOT_STARTED
+        summary:
+          total: 0
+          executed: 0
+          succeeded: 0
+          failed: 0
+    CmJobStatusRunningExample:
+      value:
+        state: RUNNING
+        startedAt: 2024-12-02T13:16:54.088Z
+        summary:
+          total: 5
+          executed: 3
+          succeeded: 3
+          failed: 0
+    CmJobStatusFailedExample:
+      value:
+        state: FAILED
+        startedAt: 2024-12-02T13:16:54.088Z
+        completedAt: 2024-12-02T13:18:54.088Z
+        summary:
+          total: 5
+          executed: 5
+          succeeded: 4
+          failed: 1
+    CmJobStatusCompletedExample:
+      value:
+        state: COMPLETED
+        startedAt: 2024-12-02T13:16:54.088Z
+        completedAt: 2024-12-02T13:18:54.088Z
+        summary:
+          total: 5
+          executed: 5
+          succeeded: 5
+          failed: 0
+    CmJobResultOkExample:
+      value:
+        summary:
+          total: 3
+          executed: 3
+          succeeded: 3
+          failed: 0
+        patch-id: GNBDUFunction-changes-001
+        ok: true
+    CmJobResultNokExample:
+      value:
+        summary:
+          total: 3
+          executed: 3
+          succeeded: 2
+          failed: 1
+        patch-id: GNBDUFunction-changes-001
+        ok: false
+        editStatus:
+          edit:
+            - ems-id: 1
+              ok: false
+              errors:
+                error:
+                  - errorType: application
+                    errorTag: data-exists
+                    errorPath: /SubNetwork=Europe/SubNetwork=Ireland/MeContext=NR01gNodeBRadio00001/ManagedElement=NR01gNodeBRadio00001/GNBDUFunction=1
+                    errorMessage: Data already exists; cannot be created
+            - ems-id: 1
+              ok: true
+            - ems-id: 1
+              ok: true
+    BadRequestErrorExample:
+      value:
+        error:
+          errorInfo: 'planDescriptor.configuration.patchId: must not be null'
+    NotFoundErrorExample:
+      value:
+        error:
+          errorInfo: 'JOB NOT FOUND - myjob-111 job ID does not exist'
+    ServerErrorExample:
+      value:
+        error:
+          errorInfo: 'SERVER ERROR - Failed to establish communication with ENM'
+
+  parameters:
+    IdInPath:
+      name: id
+      required: true
+      in: path
+      description: CM Job Identifier
+      schema:
+        type: string

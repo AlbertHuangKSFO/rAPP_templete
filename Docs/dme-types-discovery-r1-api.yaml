@@ -1,0 +1,611 @@
+#
+# COPYRIGHT Ericsson 2025
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+openapi: 3.0.3
+info:
+  x-api-id: 6377a9c2-3a01-497a-b5d9-23dbbc65f7be
+  x-audience: external-public
+  title: Data Discovery API
+  description: |
+
+    Dme-types Discovery allows app to discover the data type such as the schema, supported filters, location of the data.
+
+    **Note:** Ensure data jobs or data type claims are created for an app, before using data discovery.
+  version: '2.0.0-alpha.1'
+tags:
+  - name: "Get Data Types"
+
+servers:
+  - url: "https://{eic-host}/dmm-data-catalog"
+    description: "The prefix needed to access each of these endpoints is 'dmm-data-catalog'"
+
+paths:
+  '/data-discovery/v2/dme-types/{dmeTypeId}':
+    get:
+      x-external: true
+      tags:
+        - Get Dme Types
+      description: To obtain information about an individual DME type.
+      operationId: getDmeTypeByIdForRappsNew
+      parameters:
+        - name: dmeTypeId
+          in: path
+          required: true
+          description: 'A dmeTypeId is constructed based on the three parts separated by “:“ (colon) {dataTypeId} = {namespace}:{name}:{version}'
+          schema:
+            $ref: '#/components/schemas/dmeTypeId'
+          example:
+            namespace:name:version
+      responses:
+        '200':
+          description: The response body contains information about the DME type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DmeTypeRelatedCapabilitiesV6'
+              example:
+                {
+                  "dmeTypeDefinition": {
+                      "dmeTypeId": {
+                          "namespace": "ERICSSON",
+                          "name": "RanFMNotification",
+                          "version": "1.0.0"
+                      },
+                      "metadata": {
+                          "dataCategory": [
+                              "ALARMS"
+                          ],
+                          "rat": [
+                              "5G"
+                          ]
+                      },
+                      "dataProductionSchema": {
+                          "targetSelector": {
+                              "target": []
+                          },
+                          "dataSelector": {
+                              "data": []
+                          }
+                      },
+                      "dataDeliverySchemas": [
+                          {
+                              "type": "JSON_SCHEMA",
+                              "deliverySchemaId": "FMAlarmRANSchema",
+                              "schema": "string"
+                          }
+                      ],
+                      "dataDeliveryMechanisms": [
+                          {
+                              "dataDeliveryMethod": "STREAMING_KAFKA"
+                          }
+                      ]
+                  },
+                  "dataDeliveryModes": [
+                      "ONE_TIME"
+                  ]
+                }
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Invalid Request Values"
+                status: 400
+                details: "Invalid Request Values - Allowed[namespace:name:version]"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Unauthorized"
+                status: 401
+                details: "Unauthorized Request"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '403':
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Requested dmeType is not authorized to be viewed"
+                status: 403
+                details: "Requested dmeType is not authorized to be viewed"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Requested Resource not found"
+                status: 404
+                details: "Requested Resource not found"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '406':
+          description: Not Acceptable
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Not Acceptable"
+                status: 406
+                details: "Not Acceptable"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '414':
+          description: URI Too Large
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "URI Too Large"
+                status: 414
+                details: "URI Too Large"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '429':
+          description: Too Many Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Too Many Request"
+                status: 429
+                details: "Too Many Request"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Internal Server Error"
+                status: 500
+                details: "Internal Server Error"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '502':
+          description: Bad Gateway
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Bad Gateway"
+                status: 502
+                details: "Bad Gateway"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+        '503':
+          description: Service Unavailable
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Service Unavailable"
+                status: 503
+                details: "Service Unavailable"
+                instance: "/data-discovery/v2/dme-types/{dmeTypeId}"
+  /data-discovery/v2/dme-types:
+    get:
+      x-external: true
+      tags:
+        - Get Dme Types
+      description: To discover the available DME types
+      operationId: getDmeTypesForRappNew
+      parameters:
+        - name: identity-namespace
+          in: query
+          description: 'Identity namespace to match the "namespace" part of the "dmeTypeId" attribut'
+          schema:
+            type: string
+        - name: identity-name
+          in: query
+          description: 'Identity name to match the "name" part of the "dmeTypeId" attribute'
+          schema:
+            type: string
+        - name: data-category
+          in: query
+          description: 'Set of data category entries, all of which to match entries of the "dataCategory" attribute.'
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: 'The response body contains the result of the search over the list of registered APIs.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DmeTypeRelatedCapabilitiesV6'
+              example:
+                [
+                  {
+                      "dmeTypeDefinition": {
+                          "dmeTypeId": {
+                              "namespace": "ERICSSON",
+                              "name": "RanFMNotification",
+                              "version": "1.0.0"
+                          },
+                          "metadata": {
+                              "dataCategory": [
+                                  "ALARMS"
+                              ],
+                              "rat": [
+                                  "5G"
+                              ]
+                          },
+                          "dataProductionSchema": {
+                              "targetSelector": {
+                                  "target": []
+                              },
+                              "dataSelector": {
+                                  "data": []
+                              }
+                          },
+                          "dataDeliverySchemas": [
+                              {
+                                  "type": "JSON_SCHEMA",
+                                  "deliverySchemaId": "FMAlarmRANSchema",
+                                  "schema": "string"
+                              }
+                          ],
+                          "dataDeliveryMechanisms": [
+                              {
+                                  "dataDeliveryMethod": "STREAMING_KAFKA"
+                              }
+                          ]
+                      },
+                      "dataDeliveryModes": [
+                          "ONE_TIME"
+                      ]
+                  }
+              ]
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Invalid Request Values"
+                status: 400
+                details: "Invalid Request Values"
+                instance: "/data-discovery/v2/dme-types"
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Unauthorized"
+                status: 401
+                details: "Unauthorized Request"
+                instance: "/data-discovery/v2/dme-types"
+        '403':
+          description: Forbidden
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Requested dmeType is not authorized to be viewed"
+                status: 403
+                details: "Requested dmeType is not authorized to be viewed"
+                instance: "/data-discovery/v2/dme-types"
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Requested Resource not found"
+                status: 404
+                details: "Requested Resource not found"
+                instance: "/data-discovery/v2/dme-types"
+        '406':
+          description: Not Acceptable
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Not Acceptable"
+                status: 406
+                details: "Not Acceptable"
+                instance: "/data-discovery/v2/dme-types"
+        '414':
+          description: URI Too Large
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "URI Too Large"
+                status: 414
+                details: "URI Too Large"
+                instance: "/data-discovery/v2/dme-types"
+        '429':
+          description: Too Many Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Too Many Request"
+                status: 429
+                details: "Too Many Request"
+                instance: "/data-discovery/v2/dme-types"
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Internal Server Error"
+                status: 500
+                details: "Internal Server Error"
+                instance: "/data-discovery/v2/dme-types"
+        '502':
+          description: Bad Gateway
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Bad Gateway"
+                status: 502
+                details: "Bad Gateway"
+                instance: "/data-discovery/v2/dme-types"
+        '503':
+          description: Service Unavailable
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              example:
+                type: "about:blank"
+                title: "Service Unavailable"
+                status: 503
+                details: "Service Unavailable"
+                instance: "/data-discovery/v2/dme-types"
+components:
+  responses:
+    '400':
+      description: 'Bad Request'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '401':
+      description: 'Unauthorized'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '403':
+      description: 'Forbidden'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '404':
+      description: 'Not Found'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '406':
+      description: 'Not Acceptable'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '414':
+      description: 'URI Too Large'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '429':
+      description: 'Too Many Request'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '500':
+      description: 'Internal Server Error'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '502':
+      description: 'Bad Gateway'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    '503':
+      description: 'Service Unavailable'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    dmeTypeId:
+      title: 'dmeTypeId'
+      type: string
+      description: 'The DmeTypeId is constructed based on the three parts separated by ":" (colon) {dmeTypeId} = {namespace}:{name}:{version}.'
+    DmeTypeRelatedCapabilitiesV6:
+      title: 'DmeTypeRelatedCapabilities'
+      description: 'Information related to the registration as producer of a DME type'
+      type: object
+      properties:
+        dmeTypeDefinition:
+          $ref: '#/components/schemas/DmeTypeDefinitionV6'
+        dataDeliveryModes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataDeliveryModeV6'
+    DmeTypeDefinitionV6:
+      title: 'DmeTypeDefinition'
+      description: 'Information of the DME type'
+      type: object
+      properties:
+        dmeTypeId:
+          $ref: '#/components/schemas/DmeTypeIdStructV6'
+        metadata:
+          $ref: '#/components/schemas/MetadataV6'
+        dataProductionSchema:
+          title: 'dataProductionSchema'
+          type: object
+          description: 'Schema that defines the information necessary to formulate a data request or data subscription.   If this attribute is not present, the schema is assumed to be known from the DME type definition that is referenced by dmeTypeId'
+        dataDeliverySchemas:
+          title: 'dataDeliverySchemas'
+          description: 'List of delivery schemas supported by the producer for the DME type being registered.'
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliverySchemaV6'
+        dataDeliveryMechanisms:
+          title: 'dataDeliveryMechanisms'
+          description: 'Defining the delivery mechanism supported by Data Producer '
+          type: array
+          items:
+            $ref: '#/components/schemas/DataDeliveryMechanismV6'
+      required: ["dmeTypeId", "metadata", "dataDeliverySchemas", "dataDeliveryMechanisms"]
+    DmeTypeIdStructV6:
+      title: 'DmeTypeIdStruct'
+      description: 'Defining the attributes of DME type identifier'
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: 'Indicating the entity responsible for the DME type definition.'
+        name:
+          type: string
+          description: 'Name of the DME type. The string can be any character except ":" (colon)'
+          pattern: '^[^:]{1,}$'
+        version:
+          type: string
+          description: 'Version of the DME type. The versioning and allowed characters are according to SemVer [11]'
+      required: ["namespace","name","version"]
+    MetadataV6:
+      title: 'Metadata'
+      description: 'Metadata that can be used in discovering the DME type'
+      properties:
+        dataCategory:
+          description: 'Defines the category of the DME type e.g., PM counters'
+          type: array
+          items:
+            type: string
+          minItems: 1
+        rat:
+          description: 'Defines the radio access technology e.g., 5G'
+          type: array
+          items:
+            type: string
+          minItems: 1
+      required: ["dataCategory"]
+    DeliverySchemaV6:
+      title: 'DeliverySchema'
+      description: 'Delivery schema for a DME type'
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/SchemaTypesV6'
+        deliverySchemaId:
+          type: string
+          description: A Data Producer may support one or more delivery schemas and for each supported schema type a delivery schema identifier is assigned. A Data Consumer uses this attribute while creating a data job and request to deliver the data using specific schema type which is identified by this attribute.
+        schema:
+          type: string
+          description: 'The schema serialized to string. If this attribute is not present, the schema is assumed to be known from the DME type definition that is referenced by dmeTypeId'
+      required: ["type","deliverySchemaId"]
+    DataDeliveryMechanismV6:
+      title: 'DataDeliveryMechanism'
+      description: 'Defining the attributes of delivery mechanism supported'
+      type: object
+      properties:
+        dataDeliveryMethod:
+          type: string
+          description: 'Delivery Method supported'
+          enum:
+            - STREAMING_KAFKA
+      required: ["dataDeliveryMethod"]
+    DataDeliveryModeV6:
+      title: 'DataDeliveryMode'
+      description: 'This indicates whether the data instance is created in a one-time data delivery (data request) or continuously (data subscription)'
+      type: string
+      enum:
+        - ONE_TIME
+        - CONTINUOUS
+    SchemaTypesV6:
+      description: 'Type of the schema'
+      type: string
+      enum:
+        - JSON_SCHEMA
+        - XML_SCHEMA
+        - AVRO_SCHEMA
+        - PROTOBUF_SCHEMA
+    ProblemDetails:
+      description: 'A problem detail to carry details in an HTTP response according to RFC 7807'
+      type: object
+      properties:
+        type:
+          description: 'URI reference according to IETF RFC 3986 [8] that identifies the problem type.'
+          type: string
+        title:
+          description: 'Human-readable summary of the problem type'
+          type: string
+        status:
+          description: 'The HTTP status code'
+          type: number
+        detail:
+          description: 'Human-readable explanation'
+          type: string
+        instance:
+          description: 'URI reference that identifies the specific occurrence of the problem.'
+          type: string

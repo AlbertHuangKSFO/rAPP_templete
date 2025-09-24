@@ -1,0 +1,10 @@
+asdId: 1
+asdSchemaVersion: 1.0.0
+asdProvider: Ericsson
+asdApplicationName: RAPP_NAME
+asdApplicationVersion: 2.0.3-0
+asdApplicationInfoName: Network Data Template Application
+asdInfoDescription: Network Data Template Application for App Onboarding
+deploymentItems:
+    deploymentItemId: 1
+    artifactId: OtherDefinitions/ASD/RAPP_NAME-2.0.3-0.tgz

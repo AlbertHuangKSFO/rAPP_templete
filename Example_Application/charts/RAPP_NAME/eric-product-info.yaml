@@ -1,0 +1,10 @@
+productName: "RAPP_NAME"
+productNumber: "CXC 201 0000"
+images:
+  RAPP_NAME:
+    productName: "Network Data Template App"
+    productNumber: ""
+    registry: "armdocker.rnd.ericsson.se"
+    repoPath: "proj-eric-oss-drop"
+    name: "RAPP_NAME"
+    tag: "2.0.3-0"

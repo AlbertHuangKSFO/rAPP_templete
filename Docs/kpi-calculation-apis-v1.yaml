@@ -1,0 +1,1766 @@
+openapi: 3.0.1
+info:
+  title: KPI Definition and Calculation API V1 Guide
+  version: 1.2.3
+  x-audience: internal
+  x-api-id: 14debd9c-19df-4868-bbb6-80c133efbd33
+  description: KPI Calculation allows an App to define and calculate KPIs from PM Counter data. It exposes KPI results through a query API, and through an output stream that the App can consume from the Message Bus.
+servers:
+  - url: https://<eic-host>/kpi-handling
+    variables: { }
+tags:
+  - name: Add KPI Definitions
+  - name: Update KPI Definition collection
+  - name: Modify a KPI Definition
+  - name: List KPI Definitions
+  - name: Delete KPI Definitions
+  - name: Monitor KPI calculations
+  - name: Trigger On-Demand KPI calculation
+paths:
+  /model/v1/definitions:
+    post:
+      tags:
+        - Add KPI Definitions
+      summary: Add KPI Definitions
+      description: Add KPI Definitions. Validate that all proposed KPI Definitions
+        are compatible with the expected schema and add them to the database. Response indicates the KPI Output Tables where the KPI results can be found.
+      operationId: addKpiDefinitions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionRequest'
+            example:
+              scheduled_simple:
+                kpi_output_tables:
+                  - aggregation_period: 60
+                    alias: simple
+                    aggregation_elements:
+                      - example_schema.nodeFDN
+                      - example_schema.moFdn
+                    inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: resp_time
+                        expression: example_schema.pmCounters.sm_context_resp_time
+                        object_type: FLOAT
+                        aggregation_type: SUM
+                      - name: resp_req
+                        expression: example_schema.pmCounters.sm_context_req
+                        object_type: INTEGER
+                        aggregation_type: MAX
+              scheduled_complex:
+                kpi_output_tables:
+                  - aggregation_period: 60
+                    alias: complex
+                    aggregation_elements:
+                      - kpi_simple_60.nodeFDN
+                      - kpi_simple_60.moFdn
+                    exportable: true
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: avg_resp_time
+                        expression: kpi_simple_60.resp_time / kpi_simple_60.resp_req
+                          FROM kpi_db://kpi_simple_60
+                        object_type: FLOAT
+                        aggregation_type: FIRST
+                        execution_group: complex_arbitrary_group
+              on_demand:
+                parameters:
+                  - name: date_for_filter
+                    type: STRING
+                tabular_parameters:
+                  - name: tabular_example
+                    columns:
+                      - name: nodeFDN
+                        type: STRING
+                      - name: moFdn
+                        type: STRING
+                      - name: integer_property
+                        type: INTEGER
+                kpi_output_tables:
+                  - aggregation_period: 1440
+                    alias: on_demand
+                    aggregation_elements:
+                      - kpi_complex_60.nodeFDN
+                      - kpi_complex_60.moFdn
+                    exportable: true
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: avg_resp_time_for_day
+                        expression: 1000 * SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                          FROM kpi_db://kpi_complex_60
+                        object_type: FLOAT
+                        aggregation_type: FIRST
+                        filters:
+                          - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) > '${param.date_for_filter}'"
+      responses:
+        "201":
+          description: Created - The proposed KPI Definitions are compatible with the expected
+            schema and have been added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationSuccessResponse'
+              example:
+                successMessage: All KPIs proposed are validated and persisted to database.
+                submittedKpiDefinitions:
+                  resp_time: kpi_simple_60
+                  resp_req: kpi_simple_60
+                  avg_resp_time: kpi_complex_60
+                  avg_resp_time_for_day: kpi_on_demand_1440
+        "400":
+          description: Bad Request - KPI Definition provided has failed validation due to the issue
+            described in the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: "The following KPIs have failed schema verification: [kpi_complex_60]"
+        "409":
+          description: Conflicting information in the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 409
+                error: Conflict
+                message: Conflicting retention period for table 'kpi_simple_60'. The table already has a retention period of '5', but '4' was also provided. Ensure the same retention period is specified for the same table.
+        "500":
+          description: Internal Server Error - Submitted KPI Definition could not be processed due to a server-side
+            error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+    get:
+      tags:
+        - List KPI Definitions
+      summary: List KPI Definitions
+      description: "Retrieve KPI Definition list. This endpoint\
+          \ has an optional query parameter: showDeleted. Its default value is false.\
+          \ If this parameter is true, then the GET endpoint retrieves not only all\
+          \ the usable KPI Definitions, but also the deleted ones until the retention\
+          \ period is over."
+      operationId: getKpiDefinitions
+      parameters:
+        - name: showDeleted
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK - Successfully retrieved KPI Definitions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KpiDefinitionsResponse'
+              example:
+                scheduled_simple:
+                  kpi_output_tables:
+                    - alias: simple
+                      aggregation_period: 60
+                      retention_period_in_days: 4
+                      kpi_definitions:
+                        - name: resp_time
+                          expression: example_schema.pmCounters.sm_context_resp_time
+                          object_type: FLOAT
+                          aggregation_type: SUM
+                          aggregation_elements:
+                            - example_schema.nodeFDN
+                            - example_schema.moFdn
+                          exportable: true
+                          inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                        - name: resp_req
+                          expression: example_schema.pmCounters.sm_context_req
+                          object_type: INTEGER
+                          aggregation_type: SUM
+                          aggregation_elements:
+                            - example_schema.nodeFDN
+                            - example_schema.moFdn
+                          exportable: true
+                          inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                scheduled_complex:
+                  kpi_output_tables:
+                    - alias: complex
+                      aggregation_period: 60
+                      retention_period_in_days: 4
+                      kpi_definitions:
+                        - name: avg_resp_time
+                          expression: kpi_simple_60.resp_time / kpi_simple_60.resp_req
+                            FROM kpi_db://kpi_simple_60
+                          object_type: FLOAT
+                          aggregation_type: FIRST
+                          aggregation_elements:
+                            - kpi_simple_60.nodeFDN
+                            - kpi_simple_60.moFdn
+                          exportable: true
+                          execution_group: complex_arbitrary_group
+                on_demand:
+                  parameters:
+                    - name: date_for_filter
+                      type: STRING
+                  tabular_parameter:
+                    - name: tabular_example
+                      columns:
+                        - name: nodeFDN
+                          type: STRING
+                        - name: moFdn
+                          type: STRING
+                        - name: integer_property
+                          type: INTEGER
+                  kpi_output_tables:
+                    - alias: on_demand
+                      aggregation_period: 1440
+                      retention_period_in_days: 4
+                      kpi_definitions:
+                        - name: avg_resp_time_for_day
+                          expression: SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                            FROM kpi_db://kpi_complex_60
+                          object_type: FLOAT
+                          aggregation_type: FIRST
+                          aggregation_elements:
+                            - kpi_complex_60.nodeFDN
+                            - kpi_complex_60.moFdn
+                          exportable: true
+                          filters:
+                            - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) >\
+                               \ '${param.date_for_filter}'"
+        "400":
+          description: Bad Request - Incorrect UUID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: Invalid UUID as kpiCollectionId
+        "500":
+          description: Internal Server Error - Failed to retrieve KPI Definitions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+    delete:
+      tags:
+        - Delete KPI Definitions
+      summary: Delete KPI Definitions
+      description: "Delete KPI Definitions from the database. The request contains\
+          \ a list of KPI Definition names. Deleting already deleted or non existent\
+          \ KPI Definition returns the same response as a successful deletion. Deleting\
+          \ a KPI Definition does not change its retention period.\
+          \ If there is a KPI Definition in the list that you want to delete, which is dependent\
+          \ on another KPI Definition not in the list, then the deletion of\
+          \ all the KPI Definitions is refused."
+      operationId: deleteKpiDefinitions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+            example:
+              - avg_resp_time
+              - avg_resp_time_for_day
+      responses:
+        "200":
+          description: OK - The KPI Definitions have been successfully deleted.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - avg_resp_time
+                - avg_resp_time_for_day
+        "400":
+          description: Bad Request - Failed to delete requested KPI Definition due to the issue
+            described in the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: "The Following KPIs have dependencies that would be deleted:\
+                    \ [avg_resp_time: [resp_time]]"
+        "500":
+          description: Internal Server Error - Failed to delete the requested KPI Definitions due to server-side
+            error. Check the message for more information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+  /model/v1/definitions/{kpiCollectionId}:
+    post:
+      tags:
+        - Add KPI Definitions
+      summary: Add KPI Definitions
+      description: Add KPI Definitions with the option of specifying the KPI Collection ID of the App. Validate that all proposed KPI Definitions
+        are compatible with the expected schema and add them to the database. Response indicates the KPI Output Tables where the KPI results can be found.
+      operationId: addKpiDefinitionsForCollection
+      parameters:
+        - name: kpiCollectionId
+          in: path
+          description: "UUID type parameter that can be used to distinguish the KPI Definitions of the App from those of other Apps.\
+             \ The App must use the same kpiCollectionId consistently in all API calls when working with KPIs.\
+             \ Generate your own UUID for kpiCollectionId. "
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionRequest'
+            example:
+              scheduled_simple:
+                kpi_output_tables:
+                  - aggregation_period: 60
+                    alias: simple
+                    aggregation_elements:
+                      - example_schema.nodeFDN
+                      - example_schema.moFdn
+                    inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: resp_time
+                        expression: example_schema.pmCounters.sm_context_resp_time
+                        object_type: FLOAT
+                        aggregation_type: SUM
+                      - name: resp_req
+                        expression: example_schema.pmCounters.sm_context_req
+                        object_type: INTEGER
+                        aggregation_type: MAX
+              scheduled_complex:
+                kpi_output_tables:
+                  - aggregation_period: 60
+                    alias: complex
+                    aggregation_elements:
+                      - kpi_simple_60.nodeFDN
+                      - kpi_simple_60.moFdn
+                    exportable: true
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: avg_resp_time
+                        expression: kpi_simple_60.resp_time / kpi_simple_60.resp_req
+                          FROM kpi_db://kpi_simple_60
+                        object_type: FLOAT
+                        aggregation_type: FIRST
+                        execution_group: complex_arbitrary_group
+              on_demand:
+                parameters:
+                  - name: date_for_filter
+                    type: STRING
+                tabular_parameters:
+                  - name: tabular_example
+                    columns:
+                      - name: nodeFDN
+                        type: STRING
+                      - name: moFdn
+                        type: STRING
+                      - name: integer_property
+                        type: INTEGER
+                kpi_output_tables:
+                  - aggregation_period: 1440
+                    alias: on_demand
+                    aggregation_elements:
+                      - kpi_complex_60.nodeFDN
+                      - kpi_complex_60.moFdn
+                    exportable: true
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: avg_resp_time_for_day
+                        expression: 1000 * SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                          FROM kpi_db://kpi_complex_60
+                        object_type: FLOAT
+                        aggregation_type: FIRST
+                        filters:
+                          - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) > '${param.date_for_filter}'"
+      responses:
+        "201":
+          description: Created - The proposed KPI Definitions are compatible with the expected
+            schema and have been added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationSuccessResponse'
+              example:
+                successMessage: All KPIs proposed are validated and persisted to database.
+                submittedKpiDefinitions:
+                  resp_time: kpi_simple_60
+                  resp_req: kpi_simple_60
+                  avg_resp_time: kpi_complex_60
+                  avg_resp_time_for_day: kpi_on_demand_1440
+        "400":
+          description: Bad Request - KPI Definition provided has failed validation due to the issue
+            described in the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: "The following KPIs have failed schema verification: [kpi_complex_60]"
+        "409":
+          description: Conflicting information in the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 409
+                error: Conflict
+                message: Conflicting retention period for table 'kpi_simple_60'. The table already has a retention period of '5', but '4' was also provided. Ensure the same retention period is specified for the same table.
+        "500":
+          description: Internal Server Error - Submitted KPI Definition could not be processed due to a server-side
+            error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+    get:
+      tags:
+        - List KPI Definitions
+      summary: List KPI Definitions
+      description: "Retrieve KPI Definition list. KPI collection ID must be used if previously KPIs were persisted with one. This endpoint\
+          \ has an optional query parameter: showDeleted. Its default value is false.\
+          \ If this parameter is true, then the GET endpoint retrieves not only all\
+          \ the usable KPI Definitions of your App, but also the deleted ones until the retention\
+          \ period is over."
+      operationId: getKpiDefinitionsForCollection
+      parameters:
+        - name: showDeleted
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: kpiCollectionId
+          in: path
+          description: "UUID type parameter that can be used to distinguish the KPI Definitions of the App from those of other Apps.\
+               \ Must be used if the KPIs were persisted with an API call containing a kpiCollectionId, and the value must be the same.\
+               \ Must be omitted if the KPIs were persisted without using a kpiCollectionId."
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: OK - Successfully retrieved KPI Definitions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KpiDefinitionsResponse'
+              example:
+                scheduled_simple:
+                  kpi_output_tables:
+                    - alias: simple
+                      aggregation_period: 60
+                      retention_period_in_days: 4
+                      kpi_definitions:
+                        - name: resp_time
+                          expression: example_schema.pmCounters.sm_context_resp_time
+                          object_type: FLOAT
+                          aggregation_type: SUM
+                          aggregation_elements:
+                            - example_schema.nodeFDN
+                            - example_schema.moFdn
+                          exportable: true
+                          inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                        - name: resp_req
+                          expression: example_schema.pmCounters.sm_context_req
+                          object_type: INTEGER
+                          aggregation_type: SUM
+                          aggregation_elements:
+                            - example_schema.nodeFDN
+                            - example_schema.moFdn
+                          exportable: true
+                          inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                scheduled_complex:
+                  kpi_output_tables:
+                    - alias: complex
+                      aggregation_period: 60
+                      retention_period_in_days: 4
+                      kpi_definitions:
+                        - name: avg_resp_time
+                          expression: kpi_simple_60.resp_time / kpi_simple_60.resp_req
+                            FROM kpi_db://kpi_simple_60
+                          object_type: FLOAT
+                          aggregation_type: FIRST
+                          aggregation_elements:
+                            - kpi_simple_60.nodeFDN
+                            - kpi_simple_60.moFdn
+                          exportable: true
+                          execution_group: complex_arbitrary_group
+                on_demand:
+                  parameters:
+                    - name: date_for_filter
+                      type: STRING
+                  tabular_parameter:
+                    - name: tabular_example
+                      columns:
+                        - name: nodeFDN
+                          type: STRING
+                        - name: moFdn
+                          type: STRING
+                        - name: integer_property
+                          type: INTEGER
+                  kpi_output_tables:
+                    - alias: on_demand
+                      aggregation_period: 1440
+                      retention_period_in_days: 4
+                      kpi_definitions:
+                        - name: avg_resp_time_for_day
+                          expression: SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                            FROM kpi_db://kpi_complex_60
+                          object_type: FLOAT
+                          aggregation_type: FIRST
+                          aggregation_elements:
+                            - kpi_complex_60.nodeFDN
+                            - kpi_complex_60.moFdn
+                          exportable: true
+                          filters:
+                            - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) >\
+                               \ '${param.date_for_filter}'"
+        "400":
+          description: Bad Request - Incorrect UUID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: Invalid UUID as kpiCollectionId
+        "500":
+          description: Internal Server Error - Failed to retrieve KPI Definitions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+    delete:
+      tags:
+        - Delete KPI Definitions
+      summary: Delete KPI Definitions
+      description: "Delete KPI Definitions from the database. KPI collection ID must be used if previously KPIs were persisted with one. The request contains\
+          \ a list of KPI Definition names. Deleting already deleted or non existent\
+          \ KPI Definition returns the same response as a successful deletion. Deleting\
+          \ a KPI Definition does not change its retention period.\
+          \ If there is a KPI Definition in the list that you want to delete, which is dependent\
+          \ on another KPI Definition not in the list, then the deletion of\
+          \ all the KPI Definitions is refused."
+      operationId: deleteKpiDefinitionsForCollection
+      parameters:
+        - name: kpiCollectionId
+          in: path
+          description: "UUID type parameter which can be used to distinguish the KPI Definitions of the App from those of other Apps.\
+                       \ Must be used if the KPIs were persisted with an API call containing a kpiCollectionId, and the value must be the same.\
+                       \ Must be omitted if the KPIs were persisted without using a kpiCollectionId."
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+            example:
+              - avg_resp_time
+              - avg_resp_time_for_day
+      responses:
+        "200":
+          description: OK - The KPI Definitions have been successfully deleted.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - avg_resp_time
+                - avg_resp_time_for_day
+        "400":
+          description: Bad Request - Failed to delete requested KPI Definition due to the issue
+            described in the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: "The Following KPIs have dependencies that would be deleted:\
+                    \ [avg_resp_time: [resp_time]]"
+        "500":
+          description: Internal Server Error - Failed to delete the requested KPI Definitions due to server-side
+            error. Check the message for more information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+    put:
+      tags:
+        - Update KPI Definition collection
+      summary: Update the entire KPI Definition collection of an App
+      description: "Replace all of the KPI Definitions of your App with the request body.
+         It can be used to create new KPI Definitions. Existing KPI Definitions submitted with
+         same name are updated according to the request. Existing KPI Definitions not included
+         in the request are soft deleted. Response indicates the KPI Output Tables where the KPI
+         results can be found. Same validation rules apply as for individual Create, Modify, and
+         Delete KPI Definitions requests, except you can modify the retention period."
+      operationId: updateKpiDefinitions
+      parameters:
+        - name: kpiCollectionId
+          in: path
+          description: "UUID type parameter which can be used to distinguish the KPI Definitions of the App from those of other Apps.\
+                 \ The App must use the same kpiCollectionId consistently in all API calls when working with KPIs.\
+                  \ Generate your own UUID for kpiCollectionId."
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionRequest'
+            example:
+              scheduled_simple:
+                kpi_output_tables:
+                  - aggregation_period: 60
+                    alias: simple
+                    aggregation_elements:
+                      - example_schema.nodeFDN
+                      - example_schema.moFdn
+                    inp_data_identifier: 5G|PM_COUNTERS|example_schema
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: resp_time
+                        expression: example_schema.pmCounters.sm_context_resp_time
+                        object_type: FLOAT
+                        aggregation_type: SUM
+                      - name: resp_req
+                        expression: example_schema.pmCounters.sm_context_req
+                        object_type: INTEGER
+                        aggregation_type: MAX
+              scheduled_complex:
+                kpi_output_tables:
+                  - aggregation_period: 60
+                    alias: complex
+                    aggregation_elements:
+                      - kpi_simple_60.nodeFDN
+                      - kpi_simple_60.moFdn
+                    exportable: true
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: avg_resp_time
+                        expression: kpi_simple_60.resp_time / kpi_simple_60.resp_req
+                          FROM kpi_db://kpi_simple_60
+                        object_type: FLOAT
+                        aggregation_type: FIRST
+                        execution_group: complex_arbitrary_group
+              on_demand:
+                parameters:
+                  - name: date_for_filter
+                    type: STRING
+                tabular_parameters:
+                  - name: tabular_example
+                    columns:
+                      - name: nodeFDN
+                        type: STRING
+                      - name: moFdn
+                        type: STRING
+                      - name: integer_property
+                        type: INTEGER
+                kpi_output_tables:
+                  - aggregation_period: 1440
+                    alias: on_demand
+                    aggregation_elements:
+                      - kpi_complex_60.nodeFDN
+                      - kpi_complex_60.moFdn
+                    exportable: true
+                    retention_period_in_days: 4
+                    kpi_definitions:
+                      - name: avg_resp_time_for_day
+                        expression: SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                          FROM kpi_db://kpi_complex_60
+                        object_type: FLOAT
+                        aggregation_type: FIRST
+                        filters:
+                          - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) > '${param.date_for_filter}'"
+      responses:
+        "200":
+          description: OK - The KPI Definition update request is compatible with the expected
+            schema and KPI Definitions have been persisted. Preexisting KPI Definitions have been updated according to the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationSuccessResponse'
+              example:
+                successMessage: All KPIs proposed are validated and persisted. Any preexisting KPIs are updated according to the request.
+                submittedKpiDefinitions:
+                  resp_time: kpi_simple_60
+                  resp_req: kpi_simple_60
+                  avg_resp_time: kpi_complex_60
+                  avg_resp_time_for_day: kpi_on_demand_1440
+        "400":
+          description: Bad Request - KPI Definition update request has failed due to the issue described in the message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: Invalid UUID as kpiCollectionId
+        "409":
+          description: Conflicting information in the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 409
+                error: Conflict
+                message: Conflicting retention period for table 'kpi_simple_60'. The table already has a retention period of '5', but '4' was also provided. Ensure the same retention period is specified for the same table.
+        "500":
+          description: Internal Server Error - Failed to process the incoming KPI Definition update request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+  /model/v1/definitions/{kpiCollectionId}/{name}:
+    patch:
+      tags:
+        - Modify a KPI Definition
+      summary: Modify a single KPI Definition
+      description: Modify a single KPI Definition. KPI collection ID must be used if previously the KPI was persisted with one.
+      operationId: updateKpiDefinitionForCollection
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: kpiCollectionId
+          in: path
+          description: "UUID type parameter which can be used to distinguish the KPI Definitions of the App from those of other Apps.\
+                         \ Must be used if the KPIs were persisted with an API call containing a kpiCollectionId, and the value must be the same.\
+                          \ Must be omitted if the KPIs were persisted without using a kpiCollectionId."
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionPatchRequest'
+            example:
+              expression: 1000 * SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                FROM kpi_db://kpi_complex_60
+              exportable: true
+      responses:
+        "200":
+          description: OK - Modify a KPI Definition request is compatible with the expected.
+            schema and has been modified.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KpiDefinitionUpdateResponse'
+              example:
+                aggregation_period: 1440
+                alias: on_demand
+                aggregation_elements:
+                  - kpi_complex_60.nodeFDN
+                exportable: true
+                name: avg_resp_time_for_day
+                expression: 1000 * SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                  FROM kpi_db://kpi_complex_60
+                object_type: FLOAT
+                aggregation_type: FIRST
+                filters:
+                  - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) > '${param.date_for_filter}'"
+        "400":
+          description: Bad Request - Incorrect UUID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: Invalid UUID as kpiCollectionId
+        "404":
+          description: Not Found - KPI was not found by name 'non-existent'.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: KPI was not found by name 'non_existent'
+        "500":
+          description: Internal Server Error - Failed to process the incoming request due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+  /model/v1/definitions/{name}:
+    patch:
+      tags:
+        - Modify a KPI Definition
+      summary: Modify a single KPI Definition
+      description: Modify a single KPI Definition.
+      operationId: updateKpiDefinition
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiDefinitionPatchRequest'
+            example:
+              expression: 1000 * SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                FROM kpi_db://kpi_complex_60
+              exportable: true
+      responses:
+        "200":
+          description: OK - The request to modify a KPI Definition is compatible with the expected
+            schema and has been modified.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KpiDefinitionUpdateResponse'
+              example:
+                aggregation_period: 1440
+                alias: on_demand
+                aggregation_elements:
+                  - kpi_complex_60.nodeFDN
+                exportable: true
+                name: avg_resp_time_for_day
+                expression: 1000 * SUM(kpi_complex_60.avg_resp_time) / COUNT(kpi_complex_60.avg_resp_time)
+                  FROM kpi_db://kpi_complex_60
+                object_type: FLOAT
+                aggregation_type: FIRST
+                filters:
+                  - "kpi_db://kpi_complex_60.TO_DATE(aggregation_begin_time) > '${param.date_for_filter}'"
+        "400":
+          description: Bad Request - Incorrect UUID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: Invalid UUID as kpiCollectionId
+        "404":
+          description: Not Found - KPI was not found by name 'non_existent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: KPI was not found by name 'non_existent'
+        "500":
+          description: Internal Server Error - Failed to process the incoming request due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+  /calc/v1/calculations:
+    get:
+      tags:
+        - Monitor KPI calculations
+      summary: Retrieve a list of calculations started in the previous elapsed minutes.
+      description: "Returns the status of each recently started calculation. Calculation\
+          \ in this context refers to a process of calculating all KPIs within an execution\
+          \ group. Calculations can be identified in the response by the execution group\
+          \ name, and by the type of the included KPIs. The response includes a UUID\
+          \ (calculation_id) for each calculation. The calculations in the response\
+          \ are ordered by their start time from latest to earliest."
+      operationId: findCalculationsCreatedAfter
+      parameters:
+        - name: elapsedMinutes
+          in: query
+          description: The duration that specifies how many minutes back the started
+            calculations should be listed.
+          schema:
+            type: integer
+            format: int32
+            default: 60
+        - name: includeNothingCalculated
+          in: query
+          description: Determines whether the received list should include all started
+            calculations or exclude those calculations in which no KPIs were calculated.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK - Calculations have been found, and the status along with calculation IDs are returned for each one.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalculationResponse'
+              example:
+                - executionGroup: COMPLEX2
+                  kpiType: SCHEDULED_COMPLEX
+                  status: FINISHED
+                  calculationId: 070bba4a-c3d8-4de0-98c1-7caa6c427d57
+                - executionGroup: COMPLEX1
+                  kpiType: SCHEDULED_COMPLEX
+                  status: FINISHED
+                  calculationId: fec86f08-d04e-4a91-9815-45155aacc484
+        "500":
+          description: Internal Server Error - Failed to process the incoming request due to internal error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+  /calc/v1/calculations/{kpiCollectionId}:
+    post:
+      tags:
+        - Trigger On-Demand KPI calculation
+      summary: Trigger On-Demand KPI calculation
+      description: Submit an On-Demand KPI calculation request for validation and
+        calculation. KPI collection ID must be used if previously the KPI was persisted with one.
+        You can also assign parameters and tabular parameters for On-Demand KPI calculations. The response includes a UUID (calculation_id) for each calculation.
+      operationId: calculateKpis
+      parameters:
+        - name: kpiCollectionId
+          in: path
+          required: true
+          description: "UUID type parameter which can be used to distinguish the KPI Definitions of the App from those of other Apps.\
+                          \ Must be used if the KPIs were persisted with an API call containing a kpiCollectionId, and the value must be the same.\
+                          \ Must be omitted if the KPIs were persisted without using a kpiCollectionId."
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KpiCalculationRequestPayload'
+            example:
+              kpiNames:
+                - avg_resp_time_for_day
+              parameters:
+                - name: param.date_for_filter
+                  value: "2023-04-29"
+              tabular_parameters:
+                - name: tabular_example_csv
+                  format: CSV
+                  header: "nodeFDN,moFdn,execution_id"
+                  value: |-
+                    1,1,TEST_1
+                    2,2,TEST_1
+                    3,3,TEST_2
+                - name: tabular_example_json
+                  format: JSON
+                  value: "{\"tabular_example_json\": [{\"nodeFDN\": node1, \"moFdn\"\
+                     : mo1, \"execution_id\": \"TEST_1\"}, {\"nodeFDN\": node2, \"moFdn\"\
+                     : mo2, \"execution_id\": \"TEST_1\"}, {\"nodeFDN\": node3, \"moFdn\"\
+                     : mo3, \"execution_id\": \"TEST_2\"}]}"
+      responses:
+        "201":
+          description: Created - KPI calculation request has been validated and calculation
+            has been launched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationRequestSuccessResponse'
+              example:
+                successMessage: Requested KPIs are valid and calculation has been
+                  launched
+                calculationId: 3ae1e711-fadd-4b92-9435-f47dc87199f2
+                kpiOutputLocations:
+                  avg_resp_time_for_day: kpi_on_demand_1440
+        "400":
+          description: Bad Request - KPI calculation request has failed validation due to the issue
+            described in the message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-26T07:27:54"
+                status: 400
+                error: Bad Request
+                message: "The following tabular parameters are not present in the KPI definition database: '[tabular_example_json, tabular_example_csv]'"
+        "429":
+          description: Too Many Requests - "KPI calculation request has failed, currently the maximum\
+            \ number of On-Demand KPI calculations is being handled"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-26T07:27:54"
+                status: 429
+                error: Too Many Requests
+                message: "PM Stats Calculator is currently handling the maximum number\
+                    \ of calculations"
+        "500":
+          description: Internal Server Error - KPI calculation request has failed as an internal server error
+            has occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-26T07:27:54"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+  /calc/v1/calculations/{calculationId}:
+    get:
+      tags:
+        - Monitor KPI calculations
+      summary: Retrieve info about a specific KPI calculation
+      description: "Retrieve the status, execution group and readiness logs of a KPI\
+          \ calculation, identified by a calculation id. Readiness log contains an entry\
+          \ for each datasource of the calculation, containing the datasource name,\
+          \ number of rows collected, time for earliest and the latest data collected."
+      operationId: getApplicationState
+      parameters:
+        - name: calculationId
+          in: path
+          description: "The calculation id of a calculation to be listed. The calculation\
+            \ ids can be obtained from the response of the GET request to the /calc/v1/calculations\
+            \ endpoint. For On-Demand calculations, they can also be obtained from the\
+            \ response of the POST request to the /calc/v1/calculations endpoint."
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: "OK - Requested calculation has been found, kpi calculation info is returned."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationStateResponse'
+              example:
+                calculationId: 74324e06-f902-4302-9c61-d6db71b284fd
+                status: FINISHED
+                executionGroup: complex_arbitrary_group
+                readinessLogs:
+                  - collectedRowCount: 42
+                    datasource: 5G|PM_COUNTERS|example_schema
+                    earliestCollectedData: "2023-04-22T14:00:00"
+                    latestCollectedData: "2023-04-22T19:00:00"
+        "400":
+          description: Bad Request - Provided KPI calculation ID is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 400
+                error: Bad Request
+                message: The provided parameter is not an UUID
+        "404":
+          description: Not Found - Calculation with the provided id is not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 404
+                error: Not Found
+                message: Calculation state with id '74324e06-f902-4302-9c61-d6db71b284fa'
+                  is not found
+        "500":
+          description: Internal Server Error - Failed to retrieve KPI state from database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                timestamp: "2023-04-27T07:29:39.936"
+                status: 500
+                error: Internal Server Error
+                message: "Unexpected end-of-input: expected close marker for Object (start marker at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 30, column: 24])\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 52, column: 3]"
+components:
+  schemas:
+    KpiCalculationRequestPayload:
+      required:
+        - kpiNames
+      type: object
+      properties:
+        source:
+          type: string
+          description: unused field
+          deprecated: true
+        kpiNames:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+        tabularParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/TabularParameters'
+    Parameter:
+      required:
+        - name
+        - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the parameter
+          example: date_for_filter
+        value:
+          type: string
+          description: Value of the parameter
+          example: "2023-06-06"
+    TabularParameters:
+      required:
+        - format
+        - name
+        - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the tabular parameter
+          example: cell_configuration
+        format:
+          type: string
+          description: The type of the value field
+          example: CSV
+          enum:
+            - CSV
+            - JSON
+        header:
+          type: string
+          description: The header of the values (applicable in case of CSV format)
+          example: date_for_filter
+        value:
+          type: string
+          description: "The value of the tabular parameter, in rows matching with\
+            \ the given format and header"
+          example: "FDN1,0.2,2 \n FDN2,1.2,13"
+    CalculationRequestSuccessResponse:
+      required:
+        - successMessage
+      type: object
+      properties:
+        successMessage:
+          type: string
+        calculationId:
+          type: string
+          format: uuid
+        kpiOutputLocations:
+          type: object
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          format: int32
+        error:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            type: string
+    CalculationResponse:
+      type: object
+      properties:
+        executionGroup:
+          type: string
+        kpiType:
+          type: string
+          enum:
+            - ON_DEMAND
+            - SCHEDULED_SIMPLE
+            - SCHEDULED_COMPLEX
+        status:
+          type: string
+          enum:
+            - STARTED
+            - IN_PROGRESS
+            - FINALIZING
+            - NOTHING_CALCULATED
+            - FINISHED
+            - FAILED
+            - LOST
+        calculationId:
+          type: string
+          format: uuid
+    CalculationStateResponse:
+      required:
+        - calculationId
+        - executionGroup
+        - status
+      type: object
+      properties:
+        calculationId:
+          type: string
+          format: uuid
+        status:
+          type: string
+        executionGroup:
+          type: string
+        readinessLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReadinessLogResponse'
+    ReadinessLogResponse:
+      type: object
+      properties:
+        collectedRowsCount:
+          type: integer
+          format: int64
+        datasource:
+          type: string
+        earliestCollectedData:
+          type: string
+          format: date-time
+        latestCollectedData:
+          type: string
+          format: date-time
+    KpiDefinitionRequest:
+      type: object
+      properties:
+        scheduled_simple:
+          type: object
+          properties:
+            kpi_output_tables:
+              type: array
+              items:
+                type: object
+                required:
+                  - alias
+                  - aggregation_elements
+                  - inp_data_identifier
+                  - kpi_definitions
+                properties:
+                  alias:
+                    type: string
+                  aggregation_period:
+                    type: integer
+                  aggregation_elements:
+                    type: array
+                    items:
+                      type: string
+                  exportable:
+                    type: boolean
+                  data_reliability_offset:
+                    type: integer
+                  data_lookback_limit:
+                    type: integer
+                  reexport_late_data:
+                    type: boolean
+                  inp_data_identifier:
+                    type: string
+                  retention_period_in_days:
+                    type: integer
+                  kpi_definitions:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - name
+                        - expression
+                        - object_type
+                        - aggregation_type
+                      properties:
+                        name:
+                          type: string
+                        expression:
+                          type: string
+                        object_type:
+                          type: string
+                        aggregation_type:
+                          type: string
+                          enum:
+                            - SUM
+                            - MAX
+                            - PERCENTILE_INDEX_80
+                            - PERCENTILE_INDEX_90
+                            - FIRST
+                            - ARRAY_INDEX_SUM_INTEGER
+                            - ARRAY_INDEX_SUM_DOUBLE
+                            - ARRAY_INDEX_SUM_LONG
+                        aggregation_elements:
+                          type: array
+                          items:
+                            type: string
+                        exportable:
+                          type: boolean
+                        filters:
+                          type: array
+                          items:
+                            type: string
+                        data_reliability_offset:
+                          type: integer
+                        data_lookback_limit:
+                          type: integer
+                        reexport_late_data:
+                          type: boolean
+                        inp_data_identifier:
+                          type: string
+        scheduled_complex:
+          type: object
+          properties:
+            kpi_output_tables:
+              type: array
+              items:
+                type: object
+                required:
+                  - alias
+                  - aggregation_elements
+                  - kpi_definitions
+                properties:
+                  alias:
+                    type: string
+                  aggregation_period:
+                    type: integer
+                  aggregation_elements:
+                    type: array
+                    items:
+                      type: string
+                  exportable:
+                    type: boolean
+                  data_reliability_offset:
+                    type: integer
+                  data_lookback_limit:
+                    type: integer
+                  reexport_late_data:
+                    type: boolean
+                  retention_period_in_days:
+                    type: integer
+                  kpi_definitions:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - name
+                        - expression
+                        - object_type
+                        - aggregation_type
+                        - execution_group
+                      properties:
+                        name:
+                          type: string
+                        expression:
+                          type: string
+                        object_type:
+                          type: string
+                        aggregation_type:
+                          type: string
+                          enum:
+                            - SUM
+                            - MAX
+                            - PERCENTILE_INDEX_80
+                            - PERCENTILE_INDEX_90
+                            - FIRST
+                            - ARRAY_INDEX_SUM_INTEGER
+                            - ARRAY_INDEX_SUM_DOUBLE
+                            - ARRAY_INDEX_SUM_LONG
+                        aggregation_elements:
+                          type: array
+                          items:
+                            type: string
+                        exportable:
+                          type: boolean
+                        filters:
+                          type: array
+                          items:
+                            type: string
+                        data_reliability_offset:
+                          type: integer
+                        data_lookback_limit:
+                          type: integer
+                        reexport_late_data:
+                          type: boolean
+                        execution_group:
+                          type: string
+        on_demand:
+          type: object
+          properties:
+            parameters:
+              type: array
+              items:
+                type: object
+                required:
+                  - name
+                  - type
+                properties:
+                  name:
+                    type: string
+                  type:
+                    type: string
+            tabular_parameters:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  columns:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        type:
+                          type: string
+            kpi_output_tables:
+              type: array
+              items:
+                type: object
+                required:
+                  - alias
+                  - aggregation_period
+                  - aggregation_elements
+                  - kpi_definitions
+                properties:
+                  alias:
+                    type: string
+                  aggregation_period:
+                    type: integer
+                  aggregation_elements:
+                    type: array
+                    items:
+                      type: string
+                  exportable:
+                    type: boolean
+                  retention_period_in_days:
+                    type: integer
+                  kpi_definitions:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - name
+                        - expression
+                        - object_type
+                        - aggregation_type
+                      properties:
+                        name:
+                          type: string
+                        expression:
+                          type: string
+                        object_type:
+                          type: string
+                        aggregation_type:
+                          type: string
+                          enum:
+                            - SUM
+                            - MAX
+                            - PERCENTILE_INDEX_80
+                            - PERCENTILE_INDEX_90
+                            - FIRST
+                            - ARRAY_INDEX_SUM_INTEGER
+                            - ARRAY_INDEX_SUM_DOUBLE
+                            - ARRAY_INDEX_SUM_LONG
+                        aggregation_elements:
+                          type: array
+                          items:
+                            type: string
+                        exportable:
+                          type: boolean
+                        filters:
+                          type: array
+                          items:
+                            type: string
+    VerificationSuccessResponse:
+      required:
+        - successMessage
+      type: object
+      properties:
+        successMessage:
+          type: string
+        submittedKpiDefinitions:
+          type: object
+    KpiDefinitionsResponse:
+      type: object
+      properties:
+        scheduled_simple:
+          type: object
+          properties:
+            kpi_output_tables:
+              type: array
+              items:
+                properties:
+                  alias:
+                    type: string
+                  aggregation_period:
+                    type: integer
+                  retention_period_in_days:
+                    type: integer
+                  kpi_definitions:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        expression:
+                          type: string
+                        object_type:
+                          type: string
+                        aggregation_type:
+                          type: string
+                        aggregation_elements:
+                          type: array
+                          items:
+                            type: string
+                        exportable:
+                          type: boolean
+                        filters:
+                          type: array
+                          items:
+                            type: string
+                        reexport_late_data:
+                          type: boolean
+                        data_reliability_offset:
+                          type: integer
+                        data_lookback_limit:
+                          type: integer
+                        inp_data_identifier:
+                          type: string
+        scheduled_complex:
+          type: object
+          properties:
+            kpi_output_tables:
+              type: array
+              items:
+                properties:
+                  alias:
+                    type: string
+                  aggregation_period:
+                    type: integer
+                  retention_period_in_days:
+                    type: integer
+                  kpi_definitions:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        expression:
+                          type: string
+                        object_type:
+                          type: string
+                        aggregation_type:
+                          type: string
+                        aggregation_elements:
+                          type: array
+                          items:
+                            type: string
+                        exportable:
+                          type: boolean
+                        filters:
+                          type: array
+                          items:
+                            type: string
+                        reexport_late_data:
+                          type: boolean
+                        data_reliability_offset:
+                          type: integer
+                        data_lookback_limit:
+                          type: integer
+                        execution_group:
+                          type: string
+        on_demand:
+          type: object
+          properties:
+            parameters:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  type:
+                    type: string
+            tabular_parameters:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  columns:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        type:
+                          type: string
+            kpi_output_tables:
+              type: array
+              items:
+                properties:
+                  alias:
+                    type: string
+                  aggregation_period:
+                    type: integer
+                  retention_period_in_days:
+                    type: integer
+                  kpi_definitions:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        expression:
+                          type: string
+                        object_type:
+                          type: string
+                        aggregation_type:
+                          type: string
+                        aggregation_elements:
+                          type: array
+                          items:
+                            type: string
+                        exportable:
+                          type: boolean
+                        filters:
+                          type: array
+                          items:
+                            type: string
+    KpiDefinitionPatchRequest:
+      type: object
+      properties:
+        expression:
+          type: string
+        object_type:
+          type: string
+        filters:
+          type: array
+          items:
+            type: string
+        data_lookback_limit:
+          type: integer
+          format: int32
+        reexport_late_data:
+          type: boolean
+        exportable:
+          type: boolean
+    KpiDefinitionUpdateResponse:
+      type: object
+      properties:
+        aggregation_period:
+          type: integer
+          format: int32
+        alias:
+          type: string
+        aggregation_elements:
+          type: array
+          items:
+            type: string
+        exportable:
+          type: boolean
+        name:
+          type: string
+        expression:
+          type: string
+        aggregation_type:
+          type: string
+        filters:
+          type: array
+          items:
+            type: string

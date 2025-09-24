@@ -1,0 +1,200 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+openapi: "3.0.3"
+info:
+  description: |
+    REST endpoint of type POST, to notify producer App about the data jobs created, updated, or cancelled for the registered data type.
+
+    For more information, see the [Data Access Notification Schema](#capabilities/data-management/data-type-notification-schema-reference).
+  title: Data Access Notification Endpoint
+  version: "2.0.1"
+
+servers:
+  - url: "https://{eic-host}/<App Specific Endpoint>"
+    description: ""
+
+paths:
+  '{apiPrefix}/{apiName}/{apiVersion}/{resourceName}':
+    post:
+      tags:
+        - "Data Access Notification Endpoint"
+      summary: "Create an API to receive the notification about the data jobs created, updated, or cancelled for the registered data type."
+      description: |
+        - **apiPrefix:** apiPrefix must be /app/{appName}
+        - **apiName:** apiName is the name identifier for the API (for example, "exampleApi")
+        - **apiVersion:** apiVersion is the unique version of the API.
+        - **urlPattern:** urlPattern must be "notification"
+        
+        Example:
+           `/app/weather-app/WeatherReport/v2/notification`
+      operationId: "send notification"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataJobCreateNotification'
+            examples:
+              onboardRequest:
+                $ref: '#/components/examples/DataJobCreateNotification'
+        required: true
+      responses:
+        "202":
+          description: 'Accepted'
+        "400":
+          description: 'Bad Request'
+        "500":
+          description: 'Internal server Error'
+
+
+components:
+  schemas:
+    DataJobCreateNotification:
+      type: object
+      required:
+        - version
+        - dataJobId
+        - source
+        - type
+        - subType
+        - createdAt
+        - notification
+      properties:
+        version:
+          type: string
+          example: "1.0"
+        dataJobId:
+          type: string
+          description: Unique identifier of the data job
+        source:
+          type: string
+          description: Consumer ID
+        type:
+          type: string
+          description: standard
+        subType:
+          type: string
+          description: dataJobCreate
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-06-26T12:00:00Z"
+        notification:
+          type: object
+          required: [dataJob]
+          properties:
+            dataJob:
+              $ref: '#/components/schemas/DataJobDetails'
+
+    DataJobDetails:
+      type: object
+      required:
+        - dataJobId
+        - dataDeliveryMode
+        - dmeTypeId
+        - productionJobDefinition
+        - dataDeliveryMethod
+        - dataDeliverySchemaId
+        - streamingConfigurationKafka
+        - dataJobInfoStatus
+      properties:
+        dataJobId:
+          type: string
+        dataDeliveryMode:
+          type: string
+        dmeTypeId:
+          type: string
+        productionJobDefinition:
+          type: object
+          additionalProperties: true
+        dataDeliveryMethod:
+          type: string
+        dataDeliverySchemaId:
+          type: string
+        streamingConfigurationKafka:
+          type: object
+          properties:
+            topicName:
+              description: 'Name of the Kafka topic'
+              type: string
+            kafkaBootstrapServers:
+              description: 'Server configuration'
+              type: array
+              items:
+                $ref: '#/components/schemas/ServerAddressWithPortV2'
+        dataJobInfoStatus:
+          $ref: '#/components/schemas/DataJobInfoStatus'
+    ServerAddressWithPortV2:
+      description: 'Server configuration'
+      type: object
+      properties:
+        hostname:
+          description: 'string identifying a hostname shall be formatted according to clause 2.3.1 as defined in IETF RFC 1035 [19]'
+          type: string
+        portAddress:
+          description: 'Port address, e.g. 9092'
+          type: integer
+          minimum: 1
+          maximum: 65535
+    DataJobInfoStatus:
+      title: DataJobInfoStatus
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        progressPercentage:
+          type: integer
+        progressStateInfo:
+          type: string
+        resultStateInfo:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+
+  responses:
+    Accepted:
+      description: Accepted
+    BadRequest:
+      description: Bad Request
+    InternalServerError:
+      description: Internal Server Error
+
+  examples:
+    DataJobCreateNotification:
+      value:
+        "version": "1.0"
+        "dataJobId": "<data job id>"
+        "source": "<consumer id>"
+        "type": "standard"
+        "subType": "dataJobCreate"
+        "createdAt": "<time>"
+        "notification": {
+            "dataJob": {
+              "dataJobId",
+              "dataDeliveryMode",
+              "dmeTypeId",
+              "productionJobDefinition",
+              "dataDeliveryMethod",
+              "dataDeliverySchemaId",
+              "streamingConfigurationKafka",
+              "dataJobInfoStatus",
+            }
+        }

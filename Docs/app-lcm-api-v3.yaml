@@ -1,0 +1,2087 @@
+openapi: 3.0.2
+info:
+  x-api-id: 12f6a604-1712-43a6-a175-467bbcc0327e
+  x-audience: external-partner
+  description: |
+    The App Life Cycle Management (LCM) API controls and monitors the life cycle of the Apps and their Instances.
+  version: 3.2.3
+  title: App Lifecycle Management API
+tags:
+  - name: Apps
+    description: App lifecycle operations Endpoints
+  - name: App Instances
+    description: App Instance lifecycle operations Endpoints
+servers:
+  - url: https://{host}/app-lifecycle-management/v3
+    variables:
+      host:
+        default: localhost
+        description: Change this value to point to your custom host.
+paths:
+  /apps:
+    get:
+      summary: Get all Apps
+      description: Get a list of all available Apps. This endpoint fetches information about multiple Apps, allowing users to view the details of each App present in the system. Users can use query parameters to filter and refine the list of returned Apps based on specific criteria.
+      tags:
+        - Apps
+      operationId: "getApps"
+      parameters:
+        - name: name
+          in: query
+          description: "Filter by name."
+          required: false
+          schema:
+            type: string
+        - name: version
+          in: query
+          description: "Filter by version."
+          required: false
+          schema:
+            type: string
+        - name: mode
+          in: query
+          description: "Filter by mode."
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: "Filter by status."
+          required: false
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: "Filter by type."
+          required: false
+          schema:
+            type: string
+        - name: provider
+          in: query
+          description: "Filter by provider."
+          required: false
+          schema:
+            type: string
+        - name: uuid
+          in: query
+          description: "Filter by uuid."
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: offset
+          in: query
+          description: |
+            To get a paginated list of Apps, use the offset and limit query params to manage the number of Apps to returned.
+            The offset specifies the start element for the Apps returned. To get the next page of entries, the API needs to be called with an offset
+            parameter that equals the sum of the previous offset value and limit returned in the previous result.
+          required: false
+          explode: true
+          schema:
+            type: string
+            minimum: 0
+          examples:
+            offsetExample:
+              summary: Example of Offset
+              value: /v3/apps?offset=11&limit=10
+        - name: limit
+          in: query
+          description: |
+            Limit is used with the offset query param to return a paginated list of Apps. The limit specifies the max number of Apps to return.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            minimum: 1
+          examples:
+            pageLimitExample:
+              summary: Example of Limit
+              value: /v3/apps?offset=11&limit=10
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK Get Apps response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppItems"
+              examples:
+                AppItemsResponseOnCreated:
+                  $ref: "#/components/examples/AppItemsResponseOnCreated"
+                AppItemsResponseOnInitialized:
+                  $ref: "#/components/examples/AppItemsResponseOnInitialized"
+                AppItemsResponseOnDeInitialized:
+                  $ref: "#/components/examples/AppItemsResponseOnDeInitialize"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /apps/{appId}:
+    get:
+      summary: Get an App based on AppId
+      description: Get detailed information about a specific App identified by its unique AppId.
+      tags:
+        - Apps
+      operationId: "getAppById"
+      parameters:
+        - in: path
+          description: "ID of the App to retrieve."
+          required: true
+          name: appId
+          schema:
+            type: string
+          examples:
+            appId:
+              summary: Example of App resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppDetails"
+              examples:
+                GetAppResponse:
+                  $ref: "#/components/examples/GetAppResponse"
+                GetAppResponseOnInitialize:
+                  $ref: "#/components/examples/GetAppResponseOnInitialize"
+                GetAppResponseOnInitialized:
+                  $ref: "#/components/examples/GetAppResponseOnInitialized"
+                GetAppResponseOnDeInitialized:
+                  $ref: "#/components/examples/GetAppResponseOnDeInitialized"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    delete:
+      summary: Delete an App based on AppId
+      description: Deletes the App identified by its unique AppId from the system. This operation removes the specific App corresponding to the provided AppId, facilitating the removal of app-related information and resources from the system. Use caution as this action is irreversible and permanently removes the designated App from the system.
+      tags:
+        - Apps
+      operationId: "deleteAppById"
+      parameters:
+        - in: path
+          description: "Id of the App to be deleted."
+          required: true
+          name: appId
+          schema:
+            type: string
+          examples:
+            appId:
+              summary: Example of App resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "204":
+          description: No Content
+          content: {}
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /apps/{appId}/initialization-actions:
+    post:
+      tags:
+        - Apps
+      summary: Initiate an action to initialize or deinitialize the specified App
+      description: Initiate a specific action (initialize or deinitialize) for the specified App, based on the action provided in the request body. Please note that once an App has been deinitialized, it cannot be reinitialized without first deleting the App and then onboarding as a new App.
+      operationId: "executeInitializeAction"
+      parameters:
+        - in: path
+          description: "Id of the App to be Initialized or Deinitialized."
+          required: true
+          name: appId
+          schema:
+            type: string
+          examples:
+            appId:
+              summary: Example of App resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: Content-Type
+          description: This specifies the media type of the request sent by the client to the server.
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeActionRequest'
+            examples:
+              InitializeAppRequest:
+                $ref: '#/components/examples/InitializeAppRequest'
+              DeinitializeAppRequest:
+                $ref: '#/components/examples/DeinitializeAppRequest'
+        required: true
+      responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInitializeOperationResponse'
+              examples:
+                InitializeAppResponse:
+                  $ref: '#/components/examples/InitializeAppResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+  /apps/{appId}/mode:
+    put:
+      summary: Enable or disable an App
+      description: This endpoint facilitates the enabling or disabling of an App which makes the App available for instantiation.
+      operationId: "enableDisableApp"
+      tags:
+        - Apps
+      parameters:
+        - in: path
+          description: "Id of the App to be Enabled or Disabled."
+          name: appId
+          schema:
+            type: string
+          required: true
+          examples:
+            appId:
+              summary: Example of App resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: Content-Type
+          description: This specifies the media type of the request sent by the client to the server.
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableDisableAppRequest'
+            examples:
+              EnableAppResponse:
+                $ref: "#/components/examples/EnableAppRequest"
+              DisableAppResponse:
+                $ref: "#/components/examples/DisableAppRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppOperationResponse"
+              examples:
+                EnableAppResponse:
+                  $ref: "#/components/examples/EnableAppResponse"
+                DisableAppResponse:
+                  $ref: "#/components/examples/DisableAppResponse"
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+  /app-instances:
+    get:
+      tags:
+        - App Instances
+      summary: Get App Instances
+      description: Get a list of all available App Instances. This endpoint allows users to fetch information about multiple App Instances present in the system, providing an overview of the available Instances and their details.
+      operationId: getAppInstances
+      parameters:
+        - name: appId
+          in: query
+          description: "App Id to get Instance information."
+          required: false
+          schema:
+            type: string
+          examples:
+            appId:
+              summary: Example of App resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        - name: offset
+          in: query
+          description: |
+            To get a paginated list of App Instances, use the offset and limit query params to manage the number of App Instances to returned.
+            The offset specifies the start element for the App Instances returned. To get the next page of entries, the API needs to be called with an offset
+            parameter that equals the sum of the previous offset value and the limit returned in the previous result.
+          required: false
+          explode: true
+          schema:
+            type: string
+            minimum: 0
+          examples:
+            offsetExample:
+              summary: Example of Offset
+              value: /v3/app-instances?offset=11&limit=10
+        - name: limit
+          in: query
+          description: |
+            The limit is used with the offset query parameter to return a paginated list of App Instances. The limit specifies the max number of App Instances to return.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            minimum: 1
+          examples:
+            pageLimitExample:
+              summary: Example of Limit
+              value: /v3/app-instances?offset=11&limit=10
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceItems'
+              examples:
+                AppInstancesResponse:
+                  $ref: '#/components/examples/AppInstancesResponse'
+                AppInstancesWithClientSecretResponse:
+                  $ref: '#/components/examples/AppInstancesWithClientSecretResponse'
+                AppInstancesWithMTLSResponse:
+                  $ref: '#/components/examples/AppInstancesWithMTLSResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - App Instances
+      summary: Create an App Instance
+      description: This endpoint initiates the Instance creation of an App, coordinating a series of verification and setup steps. It generates Instance property files and sends an Instance creation request to the ACM.  Upon completion, it assigns a unique identifier to track the process and stores the Instance details in the LCM database.
+      operationId: "createAppInstance"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAppInstanceRequest'
+            examples:
+              CreateAppInstanceRequest:
+                $ref: '#/components/examples/CreateAppInstanceRequest'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstance'
+              examples:
+                CreateAppInstanceResponse:
+                  $ref: '#/components/examples/CreateAppInstanceResponse'
+                CreateAppInstanceWithClientSecretResponse:
+                  $ref: '#/components/examples/CreateAppInstanceWithClientSecretResponse'
+                CreateAppInstanceWithMTLSResponse:
+                  $ref: '#/components/examples/CreateAppInstanceWithMTLSResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+  /app-instances/{appInstanceId}:
+    get:
+      tags:
+        - App Instances
+      summary: Get an App Instance based on Instance Id
+      description: Get detailed information about a specific App Instance identified by its unique Instance Id. This endpoint enables users to fetch specific details of an App Instance using its unique identifier for detailed inspection and review.
+      operationId: getAppInstanceById
+      parameters:
+        - in: path
+          description: instanceId
+          required: true
+          name: appInstanceId
+          schema:
+            type: string
+          examples:
+            appInstanceId:
+              summary: Example of App Instance resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK, App Instances response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstance'
+              examples:
+                AppInstanceResponse:
+                  $ref: '#/components/examples/AppInstanceResponse'
+                AppInstanceWithClientSecretResponse:
+                  $ref: '#/components/examples/AppInstanceWithClientSecretResponse'
+                AppInstanceWithMTLSResponse:
+                  $ref: '#/components/examples/AppInstanceWithMTLSResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - App Instances
+      summary: Delete a specific App Instance
+      description: Initiates the deletion of a specific Instance of an application from the system. Upon initiation, the API responds with a status code 202 (Accepted), indicating that the request has been accepted for processing. Since this operation may take some time to complete, users can retrieve the App Instance using the link in the response. Users can then monitor the status until the App Instance has been successfully deleted.
+      operationId: deleteAppInstance
+      parameters:
+        - name: appInstanceId
+          in: path
+          description: Id of the App Instance to be deleted.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+          examples:
+            appInstanceId:
+              summary: Example of App Instance resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceOperationResponse'
+              examples:
+                deleteAppInstanceResponse:
+                  $ref: '#/components/examples/DeleteAppInstanceResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+  /app-instances/{appInstanceId}/deployment-actions:
+    post:
+      tags:
+        - App Instances
+      summary: Deploy, Undeploy or Upgrade an App Instance
+      description: "This endpoint facilitates deployment related actions when the type parameter is specified with a value, such as DEPLOY, UNDEPLOY and UPGRADE. The UPGRADE operation supports both upgrading to higher versions and downgrading to lower versions, providing flexible version management for the App Instance."
+      operationId: "manageAppInstance"
+      parameters:
+        - name: appInstanceId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+          examples:
+            appInstanceId:
+              summary: Example of App Instance resource identifier
+              value: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: Content-Type
+          description: This specifies the media type of the request sent by the client to the server.
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppInstanceManagementRequest'
+            examples:
+              deployAppInstanceRequest:
+                $ref: '#/components/examples/DeployAppInstanceRequest'
+              deployAppInstanceWithMTLSParametersRequest:
+                $ref: '#/components/examples/DeployAppInstanceWithMTLSParametersRequest'
+              undeployAppInstanceRequest:
+                $ref: '#/components/examples/UndeployAppInstanceRequest'
+              upgradeAppInstanceRequest:
+                $ref: '#/components/examples/UpgradeAppInstanceRequest'
+              upgradeAppInstanceWithMTLSParametersRequest:
+                $ref: '#/components/examples/UpgradeAppInstanceWithMTLSParametersRequest'
+      responses:
+        "201":
+          description: Created - Deploy, Undeploy or Upgrade App Instance response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceManagementResponse'
+              examples:
+                DeployAppInstanceResponse:
+                  $ref: '#/components/examples/DeployAppInstanceResponse'
+                DeployAppInstanceWithMTLSParametersResponse:
+                  $ref: '#/components/examples/DeployAppInstanceWithMTLSParametersResponse'
+                UndeployAppInstanceResponse:
+                  $ref: '#/components/examples/UndeployAppInstanceResponse'
+                UpgradeAppInstanceResponse:
+                  $ref: '#/components/examples/UpgradeAppInstanceResponse'
+                UpgradeAppInstanceWithMTLSParametersResponse:
+                  $ref: '#/components/examples/UpgradeAppInstanceWithMTLSParametersResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+  /app-instances/{appInstanceId}/component-instances:
+    put:
+      tags:
+        - App Instances
+      summary: Update details of a specific App Instance
+      description: Allows users to modify and update the details of a specific App Instance identified by its unique Instance Id.
+      operationId: updateAppInstance
+      parameters:
+        - in: path
+          description: instanceId
+          required: true
+          name: appInstanceId
+          schema:
+            type: string
+          examples:
+            appInstanceId:
+              summary: Example of App Instance resource identifier
+              value: rapp-ericsson-eric-oss-5gcnr-36355118
+        - name: Accept
+          description: Indicates the response media type accepted by the client.
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: Content-Type
+          description: This specifies the media type of the request sent by the client to the server.
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppInstanceRequest'
+            examples:
+              UpdateAppInstanceRequest:
+                $ref: '#/components/examples/UpdateAppInstanceRequest'
+              UpdateAppInstanceWithMTLSParametersRequest:
+                $ref: '#/components/examples/UpdateAppInstanceWithMTLSParametersRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceUpdateResponse'
+              examples:
+                UpdateAppInstanceResponseUndeployed:
+                  $ref: '#/components/examples/UpdateAppInstanceResponseUndeployed'
+                UpdateAppInstanceWithMTLSParametersResponse:
+                  $ref: '#/components/examples/UpdateAppInstanceWithMTLSParametersResponse'
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceUpdateResponse'
+              examples:
+                UpdateAppInstanceResponse:
+                  $ref: '#/components/examples/UpdateAppInstanceResponse'
+                UpdateAppInstanceWithMTLSParametersResponse:
+                  $ref: '#/components/examples/UpdateAppInstanceWithMTLSParametersResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    Component:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of component provided in the App.
+          example: "Microservice"
+        name:
+          type: string
+          description: The name of the component provided in the App.
+          example: "eric-oss-hello-metrics-go-app"
+        version:
+          type: string
+          description: The version of the component available in the App.
+          example: "1.1.1"
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+    Artifact:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        location:
+          type: string
+    Permission:
+      type: object
+      properties:
+        resource:
+          type: string
+          description: The permission that is required by the App for a particular system resource.
+          example: "kafka"
+        scope:
+          type: string
+          description: The scope of the permission that the App is requesting access to.
+          example: "my-bucket-access"
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the system or platform role that is required by the App.
+          example: "PMSCH_Application_Operator"
+    InitializeActionRequest:
+      type: object
+      properties:
+        action:
+          description: The type of initialization action to be executed, for example, initialize or deinitialize App.
+          type: string
+    EnableDisableAppRequest:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/AppMode'
+    AppMode:
+      description: The mode is an administrative control to ENABLE or DISABLE the App. Enabling the App allows it to be instantiated.
+      example: "DISABLED"
+      type: string
+      enum:
+        - ENABLED
+        - DISABLED
+    CreateAppInstanceRequest:
+      type: object
+      properties:
+        appId:
+          type: string
+    UpdateAppInstanceRequest:
+      type: object
+      properties:
+        componentInstances:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentInstances'
+    AppInstanceManagementRequest:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: The type of request to be applied.
+          example: "DEPLOY"
+          enum:
+            - DEPLOY
+            - UNDEPLOY
+            - UPGRADE
+        targetAppId:
+          type: string
+          description: Target App Id to be upgraded.
+        additionalData:
+          type: object
+          properties:
+            componentInstances:
+              type: array
+              items:
+                $ref: '#/components/schemas/ComponentInstances'
+    AppItems:
+      type: object
+      properties:
+        items:
+          description: The list of all Apps.
+          type: array
+          items:
+            $ref: "#/components/schemas/AppDetails"
+    AppDetails:
+      description: |
+        Details of a specific App that has been created.
+      required:
+        - id
+        - uuid
+        - type
+        - provider
+        - name
+        - version
+        - mode
+        - status
+        - createdAt
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Id of the App created.
+          example: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+        uuid:
+          type: string
+          format: uuid
+          description: Unique UUID of the App created.
+          example: "26471a81-1de4-4ad9-9724-326eefd22230"
+        type:
+          type: string
+          description: The type of the App as declared in the App descriptor of the App package.
+          example: "rApp"
+        provider:
+          type: string
+          description: The provider of the deployed App.
+          example: "Ericsson"
+        name:
+          type: string
+          description: The name of the App.
+          example: "eric-oss-hello-world-multiple-microservices-go-app"
+        version:
+          type: string
+          description: The version of the App declared in the App descriptor of the App package.
+          example: "1.1.1"
+        mode:
+          $ref: '#/components/schemas/AppMode'
+        status:
+          $ref: '#/components/schemas/AppStatus'
+        createdAt:
+          type: string
+          description: The time the App was created.
+          example: "2024-09-25T09:45:19.394-05:00"
+        components:
+          type: array
+          description: The components declared as part of the App package.
+          items:
+            $ref: '#/components/schemas/Component'
+        permissions:
+          type: array
+          description: The permissions to be added to the App Identity and Access Management (IAM) client credential.
+          items:
+            $ref: '#/components/schemas/Permission'
+        roles:
+          type: array
+          description: The name of the system or platform role that is required by the App.
+          items:
+            $ref: '#/components/schemas/Role'
+        events:
+          type: array
+          description: |
+            Events provide additional detailed information about user operations and errors that occurred during any operation in the application or while performing any of the use cases.
+          items:
+            $ref: '#/components/schemas/Event'
+        self:
+          $ref: '#/components/schemas/Href'
+    AppStatus:
+      type: string
+      description: The status of the App.
+      enum:
+        - CREATED
+        - DELETED
+        - DELETE_ERROR
+        - INITIALIZING
+        - INITIALIZED
+        - INITIALIZE_ERROR
+        - DEINITIALIZING
+        - DEINITIALIZED
+        - DEINITIALIZE_ERROR
+    Event:
+      type: object
+      description: An event that has occurred during an App lifecycle operation.
+      properties:
+        type:
+          type: string
+          description: Type of event that has occurred.
+        title:
+          type: string
+          description: The title of the event that has occurred.
+        detail:
+          type: string
+          description: The details of the event that has occurred.
+        createdAt:
+          type: string
+          description: The time the event occurred.
+    Href:
+      type: object
+      properties:
+        href:
+          type: string
+          description: A link for the resource which can be used to identify it.
+    AppOperationResponse:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/AppMode'
+        app:
+          properties:
+            id:
+              type: string
+              description: The Id for the App.
+              example: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+            href:
+              type: string
+              description: A link for the resource.
+              example: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInitializeOperationResponse:
+      type: object
+      properties:
+        app:
+          properties:
+            status:
+              $ref: '#/components/schemas/AppStatus'
+            id:
+              type: string
+              description: The Id of the App that is to have initialization actions performed.
+              example: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+            href:
+              type: string
+              description: The relative path of the App that is to have initialization actions performed.
+              example: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInstanceItems:
+      type: object
+      properties:
+        items:
+          description: The list of all App Instances.
+          type: array
+          items:
+            $ref: "#/components/schemas/AppInstance"
+    AppInstance:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the App Instance.
+          example: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+        appId:
+          type: string
+          description: The unique identifier of the App version this App Instance has been created from.
+          example: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+        status:
+          $ref: '#/components/schemas/AppInstanceStatus'
+        createdAt:
+          type: string
+          description: The time the App Instance was created.
+          example: "2024-09-25T09:45:19.394-05:00"
+        updatedAt:
+          type: string
+          description: The time the App Instance was last modified.
+          example: "2024-09-25T09:45:19.394-05:00"
+        credentials:
+          $ref: '#/components/schemas/Credentials'
+        componentInstances:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentInstances'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        self:
+          $ref: '#/components/schemas/Href'
+        app:
+          $ref: '#/components/schemas/Href'
+    Credentials:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: The identifier of the related IAM client.
+          example: "rappid-3146ccdc-0323-4f34-8f3e-13b858c1c582-1708549936654-8c12ffcc-64c3-4070-b9b5-a115ded1f825"
+    ComponentInstances:
+      type: object
+      description: The component Instances created as part of the App Instance.
+      properties:
+        name:
+          type: string
+          description: The name of the App component Instance.
+          example: "eric-oss-hello-metrics-go-app"
+        version:
+          type: string
+          description: The version of the App component Instance.
+          example: "1.1.1"
+        type:
+          type: string
+          description: The type of App component Instance.
+          example: "Microservice"
+        description:
+          type: string
+          description: The provided description of the App component Instance.
+        deployState:
+          type: string
+          description: The deployment state of the App component Instance.
+          example: "UNDEPLOYED"
+        message:
+          type: string
+          description: A message field for reporting additional information relating to a change in deployment state.
+        properties:
+          type: object
+          description: "Property values associated with the Component Instance. Can be user defined or default properties."
+    AppInstanceStatus:
+      description: The deployment status of the App Instance.
+      example: "DEPLOYED"
+      type: string
+      enum:
+        - UNDEPLOYED
+        - UNDEPLOYING
+        - UNDEPLOY_ERROR
+        - DEPLOYED
+        - DEPLOYING
+        - DEPLOY_ERROR
+        - DELETING
+        - DELETE_ERROR
+        - UPDATING
+        - UPDATE_ERROR
+        - UPGRADING
+    AppInstanceOperationResponse:
+      type: object
+      properties:
+        appInstance:
+          type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/AppInstanceStatus'
+            href:
+              type: string
+    AppInstanceManagementResponse:
+      properties:
+        type:
+          type: string
+          enum:
+            - DEPLOY
+            - UNDEPLOY
+            - UPGRADE
+        additionalData:
+          type: object
+          properties:
+            componentInstances:
+              type: array
+              items:
+                $ref: '#/components/schemas/ComponentInstances'
+        targetAppId:
+          type: string
+        appInstance:
+          type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/AppInstanceStatus'
+            href:
+              type: string
+    AppInstanceUpdateResponse:
+      type: object
+      properties:
+        componentInstances:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentInstances'
+        appInstance:
+          type: object
+          properties:
+            id:
+              type: string
+            href:
+              type: string
+    ProblemDetails:
+      required:
+        - title
+        - status
+        - detail
+      type: object
+      properties:
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+        status:
+          type: integer
+          description: The HTTP status code generated by the server.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            BadRequest:
+              $ref: '#/components/examples/BadRequest'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            NotFound:
+              $ref: '#/components/examples/NotFound'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            InternalServerError:
+              $ref: '#/components/examples/InternalServerError'
+  examples:
+    UpgradeAppInstanceRequest:
+      summary: Upgrade App Instance request
+      value:
+        type: "UPGRADE"
+        targetAppId: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-2"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                timeout: 5
+                userDefinedHelmParameters:
+                  replicaCount: 1
+    UpgradeAppInstanceWithMTLSParametersRequest:
+      summary: Upgrade App Instance Request For Client-x509 Authenticator Type
+      value:
+        type: "UPGRADE"
+        targetAppId: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-2"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                userDefinedHelmParameters:
+                  platformCaCertSecretName: "<PLATFORM_CA_CERT_SECRET>"
+                  platformCaCertFileName: "<PLATFORM_CA_CERT_FILENAME>"
+                  appSecretName: "<APP_MTLS_SECRET>"
+                  appKeyFileName: "<APP_PRIVATE_KEY>"
+                  appCertFileName: "<APP_CERTIFICATE>"
+    UpgradeAppInstanceResponse:
+      summary: Upgrade App Instance Response
+      value:
+        type: "UPGRADE"
+        targetAppId: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-2"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                timeout: 5
+                userDefinedHelmParameters:
+                  replicaCount: 1
+        appInstance:
+          status: "UPGRADING"
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+    UpgradeAppInstanceWithMTLSParametersResponse:
+      summary: Upgrade App Instance Response For Client-x509 Authenticator Type
+      value:
+        type: "UPGRADE"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                userDefinedHelmParameters:
+                  platformCaCertSecretName: "<PLATFORM_CA_CERT_SECRET>"
+                  platformCaCertFileName: "<PLATFORM_CA_CERT_FILENAME>"
+                  appSecretName: "<APP_MTLS_SECRET>"
+                  appKeyFileName: "<APP_PRIVATE_KEY>"
+                  appCertFileName: "<APP_CERTIFICATE>"
+        appInstance:
+          status: "UPGRADING"
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+    InitializeAppRequest:
+      summary: Initialize App Request
+      value:
+        action: "INITIALIZE"
+    DeinitializeAppRequest:
+      summary: Deinitialize App Request
+      value:
+        action: "DEINITIALIZE"
+    CreateAppInstanceRequest:
+      summary: Create App Instance Request Body
+      value:
+        appId: "rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    EnableAppRequest:
+      summary: Enable App Request
+      value:
+        mode: "ENABLED"
+    DisableAppRequest:
+      summary: Disable App Request
+      value:
+        mode: "DISABLED"
+    CreateAppInstanceResponse:
+      summary: Create App Instance Response
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-go-app-17563902
+        appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        status: 'UNDEPLOYED'
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        updatedAt: "2024-09-25T09:46:19.394-05:00"
+        credentials:
+          clientId: rapp-ericsson-eric-oss-hello-world-go-app-17563902
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: 'UNDEPLOYED'
+            properties:
+              timeout: 5
+              userDefinedHelmParameters:
+                replicaCount: 2
+        events:
+          - type: DEPLOY
+            title: STARTED
+            detail: "DEPLOYMENT has STARTED"
+            createdAt: "2024-09-25T08:48:15.355-05:00"
+          - type: DEPLOY
+            title: SUCCEEDED
+            detail: "DEPLOY has completed successfully"
+            createdAt: "2024-09-25T08:49:19.394-05:00"
+          - type: UNDEPLOY
+            title: STARTED
+            detail: "UNDEPLOY has STARTED"
+            createdAt: "2024-09-25T09:15:15.355-05:00"
+          - type: UNDEPLOY
+            title: SUCCEEDED
+            detail: "DEPLOY has completed successfully"
+            createdAt: "2024-09-25T09:16:55.921-05:00"
+        self:
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-go-app-17563902"
+        app:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    CreateAppInstanceWithClientSecretResponse:
+      summary: Create App Instance Response For Client-Secret Authenticator Type
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-go-app-17563902
+        appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        status: 'UNDEPLOYED'
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        updatedAt: "2024-09-25T09:46:19.394-05:00"
+        credentials:
+          clientId: rapp-ericsson-eric-oss-hello-world-go-app-17563902
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: 'UNDEPLOYED'
+            properties:
+              timeout: 5
+              userDefinedHelmParameters:
+                replicaCount: 2
+          - name: "security-management"
+            version: "1.0.0"
+            type: SecurityManagement
+            properties:
+              authenticatorType: "client-secret"
+        events:
+          - type: DEPLOY
+            title: STARTED
+            detail: "DEPLOY has STARTED"
+            createdAt: "2024-09-25T08:48:15.355-05:00"
+          - type: DEPLOY
+            title: SUCCEEDED
+            detail: "DEPLOY has completed successfully"
+            createdAt: "2024-09-25T08:49:19.394-05:00"
+          - type: UNDEPLOY
+            title: STARTED
+            detail: "UNDEPLOY has STARTED"
+            createdAt: "2024-09-25T09:15:15.355-05:00"
+          - type: UNDEPLOY
+            title: SUCCEEDED
+            detail: "DEPLOY has completed successfully"
+            createdAt: "2024-09-25T09:16:55.921-05:00"
+        self:
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-go-app-17563902"
+        app:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    CreateAppInstanceWithMTLSResponse:
+        summary: Create App Instance Response For Client-x509 Authenticator Type
+        value:
+          id: rapp-ericsson-eric-oss-hello-world-go-app-17563902
+          appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+          status: 'UNDEPLOYED'
+          createdAt: "2024-09-25T09:45:19.394-05:00"
+          updatedAt: "2024-09-25T09:46:19.394-05:00"
+          credentials:
+            clientId: rapp-ericsson-eric-oss-hello-world-go-app-17563902
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              version: "1.1.1"
+              type: Microservice
+              deployState: 'UNDEPLOYED'
+              properties:
+                userDefinedHelmParameters:
+                  replicaCount: 2
+            - name: "security-management"
+              version: "1.0.0"
+              type: SecurityManagement
+              properties:
+                authenticatorType: "client-x509"
+          events:
+            - type: DEPLOY
+              title: STARTED
+              detail: "DEPLOY has STARTED"
+              createdAt: "2024-09-25T08:48:15.355-05:00"
+            - type: DEPLOY
+              title: SUCCEEDED
+              detail: "DEPLOY has completed successfully"
+              createdAt: "2024-09-25T08:49:19.394-05:00"
+            - type: UNDEPLOY
+              title: STARTED
+              detail: "UNDEPLOY has STARTED"
+              createdAt: "2024-09-25T09:15:15.355-05:00"
+            - type: UNDEPLOY
+              title: SUCCEEDED
+              detail: "DEPLOY has completed successfully"
+              createdAt: "2024-09-25T09:16:55.921-05:00"
+          self:
+            href: "/app-instances/rapp-ericsson-eric-oss-hello-world-go-app-17563902"
+          app:
+            href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    InitializeAppResponse:
+      summary: Initialize App Response
+      value:
+        app:
+          id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+          status: "INITIALIZING"
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    EnableAppResponse:
+      summary: Enable App Response
+      value:
+        mode: "ENABLED"
+        app:
+          id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    DisableAppResponse:
+      summary: Disable App Response
+      value:
+        mode: "DISABLED"
+        app:
+          id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    DeployAppInstanceRequest:
+      summary: Deploy App Instance request
+      value:
+        type: "DEPLOY"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                timeout: 5
+                userDefinedHelmParameters:
+                  replicaCount: 1
+    DeployAppInstanceWithMTLSParametersRequest:
+      summary: Deploy App Instance Request For Client-x509 Authenticator Type
+      value:
+        type: "DEPLOY"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                userDefinedHelmParameters:
+                  platformCaCertSecretName: "<PLATFORM_CA_CERT_SECRET>"
+                  platformCaCertFileName: "<PLATFORM_CA_CERT_FILENAME>"
+                  appSecretName: "<APP_MTLS_SECRET>"
+                  appKeyFileName: "<APP_PRIVATE_KEY>"
+                  appCertFileName: "<APP_CERTIFICATE>"
+    UndeployAppInstanceRequest:
+      summary: Undeploy App Instance request
+      value:
+        type: "UNDEPLOY"
+    BadRequest:
+      value:
+        title: Bad Request
+        status: 400
+        detail: The message body is missing a required field.
+    NotFound:
+      value:
+        title: Not Found
+        status: 404
+        detail: The requested URL is not found.
+    InternalServerError:
+      value:
+        title: Internal Server Error
+        status: 500
+        detail: Internal Server Error Occurs.
+    AppInstanceResponse:
+      summary: App Instance Response
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        status: DEPLOYED
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        updatedAt: "2024-09-25T09:46:19.394-05:00"
+        credentials:
+          clientId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: DEPLOYED
+            properties:
+              timeout: 5
+              namespace: "namespace-example"
+              userDefinedHelmParameters:
+                replicaCount: 2
+        events:
+          - type: DEPLOY
+            title: STARTED
+            detail: "DEPLOY has STARTED"
+            createdAt: "2024-09-25T09:45:15.355-05:00"
+          - type: DEPLOY
+            title: SUCCEEDED
+            detail: "DEPLOY has completed successfully"
+            createdAt: "2024-09-25T09:46:19.394-05:00"
+        self:
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+        app:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInstanceWithClientSecretResponse:
+      summary: App Instance Response For Client-Secret Authenticator Type
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        status: DEPLOYED
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        updatedAt: "2024-09-25T09:46:19.394-05:00"
+        credentials:
+          clientId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: DEPLOYED
+            properties:
+              timeout: 5
+              namespace: "namespace-example"
+              userDefinedHelmParameters:
+                replicaCount: 2
+          - name: "security-management"
+            version: "1.0.0"
+            type: SecurityManagement
+            properties:
+              authenticatorType: "client-secret"
+        events:
+          - type: DEPLOY
+            title: STARTED
+            detail: "DEPLOY has STARTED"
+            createdAt: "2024-09-25T09:45:15.355-05:00"
+          - type: DEPLOY
+            title: SUCCEEDED
+            detail: "DEPLOY has completed successfully"
+            createdAt: "2024-09-25T09:46:19.394-05:00"
+        self:
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+        app:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInstanceWithMTLSResponse:
+        summary: App Instance Response For Client-x509 Authenticator Type
+        value:
+          id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+          appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+          status: DEPLOYED
+          createdAt: "2024-09-25T09:45:19.394-05:00"
+          updatedAt: "2024-09-25T09:46:19.394-05:00"
+          credentials:
+            clientId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              version: "1.1.1"
+              type: Microservice
+              deployState: DEPLOYED
+              properties:
+                namespace: "namespace-example"
+                userDefinedHelmParameters:
+                  replicaCount: 2
+            - name: "security-management"
+              version: "1.0.0"
+              type: SecurityManagement
+              properties:
+                authenticatorType: "client-x509"
+          events:
+            - type: DEPLOY
+              title: STARTED
+              detail: "DEPLOY has STARTED"
+              createdAt: "2024-09-25T09:45:15.355-05:00"
+            - type: DEPLOY
+              title: SUCCEEDED
+              detail: "DEPLOY has completed successfully"
+              createdAt: "2024-09-25T09:46:19.394-05:00"
+          self:
+            href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+          app:
+            href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInstancesResponse:
+      summary: App Instances Response
+      value:
+        items:
+          - id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+            appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+            status: DEPLOYED
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+            updatedAt: "2024-09-25T09:46:19.394-05:00"
+            credentials:
+              clientId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+            componentInstances:
+              - name: "eric-oss-hello-metrics-go-app"
+                version: "1.1.1"
+                type: Microservice
+                deployState: DEPLOYED
+                properties:
+                  timeout: 5
+                  namespace: "namespace-example"
+                  userDefinedHelmParameters:
+                    replicaCount: 2
+            events:
+              - type: DEPLOY
+                title: STARTED
+                detail: "DEPLOY has STARTED"
+                createdAt: "2024-09-25T09:45:15.355-05:00"
+              - type: DEPLOY
+                title: SUCCEEDED
+                detail: "DEPLOY has completed successfully"
+                createdAt: "2024-09-25T09:46:19.394-05:00"
+            self:
+              href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+            app:
+              href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInstancesWithMTLSResponse:
+      summary: App Instances Response For Client-x509 Authenticator Type
+      value:
+        items:
+          - id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+            appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+            status: DEPLOYED
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+            updatedAt: "2024-09-25T09:46:19.394-05:00"
+            credentials:
+              clientId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+            componentInstances:
+              - name: "eric-oss-hello-metrics-go-app"
+                version: "1.1.1"
+                type: Microservice
+                deployState: DEPLOYED
+                properties:
+                  namespace: "namespace-example"
+                  userDefinedHelmParameters:
+                    replicaCount: 2
+              - name: "security-management"
+                version: "1.0.0"
+                type: SecurityManagement
+                properties:
+                  authenticatorType: "client-x509"
+            events:
+              - type: DEPLOY
+                title: STARTED
+                detail: "DEPLOY has STARTED"
+                createdAt: "2024-09-25T09:45:15.355-05:00"
+              - type: DEPLOY
+                title: SUCCEEDED
+                detail: "DEPLOY has completed successfully"
+                createdAt: "2024-09-25T09:46:19.394-05:00"
+            self:
+              href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+            app:
+              href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppInstancesWithClientSecretResponse:
+      summary: App Instances Response For Client-Secret Authenticator Type
+      value:
+        items:
+          - id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+            appId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+            status: DEPLOYED
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+            updatedAt: "2024-09-25T09:46:19.394-05:00"
+            credentials:
+              clientId: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902
+            componentInstances:
+              - name: "eric-oss-hello-metrics-go-app"
+                version: "1.1.1"
+                type: Microservice
+                deployState: DEPLOYED
+                properties:
+                  namespace: "namespace-example"
+                  userDefinedHelmParameters:
+                    replicaCount: 2
+              - name: "security-management"
+                version: "1.0.0"
+                type: SecurityManagement
+                properties:
+                  authenticatorType: "client-secret"
+            events:
+              - type: DEPLOY
+                title: STARTED
+                detail: "DEPLOY has STARTED"
+                createdAt: "2024-09-25T09:45:15.355-05:00"
+              - type: DEPLOY
+                title: SUCCEEDED
+                detail: "DEPLOY has completed successfully"
+                createdAt: "2024-09-25T09:46:19.394-05:00"
+            self:
+              href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+            app:
+              href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppItemsResponseOnCreated:
+      summary: Get App Response on CREATED
+      value:
+        items:
+          - id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+            uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+            type: rApp
+            name: eric-oss-hello-world-multiple-microservices-go-app
+            version: 1.1.1
+            mode: DISABLED
+            status: CREATED
+            provider: Ericsson
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+            components:
+              - type: Microservice
+                name: eric-oss-hello-metrics-go-app
+                version: 1.1.1
+                artifacts:
+                  - type: HELM
+                    name: eric-oss-hello-world-go-app
+                  - type: IMAGE
+                    name: docker.tar
+            permissions:
+              - resource: nginx
+                scope: foo
+              - resource: mongoDB
+                scope: goodbyeWorld
+            roles:
+              - name: admin
+            events:
+              - type: ENABLE
+                title: STARTED
+                detail: "ENABLING in PROCESS"
+                createdAt: "2024-09-25T06:45:15.112-05:00"
+              - type: ENABLE
+                title: SUCCEEDED
+                detail: "ENABLE has completed successfully"
+                createdAt: "2024-09-25T06:46:16.194-05:00"
+              - type: CREATE
+                title: STARTED
+                detail: "CREATING in PROCESS"
+                createdAt: "2024-09-25T09:44:14.344-05:00"
+              - type: CREATE
+                title: SUCCEEDED
+                detail: "CREATE has completed successfully"
+                createdAt: "2024-09-25T09:45:19.394-05:00"
+            self:
+              href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppItemsResponseOnInitialized:
+      summary: Get App Response on INITIALIZED
+      value:
+        items:
+          - id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+            uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+            type: rApp
+            name: eric-oss-hello-world-multiple-microservices-go-app
+            version: 1.1.1
+            mode: ENABLED
+            status: INITIALIZED
+            provider: Ericsson
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+            components:
+              - type: Microservice
+                name: eric-oss-hello-metrics-go-app
+                version: 1.1.1
+                artifacts:
+                  - type: HELM
+                    name: eric-oss-hello-world-go-app
+                  - type: IMAGE
+                    name: docker.tar
+            permissions:
+              - resource: nginx
+                scope: foo
+              - resource: mongoDB
+                scope: goodbyeWorld
+            roles:
+              - name: admin
+            events:
+              - type: ENABLE
+                title: STARTED
+                detail: "ENABLE has STARTED"
+                createdAt: "2024-09-25T06:45:15.112-05:00"
+              - type: ENABLE
+                title: SUCCEEDED
+                detail: "ENABLE has completed successfully"
+                createdAt: "2024-09-25T06:46:16.194-05:00"
+              - type: INITIALIZE
+                title: STARTED
+                detail: "INITIALIZE has STARTED"
+                createdAt: "2024-09-25T09:45:15.395-05:00"
+              - type: INITIALIZE
+                title: SUCCEEDED
+                detail: "INITIALIZE has completed successfully"
+                createdAt: "2024-09-25T09:46:19.394-05:00"
+            self:
+              href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    AppItemsResponseOnDeInitialize:
+      summary: Get App Response on DEINITIALIZE
+      value:
+        items:
+          - id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+            uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+            type: rApp
+            name: eric-oss-hello-world-multiple-microservices-go-app
+            version: 1.1.1
+            mode: DISABLED
+            status: CREATED
+            provider: Ericsson
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+            components:
+              - type: Microservice
+                name: eric-oss-hello-metrics-go-app
+                version: 1.1.1
+                artifacts:
+                  - type: HELM
+                    name: eric-oss-hello-world-go-app
+                  - type: IMAGE
+                    name: docker.tar
+            permissions:
+              - resource: nginx
+                scope: foo
+              - resource: mongoDB
+                scope: goodbyeWorld
+            roles:
+              - name: admin
+            events:
+              - type: ENABLE
+                title: STARTED
+                detail: "ENABLE has STARTED"
+                createdAt: "2024-09-25T06:45:15.112-05:00"
+              - type: ENABLE
+                title: SUCCEEDED
+                detail: "ENABLE has completed successfully"
+                createdAt: "2024-09-25T06:46:16.194-05:00"
+              - type: DISABLE
+                title: STARTED
+                detail: "DISABLE has STARTED"
+                createdAt: "2024-09-25T07:46:15.112-05:00"
+              - type: DISABLE
+                title: SUCCEEDED
+                detail: "DISABLE has completed successfully"
+                createdAt: "2024-09-25T07:47:18.333-05:00"
+              - type: CREATE
+                title: STARTED
+                detail: "CREATE has STARTED"
+                createdAt: "2024-09-25T09:44:18.384-05:00"
+              - type: CREATE
+                title: SUCCEEDED
+                detail: "CREATE has completed successfully"
+                createdAt: "2024-09-25T09:45:19.394-05:00"
+            self:
+              href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    GetAppResponse:
+      summary: Get App Response
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+        name: eric-oss-hello-world-multiple-microservices-go-app
+        version: 1.1.1
+        mode: DISABLED
+        status: CREATED
+        provider: Ericsson
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        type: rApp
+        components:
+          - type: Microservice
+            name: eric-oss-hello-metrics-go-app
+            version: 1.1.1
+            artifacts:
+              - type: HELM
+                name: eric-oss-hello-world-go-app
+              - type: IMAGE
+                name: docker.tar
+        permissions:
+          - resource: nginx
+            scope: foo
+          - resource: mongoDB
+            scope: goodbyeWorld
+        roles:
+          - name: admin
+        events:
+          - type: ENABLE
+            title: STARTED
+            detail: "ENABLE has STARTED"
+            createdAt: "2024-09-25T06:45:15.112-05:00"
+          - type: ENABLE
+            title: SUCCEEDED
+            detail: "ENABLE has completed successfully"
+            createdAt: "2024-09-25T06:46:16.194-05:00"
+          - type: DISABLE
+            title: STARTED
+            detail: "DISABLE has STARTED"
+            createdAt: "2024-09-25T07:46:15.112-05:00"
+          - type: DISABLE
+            title: SUCCEEDED
+            detail: "DISABLE has completed successfully"
+            createdAt: "2024-09-25T07:47:18.333-05:00"
+          - type: CREATE
+            title: STARTED
+            detail: "CREATE has STARTED"
+            createdAt: "2024-09-25T09:44:18.384-05:00"
+          - type: CREATE
+            title: SUCCEEDED
+            detail: "CREATE has completed successfully"
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+        self:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    GetAppResponseOnInitialize:
+      summary: Get App when INITIALIZED is triggered
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+        name: eric-oss-hello-world-multiple-microservices-go-app
+        version: 1.1.1
+        mode: DISABLED
+        status: INITIALIZING
+        provider: Ericsson
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        type: rApp
+        components:
+          - type: Microservice
+            name: eric-oss-hello-metrics-go-app
+            version: 1.1.1
+            artifacts:
+              - type: HELM
+                name: eric-oss-hello-world-go-app
+              - type: IMAGE
+                name: docker.tar
+        permissions:
+          - resource: nginx
+            scope: foo
+          - resource: mongoDB
+            scope: goodbyeWorld
+        roles:
+          - name: admin
+        events:
+          - type: ENABLE
+            title: STARTED
+            detail: "ENABLE has STARTED"
+            createdAt: "2024-09-25T06:45:15.112-05:00"
+          - type: ENABLE
+            title: SUCCEEDED
+            detail: "ENABLE has completed successfully"
+            createdAt: "2024-09-25T06:46:16.194-05:00"
+          - type: DISABLE
+            title: STARTED
+            detail: "DISABLE has STARTED"
+            createdAt: "2024-09-25T07:46:15.112-05:00"
+          - type: DISABLE
+            title: SUCCEEDED
+            detail: "DISABLE has completed successfully"
+            createdAt: "2024-09-25T07:47:18.333-05:00"
+          - type: INITIALIZE
+            title: STARTED
+            detail: "INITIALIZE has STARTED"
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+        self:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    GetAppResponseOnInitialized:
+      summary: Get App when INITIALIZED is successful
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+        name: eric-oss-hello-world-multiple-microservices-go-app
+        version: 1.1.1
+        mode: DISABLED
+        status: INITIALIZED
+        provider: Ericsson
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        type: rApp
+        components:
+          - type: Microservice
+            name: eric-oss-hello-metrics-go-app
+            version: 1.1.1
+            artifacts:
+              - type: HELM
+                name: eric-oss-hello-world-go-app
+              - type: IMAGE
+                name: docker.tar
+        permissions:
+          - resource: nginx
+            scope: foo
+          - resource: mongoDB
+            scope: goodbyeWorld
+        roles:
+          - name: admin
+        events:
+          - type: ENABLE
+            title: STARTED
+            detail: "ENABLE has STARTED"
+            createdAt: "2024-09-25T06:45:15.112-05:00"
+          - type: ENABLE
+            title: SUCCEEDED
+            detail: "ENABLE has completed successfully"
+            createdAt: "2024-09-25T06:46:16.194-05:00"
+          - type: DISABLE
+            title: STARTED
+            detail: "DISABLE has STARTED"
+            createdAt: "2024-09-25T07:46:15.112-05:00"
+          - type: DISABLE
+            title: SUCCEEDED
+            detail: "DISABLE has completed successfully"
+            createdAt: "2024-09-25T07:47:18.333-05:00"
+          - type: CREATE
+            title: STARTED
+            detail: "CREATE has STARTED"
+            createdAt: "2024-09-25T09:44:14.394-05:00"
+          - type: CREATE
+            title: SUCCEEDED
+            detail: "CREATE has completed successfully"
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+          - type: INITIALIZE
+            title: STARTED
+            detail: "INITIALIZE has STARTED"
+            createdAt: "2024-09-25T09:44:14.344-05:00"
+          - type: INITIALIZE
+            title: SUCCEEDED
+            detail: "INITIALIZE has completed successfully"
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+        self:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    GetAppResponseOnDeInitialized:
+      summary: Get App when DEINITIALIZE is triggered
+      value:
+        id: rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1
+        uuid: 26471a81-1de4-4ad9-9724-326eefd22230
+        name: eric-oss-hello-world-multiple-microservices-go-app
+        version: 1.1.1
+        mode: ENABLED
+        status: DEINITIALIZING
+        provider: Ericsson
+        createdAt: "2024-09-25T09:45:19.394-05:00"
+        type: rApp
+        components:
+          - type: Microservice
+            name: eric-oss-hello-metrics-go-app
+            version: 1.1.1
+            artifacts:
+              - type: HELM
+                name: eric-oss-hello-world-go-app
+              - type: IMAGE
+                name: docker.tar
+        permissions:
+          - resource: nginx
+            scope: foo
+          - resource: mongoDB
+            scope: goodbyeWorld
+        roles:
+          - name: admin
+        events:
+          - type: ENABLE
+            title: STARTED
+            detail: "ENABLE has STARTED"
+            createdAt: "2024-09-25T06:45:15.112-05:00"
+          - type: ENABLE
+            title: SUCCEEDED
+            detail: "ENABLE has completed successfully"
+            createdAt: "2024-09-25T06:46:16.194-05:00"
+          - type: CREATE
+            title: STARTED
+            detail: "CREATE has STARTED"
+            createdAt: "2024-09-25T08:44:14.394-05:00"
+          - type: CREATE
+            title: SUCCEEDED
+            detail: "CREATE has completed successfully"
+            createdAt: "2024-09-25T08:45:19.394-05:00"
+          - type: INITIALIZE
+            title: STARTED
+            detail: "INITIALIZE has STARTED"
+            createdAt: "2024-09-25T09:44:14.344-05:00"
+          - type: INITIALIZE
+            title: SUCCEEDED
+            detail: "INITIALIZE has completed successfully"
+            createdAt: "2024-09-25T09:45:19.394-05:00"
+          - type: DEINITIALIZE
+            title: STARTED
+            detail: "DEINITIALIZE has STARTED"
+            createdAt: "2024-09-25T09:44:14.344-05:00"
+        self:
+          href: "/apps/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-1-1-1"
+    DeployAppInstanceResponse:
+      summary: Deploy App Instance response
+      value:
+        type: "DEPLOY"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                timeout: 5
+                namespace: "namespace-example"
+                userDefinedHelmParameters:
+                  replicaCount: 1
+        appInstance:
+          status: "DEPLOYING"
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+    DeployAppInstanceWithMTLSParametersResponse:
+      summary:  Deploy App Instance Response For Client-x509 Authenticator Type
+      value:
+        type: "DEPLOY"
+        additionalData:
+          componentInstances:
+            - name: "eric-oss-hello-metrics-go-app"
+              properties:
+                userDefinedHelmParameters:
+                  platformCaCertSecretName: "<PLATFORM_CA_CERT_SECRET>"
+                  platformCaCertFileName: "<PLATFORM_CA_CERT_FILENAME>"
+                  appSecretName: "<APP_MTLS_SECRET>"
+                  appKeyFileName: "<APP_PRIVATE_KEY>"
+                  appCertFileName: "<APP_CERTIFICATE>"
+          appInstance:
+            status: "DEPLOYING"
+            href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+    UndeployAppInstanceResponse:
+      summary: Undeploy App Instance response
+      value:
+        type: "UNDEPLOY"
+        appInstance:
+          status: "UNDEPLOYING"
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+    DeleteAppInstanceResponse:
+      summary: Delete an App Instance response
+      value:
+        appInstance:
+          status: "DELETING"
+          href: "/app-instances/rapp-ericsson-eric-oss-hello-world-multiple-microservices-go-app-17563902"
+    UpdateAppInstanceRequest:
+      summary: Update App Instance Request
+      value:
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: UNDEPLOYED
+            properties:
+              timeout: 15
+              userDefinedHelmParameters:
+                replicaCount: 5
+    UpdateAppInstanceWithMTLSParametersRequest:
+      summary: Update App Instance Request For Client-x509 Authenticator Type
+      value:
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: DEPLOYED
+            properties:
+              userDefinedHelmParameters:
+                platformCaCertSecretName: "<PLATFORM_CA_CERT_SECRET>"
+                platformCaCertFileName: "<PLATFORM_CA_CERT_FILENAME>"
+                appSecretName: "<APP_MTLS_SECRET>"
+                appKeyFileName: "<APP_PRIVATE_KEY>"
+                appCertFileName: "<APP_CERTIFICATE>"
+          - name: "security-management"
+            version: "1.0.0"
+            type: SecurityManagement
+            properties:
+              authenticatorType: "client-x509"
+    UpdateAppInstanceResponse:
+      summary: Update deployed App Instance response
+      value:
+        componentInstances:
+          - name: "eric-oss-5gcnr"
+            version: "1.2.3"
+            type: Microservice
+            deployState: UPDATING
+            properties:
+              timeout: 15
+              namespace: "namespace-example"
+              userDefinedHelmParameters:
+                replicaCount: 5
+        appInstance:
+          id: "rapp-ericsson-eric-oss-5gcnr-36355118"
+          href: "/app-instances/rapp-ericsson-eric-oss-5gcnr-36355118"
+    UpdateAppInstanceWithMTLSParametersResponse:
+      summary: Update App Instance Response For Client-x509 Authenticator Type
+      value:
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: UPDATING
+            properties:
+              userDefinedHelmParameters:
+                platformCaCertSecretName: "<PLATFORM_CA_CERT_SECRET>"
+                platformCaCertFileName: "<PLATFORM_CA_CERT_FILENAME>"
+                appSecretName: "<APP_MTLS_SECRET>"
+                appKeyFileName: "<APP_PRIVATE_KEY>"
+                appCertFileName: "<APP_CERTIFICATE>"
+        appInstance:
+          id: "rapp-ericsson-eric-oss-5gcnr-36355118"
+          href: "/app-instances/rapp-ericsson-eric-oss-5gcnr-36355118"
+    UpdateAppInstanceResponseUndeployed:
+      summary: Update undeployed App Instance response
+      value:
+        componentInstances:
+          - name: "eric-oss-hello-metrics-go-app"
+            version: "1.1.1"
+            type: Microservice
+            deployState: UNDEPLOYED
+            properties:
+              timeout: 15
+              namespace: "namespace-example"
+              userDefinedHelmParameters:
+                replicaCount: 5
+        appInstance:
+          id: "rapp-ericsson-eric-oss-5gcnr-36355118"
+          href: "/app-instances/rapp-ericsson-eric-oss-5gcnr-36355118"

@@ -1,0 +1,138 @@
+# 
+# COPYRIGHT Ericsson 2025
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+openapi: 3.0.3
+info:
+  x-api-id: 6377a9c2-3a01-497a-b5d9-23dbbc65f7be
+  x-audience: external-public
+  title: Message Bus Discovery REST API
+  description: This API allows to discover the Message bus details with the endpoint containing optional QueryParams.
+  version: 1.0.0
+servers:
+  - url: https://<eic-host>/dmm-data-catalog
+tags:
+  - name: Message Bus
+    description: Message bus host details
+paths:
+  /catalog/v1/message-bus/:
+    get:
+      tags:
+        - Message Bus
+      summary: Discover the Message bus details
+      description: This method is used to discover the Message bus details with the endpoint containg optional QueryParams.
+      operationId: getMessageBusByParam
+      parameters:
+        - name: name
+          in: query
+          description: name (Optional) value of the Message bus
+          schema:
+            type: string
+        - name: namespace
+          in: query
+          description: namespace (Optional) value of the Message bus
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageBusDto'
+              example:
+               [
+                 {
+                   "id": 2,
+                   "name": "eric-oss-dmm-kf-op-sz-kafka-bootstrap",
+                   "clusterName": "clusterName2",
+                   "nameSpace": "nameSpace",
+                   "accessEndpoints": [
+                     "kafkaBootstrapHost:443"
+                    ],
+                    "notificationTopicIds": [
+                       22
+                    ],
+                    "messageStatusTopicIds": [
+                       22
+                    ],
+                    "messageDataTopicIds": [
+                       23
+                    ]
+                  }
+                ]
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+components:
+  schemas:
+    MessageBusDto:
+      title: MessageBusDto
+      type: object
+      properties:
+        endPointType:
+          type: string
+        accessEndpoints:
+          type: array
+          items:
+            type: string
+        clusterName:
+          type: string
+        id:
+          type: integer
+          format: int32
+        messageDataTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        messageStatusTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+        name:
+          type: string
+        nameSpace:
+          type: string
+        notificationTopicIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+    CatalogResponse:
+      title: CatalogResponse
+      type: object
+      properties:
+        message:
+          type: string
+        path:
+          type: string
+        timeStamp:
+          type: string
+          format: date-time

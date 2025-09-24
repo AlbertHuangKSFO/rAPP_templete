@@ -1,0 +1,30 @@
+[
+	[
+		"schemaSubject",
+		"NR.RAN.PM_COUNTERS.NRCellDU_GNBDU_1"
+	],
+	[
+		"subscriptionNames",
+		"[\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\",\"pme-nrcelldu-subscription\"]"
+	],
+	[
+		"schemaID",
+		"125"
+	],
+	[
+		"moType",
+		"WRONG_MO_TYPE"
+	],
+	[
+		"nodeFDN",
+		"SubNetwork=Europe,SubNetwork=Ireland,MeContext=NR04gNodeBRadio00006,ManagedElement=NR04gNodeBRadio00006"
+	],
+	[
+		"elementType",
+		"RadioNode"
+	],
+	[
+		"spring_json_header_types",
+		"{\"schemaSubject\":\"java.lang.String\",\"subscriptionNames\":\"java.lang.String\",\"schemaID\":\"java.lang.Integer\",\"moType\":\"java.lang.String\",\"nodeFDN\":\"java.lang.String\",\"elementType\":\"java.lang.String\"}"
+	]
+]

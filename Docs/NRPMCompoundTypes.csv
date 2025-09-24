@@ -1,0 +1,1385 @@
+25.Q2.5							
+							
+PmEvent Name	Compound Type	Parameter Name	GPB Field Number	PmEventHeader/Payload	Parameter Type	Containing Oneof	Filters
+CuCpE1Reset	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpE1Reset	Asn1Message	msg_content	2	Payload	bytes		
+CuCpE1Reset	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpE1ResetAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpE1ResetAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpE1ResetAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1DeactivateTrace	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1DeactivateTrace	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1DeactivateTrace	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1DeactivateTrace	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1DeactivateTrace	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1GnbCuConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1GnbCuConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1GnbCuConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1GnbCuConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1GnbCuConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1GnbCuConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1GnbCuConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1GnbCuConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1GnbCuConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1GnbDuConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1GnbDuConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1GnbDuConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1GnbDuConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1GnbDuConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1GnbDuConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1GnbDuConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1GnbDuConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1GnbDuConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1Paging	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1Paging	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1Paging	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1PwsCancelRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1PwsCancelRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1PwsCancelRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1PwsCancelResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1PwsCancelResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1PwsCancelResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1PwsFailureIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1PwsFailureIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1PwsFailureIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1PwsRestartIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1PwsRestartIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1PwsRestartIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1Reset	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1Reset	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1Reset	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1ResetAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1ResetAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1ResetAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1ResourceStatusFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1ResourceStatusFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1ResourceStatusFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1ResourceStatusRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1ResourceStatusRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1ResourceStatusRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1ResourceStatusResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1ResourceStatusResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1ResourceStatusResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1ResourceStatusUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1ResourceStatusUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1ResourceStatusUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1SetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1SetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1SetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1SetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1SetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1SetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1SetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1SetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1SetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1TraceStart	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1TraceStart	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1TraceStart	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1TraceStart	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1TraceStart	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextModificationConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextModificationConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextModificationConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextModificationConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextModificationConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextModificationFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextModificationFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextModificationFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextModificationFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextModificationFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextModificationRefuse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextModificationRefuse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextModificationRefuse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextModificationRefuse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextModificationRefuse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextModificationRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextModificationRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextModificationRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextModificationRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextModificationRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextModificationRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextModificationRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextModificationRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextModificationRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextModificationRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextModificationResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextModificationResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextModificationResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextModificationResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextModificationResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextReleaseCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextReleaseCommand	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextReleaseCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextReleaseCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextReleaseCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextReleaseComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextReleaseComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextReleaseComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextReleaseComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextReleaseComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextReleaseRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextReleaseRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextReleaseRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextReleaseRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextReleaseRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextSetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextSetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextSetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextSetupFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextSetupFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextSetupRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextSetupRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1UeContextSetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1UeContextSetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1UeContextSetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1UeContextSetupResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpF1UeContextSetupResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpF1WriteReplaceWarningRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1WriteReplaceWarningRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1WriteReplaceWarningRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpF1WriteReplaceWarningResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpF1WriteReplaceWarningResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpF1WriteReplaceWarningResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgAmfConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgAmfConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgAmfConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgAmfConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgAmfConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgAmfConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgAmfConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgAmfConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgAmfConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgDeactivateTrace	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgDeactivateTrace	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgDeactivateTrace	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgDeactivateTrace	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgDeactivateTrace	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgDeactivateTrace	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgDeactivateTrace	Guami	amf_region_id	2	Payload	int64		
+CuCpNgDeactivateTrace	Guami	amf_set_id	3	Payload	int64		
+CuCpNgDeactivateTrace	Guami	amf_pointer	4	Payload	int64		
+CuCpNgDownlinkNasTransport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgDownlinkNasTransport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgDownlinkNasTransport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgDownlinkNasTransport	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgDownlinkNasTransport	Guami	amf_region_id	2	Payload	int64		
+CuCpNgDownlinkNasTransport	Guami	amf_set_id	3	Payload	int64		
+CuCpNgDownlinkNasTransport	Guami	amf_pointer	4	Payload	int64		
+CuCpNgDownlinkNasTransport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgDownlinkNasTransport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgDownlinkRanConfigurationTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgDownlinkRanConfigurationTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgDownlinkRanConfigurationTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgDownlinkRanStatusTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgDownlinkRanStatusTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgDownlinkRanStatusTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgDownlinkRanStatusTransfer	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgDownlinkRanStatusTransfer	Guami	amf_region_id	2	Payload	int64		
+CuCpNgDownlinkRanStatusTransfer	Guami	amf_set_id	3	Payload	int64		
+CuCpNgDownlinkRanStatusTransfer	Guami	amf_pointer	4	Payload	int64		
+CuCpNgDownlinkRanStatusTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgDownlinkRanStatusTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Guami	amf_region_id	2	Payload	int64		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Guami	amf_set_id	3	Payload	int64		
+CuCpNgDownlinkUeAssociatedNrppaTransport	Guami	amf_pointer	4	Payload	int64		
+CuCpNgDownlinkUeAssociatedNrppaTransport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgDownlinkUeAssociatedNrppaTransport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgErrorIndicationCommon	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgErrorIndicationCommon	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgErrorIndicationCommon	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgErrorIndicationDedicated	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgErrorIndicationDedicated	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgErrorIndicationDedicated	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgErrorIndicationDedicated	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgErrorIndicationDedicated	Guami	amf_region_id	2	Payload	int64		
+CuCpNgErrorIndicationDedicated	Guami	amf_set_id	3	Payload	int64		
+CuCpNgErrorIndicationDedicated	Guami	amf_pointer	4	Payload	int64		
+CuCpNgErrorIndicationDedicated	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgErrorIndicationDedicated	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverCancel	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverCancel	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverCancel	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverCancel	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverCancel	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverCancel	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverCancel	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverCancel	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverCancel	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverCancelAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverCancelAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverCancelAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverCancelAcknowledge	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverCancelAcknowledge	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverCancelAcknowledge	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverCancelAcknowledge	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverCancelAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverCancelAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverCommand	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverCommand	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverCommand	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverCommand	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverCommand	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverFailure	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverFailure	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverFailure	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverFailure	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverNotify	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverNotify	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverNotify	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverNotify	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverNotify	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverNotify	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverNotify	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverNotify	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverNotify	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverPreparationFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverPreparationFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverPreparationFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverPreparationFailure	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverPreparationFailure	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverPreparationFailure	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverPreparationFailure	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverPreparationFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverPreparationFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverRequestAcknowledge	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverRequestAcknowledge	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverRequestAcknowledge	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverRequestAcknowledge	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgHandoverRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgHandoverRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgHandoverRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgHandoverRequired	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverRequired	Guami	amf_region_id	2	Payload	int64		
+CuCpNgHandoverRequired	Guami	amf_set_id	3	Payload	int64		
+CuCpNgHandoverRequired	Guami	amf_pointer	4	Payload	int64		
+CuCpNgHandoverRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgHandoverRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgInitialContextSetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgInitialContextSetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgInitialContextSetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgInitialContextSetupFailure	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgInitialContextSetupFailure	Guami	amf_region_id	2	Payload	int64		
+CuCpNgInitialContextSetupFailure	Guami	amf_set_id	3	Payload	int64		
+CuCpNgInitialContextSetupFailure	Guami	amf_pointer	4	Payload	int64		
+CuCpNgInitialContextSetupFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgInitialContextSetupFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgInitialContextSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgInitialContextSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgInitialContextSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgInitialContextSetupRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgInitialContextSetupRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgInitialContextSetupRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgInitialContextSetupRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgInitialContextSetupRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgInitialContextSetupRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgInitialContextSetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgInitialContextSetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgInitialContextSetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgInitialContextSetupResponse	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgInitialContextSetupResponse	Guami	amf_region_id	2	Payload	int64		
+CuCpNgInitialContextSetupResponse	Guami	amf_set_id	3	Payload	int64		
+CuCpNgInitialContextSetupResponse	Guami	amf_pointer	4	Payload	int64		
+CuCpNgInitialContextSetupResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgInitialContextSetupResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgInitialUeMessage	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgInitialUeMessage	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgInitialUeMessage	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgLocationReport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgLocationReport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgLocationReport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgLocationReport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgLocationReport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgLocationReport	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgLocationReport	Guami	amf_region_id	2	Payload	int64		
+CuCpNgLocationReport	Guami	amf_set_id	3	Payload	int64		
+CuCpNgLocationReport	Guami	amf_pointer	4	Payload	int64		
+CuCpNgLocationReportingControl	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgLocationReportingControl	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgLocationReportingControl	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgLocationReportingControl	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgLocationReportingControl	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgLocationReportingControl	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgLocationReportingControl	Guami	amf_region_id	2	Payload	int64		
+CuCpNgLocationReportingControl	Guami	amf_set_id	3	Payload	int64		
+CuCpNgLocationReportingControl	Guami	amf_pointer	4	Payload	int64		
+CuCpNgLocationReportingFailureIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgLocationReportingFailureIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgLocationReportingFailureIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgLocationReportingFailureIndication	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgLocationReportingFailureIndication	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgLocationReportingFailureIndication	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgLocationReportingFailureIndication	Guami	amf_region_id	2	Payload	int64		
+CuCpNgLocationReportingFailureIndication	Guami	amf_set_id	3	Payload	int64		
+CuCpNgLocationReportingFailureIndication	Guami	amf_pointer	4	Payload	int64		
+CuCpNgNasNonDeliveryIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgNasNonDeliveryIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgNasNonDeliveryIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgNasNonDeliveryIndication	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgNasNonDeliveryIndication	Guami	amf_region_id	2	Payload	int64		
+CuCpNgNasNonDeliveryIndication	Guami	amf_set_id	3	Payload	int64		
+CuCpNgNasNonDeliveryIndication	Guami	amf_pointer	4	Payload	int64		
+CuCpNgNasNonDeliveryIndication	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgNasNonDeliveryIndication	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPaging	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPaging	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPaging	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPathSwitchRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPathSwitchRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPathSwitchRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPathSwitchRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPathSwitchRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPathSwitchRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPathSwitchRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPathSwitchRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPathSwitchRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPathSwitchRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPathSwitchRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPathSwitchRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPathSwitchRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPathSwitchRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPathSwitchRequestAcknowledge	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPathSwitchRequestAcknowledge	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPathSwitchRequestAcknowledge	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPathSwitchRequestAcknowledge	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPathSwitchRequestFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPathSwitchRequestFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPathSwitchRequestFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPathSwitchRequestFailure	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPathSwitchRequestFailure	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPathSwitchRequestFailure	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPathSwitchRequestFailure	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPathSwitchRequestFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPathSwitchRequestFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceModifyConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceModifyConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceModifyConfirm	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyConfirm	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyConfirm	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceModifyConfirm	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceModifyIndication	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyIndication	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceModifyIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceModifyIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceModifyIndication	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyIndication	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyIndication	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceModifyIndication	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceModifyRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceModifyRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceModifyRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceModifyRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceModifyRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceModifyRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceModifyResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceModifyResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceModifyResponse	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyResponse	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceModifyResponse	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceModifyResponse	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceModifyResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceModifyResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceNotify	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceNotify	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceNotify	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceNotify	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceNotify	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceNotify	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceNotify	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceNotify	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceNotify	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceReleaseCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceReleaseCommand	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceReleaseCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceReleaseCommand	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceReleaseCommand	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceReleaseCommand	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceReleaseCommand	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceReleaseCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceReleaseCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceReleaseResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceReleaseResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceReleaseResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceReleaseResponse	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceReleaseResponse	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceReleaseResponse	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceReleaseResponse	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceReleaseResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceReleaseResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceSetupRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceSetupRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceSetupRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceSetupRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceSetupRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceSetupRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPduSessionResourceSetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPduSessionResourceSetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPduSessionResourceSetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPduSessionResourceSetupResponse	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceSetupResponse	Guami	amf_region_id	2	Payload	int64		
+CuCpNgPduSessionResourceSetupResponse	Guami	amf_set_id	3	Payload	int64		
+CuCpNgPduSessionResourceSetupResponse	Guami	amf_pointer	4	Payload	int64		
+CuCpNgPduSessionResourceSetupResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgPduSessionResourceSetupResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgPwsCancelRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPwsCancelRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPwsCancelRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPwsCancelResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPwsCancelResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPwsCancelResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPwsFailureIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPwsFailureIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPwsFailureIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgPwsRestartIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgPwsRestartIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgPwsRestartIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgRanConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgRanConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgRanConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgRanConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgRanConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgRanConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgRanConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgRanConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgRanConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgRerouteNasRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgRerouteNasRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgRerouteNasRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgReset	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgReset	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgReset	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgResetAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgResetAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgResetAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgSetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgSetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgSetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgSetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgSetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgSetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgTraceFailureIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgTraceFailureIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgTraceFailureIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgTraceFailureIndication	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgTraceFailureIndication	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgTraceFailureIndication	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgTraceFailureIndication	Guami	amf_region_id	2	Payload	int64		
+CuCpNgTraceFailureIndication	Guami	amf_set_id	3	Payload	int64		
+CuCpNgTraceFailureIndication	Guami	amf_pointer	4	Payload	int64		
+CuCpNgTraceStart	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgTraceStart	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgTraceStart	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgTraceStart	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgTraceStart	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgTraceStart	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgTraceStart	Guami	amf_region_id	2	Payload	int64		
+CuCpNgTraceStart	Guami	amf_set_id	3	Payload	int64		
+CuCpNgTraceStart	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextModificationFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeContextModificationFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeContextModificationFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeContextModificationFailure	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextModificationFailure	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeContextModificationFailure	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeContextModificationFailure	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextModificationFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextModificationFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeContextModificationRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeContextModificationRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeContextModificationRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeContextModificationRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextModificationRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeContextModificationRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeContextModificationRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextModificationRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextModificationRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeContextModificationResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeContextModificationResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeContextModificationResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeContextModificationResponse	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextModificationResponse	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeContextModificationResponse	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeContextModificationResponse	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextModificationResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextModificationResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeContextReleaseCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeContextReleaseCommand	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeContextReleaseCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeContextReleaseCommand	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextReleaseCommand	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeContextReleaseCommand	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeContextReleaseCommand	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextReleaseCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextReleaseCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeContextReleaseComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeContextReleaseComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeContextReleaseComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeContextReleaseComplete	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextReleaseComplete	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeContextReleaseComplete	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeContextReleaseComplete	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextReleaseComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextReleaseComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeContextReleaseRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeContextReleaseRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeContextReleaseRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeContextReleaseRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextReleaseRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeContextReleaseRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeContextReleaseRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeContextReleaseRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeContextReleaseRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeRadioCapabilityCheckRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeRadioCapabilityCheckRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeRadioCapabilityCheckRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeRadioCapabilityCheckRequest	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeRadioCapabilityCheckRequest	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeRadioCapabilityCheckRequest	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeRadioCapabilityCheckRequest	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeRadioCapabilityCheckRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeRadioCapabilityCheckRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeRadioCapabilityCheckResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeRadioCapabilityCheckResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeRadioCapabilityCheckResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeRadioCapabilityCheckResponse	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeRadioCapabilityCheckResponse	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeRadioCapabilityCheckResponse	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeRadioCapabilityCheckResponse	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeRadioCapabilityCheckResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeRadioCapabilityCheckResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUeRadioCapabilityInfoIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUeRadioCapabilityInfoIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUeRadioCapabilityInfoIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUeRadioCapabilityInfoIndication	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUeRadioCapabilityInfoIndication	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUeRadioCapabilityInfoIndication	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUeRadioCapabilityInfoIndication	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUeRadioCapabilityInfoIndication	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUeRadioCapabilityInfoIndication	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUplinkNasTransport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUplinkNasTransport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUplinkNasTransport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUplinkNasTransport	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUplinkNasTransport	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUplinkNasTransport	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUplinkNasTransport	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUplinkNasTransport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUplinkNasTransport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUplinkRanConfigurationTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUplinkRanConfigurationTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUplinkRanConfigurationTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUplinkRanStatusTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUplinkRanStatusTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUplinkRanStatusTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUplinkRanStatusTransfer	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUplinkRanStatusTransfer	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUplinkRanStatusTransfer	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUplinkRanStatusTransfer	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUplinkRanStatusTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUplinkRanStatusTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgUplinkUeAssociatedNrppaTransport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgUplinkUeAssociatedNrppaTransport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgUplinkUeAssociatedNrppaTransport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgUplinkUeAssociatedNrppaTransport	Guami	plmn_identity	1	Payload	bytes		
+CuCpNgUplinkUeAssociatedNrppaTransport	Guami	amf_region_id	2	Payload	int64		
+CuCpNgUplinkUeAssociatedNrppaTransport	Guami	amf_set_id	3	Payload	int64		
+CuCpNgUplinkUeAssociatedNrppaTransport	Guami	amf_pointer	4	Payload	int64		
+CuCpNgUplinkUeAssociatedNrppaTransport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpNgUplinkUeAssociatedNrppaTransport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpNgWriteReplaceWarningRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgWriteReplaceWarningRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgWriteReplaceWarningRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpNgWriteReplaceWarningResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpNgWriteReplaceWarningResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpNgWriteReplaceWarningResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpPerUeMdtReport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpPerUeMdtReport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpPerUeMdtReport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpPerUeMdtReport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpPerUeMdtReport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpPerUeMdtReport	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpPerUeMdtReport	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpPerUeUcmReport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpPerUeUcmReport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpPerUeUcmReport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpPerUeUcmReport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpPerUeUcmReport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcDlInformationTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcDlInformationTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcDlInformationTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcDlInformationTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcDlInformationTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcMeasurementReport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcMeasurementReport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcMeasurementReport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcMeasurementReport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcMeasurementReport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcMobilityFromNrCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcMobilityFromNrCommand	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcMobilityFromNrCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcMobilityFromNrCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcMobilityFromNrCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcReconfiguration	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcReconfiguration	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcReconfiguration	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcReconfiguration	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcReconfiguration	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcReconfigurationComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcReconfigurationComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcReconfigurationComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcReconfigurationComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcReconfigurationComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcReestablishment	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcReestablishment	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcReestablishment	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcReestablishment	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcReestablishment	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcReestablishmentComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcReestablishmentComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcReestablishmentComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcReestablishmentComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcReestablishmentComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcReestablishmentRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcReestablishmentRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcReestablishmentRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcReestablishmentRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcReestablishmentRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcReject	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcReject	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcReject	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcRelease	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcRelease	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcRelease	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcRelease	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcRelease	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcResume	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcResume	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcResume	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcResume	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcResume	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcResumeComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcResumeComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcResumeComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcResumeComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcResumeComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcResumeRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcResumeRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcResumeRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcResumeRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcResumeRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcScgFailureInformation	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcScgFailureInformation	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcScgFailureInformation	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcScgFailureInformation	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcScgFailureInformation	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSecurityModeCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcSecurityModeCommand	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcSecurityModeCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSecurityModeCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcSecurityModeCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcSecurityModeComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcSecurityModeComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcSecurityModeComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSecurityModeComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcSecurityModeComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcSecurityModeFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcSecurityModeFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcSecurityModeFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSecurityModeFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcSecurityModeFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcSetup	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcSetup	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcSetup	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSetup	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcSetup	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcSetupComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcSetupComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcSetupComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSetupComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcSetupComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcSetupRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcSetupRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcUeAssistanceInformation	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcUeAssistanceInformation	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcUeAssistanceInformation	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcUeAssistanceInformation	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcUeAssistanceInformation	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcUeCapabilityEnquiry	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcUeCapabilityEnquiry	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcUeCapabilityEnquiry	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcUeCapabilityEnquiry	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcUeCapabilityEnquiry	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcUeCapabilityInformation	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcUeCapabilityInformation	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcUeCapabilityInformation	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcUeCapabilityInformation	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcUeCapabilityInformation	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcUlDedicatedMessageSegment	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcUlDedicatedMessageSegment	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcUlDedicatedMessageSegment	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcUlDedicatedMessageSegment	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcUlDedicatedMessageSegment	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcUlInformationTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcUlInformationTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcUlInformationTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcUlInformationTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcUlInformationTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpRrcUlInformationTransferMrdc	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpRrcUlInformationTransferMrdc	Asn1Message	msg_content	2	Payload	bytes		
+CuCpRrcUlInformationTransferMrdc	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpRrcUlInformationTransferMrdc	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpRrcUlInformationTransferMrdc	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2DeactivateTrace	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2DeactivateTrace	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2DeactivateTrace	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2DeactivateTrace	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2DeactivateTrace	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2DeactivateTrace	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2DeactivateTrace	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2EndcConfigurationTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcConfigurationTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcConfigurationTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcResourceStatusFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcResourceStatusFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcResourceStatusFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcResourceStatusRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcResourceStatusRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcResourceStatusRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcResourceStatusResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcResourceStatusResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcResourceStatusResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcResourceStatusUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcResourceStatusUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcResourceStatusUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcX2SetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcX2SetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcX2SetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcX2SetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcX2SetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcX2SetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2EndcX2SetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2EndcX2SetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2EndcX2SetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2ErrorIndicationCommon	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2ErrorIndicationCommon	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2ErrorIndicationCommon	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2PartialResetConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2PartialResetConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2PartialResetConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2PartialResetRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2PartialResetRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2PartialResetRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2RrcTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2RrcTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2RrcTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2RrcTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2RrcTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2RrcTransfer	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2RrcTransfer	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SecondaryRatDataUsageReport	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SecondaryRatDataUsageReport	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SecondaryRatDataUsageReport	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SecondaryRatDataUsageReport	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SecondaryRatDataUsageReport	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SecondaryRatDataUsageReport	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SecondaryRatDataUsageReport	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbActivityNotification	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbActivityNotification	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbActivityNotification	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbActivityNotification	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbActivityNotification	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbActivityNotification	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbActivityNotification	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbAdditionRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbAdditionRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbAdditionRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbAdditionRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbAdditionRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbAdditionRequest	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbAdditionRequest	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbAdditionRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbAdditionRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbAdditionRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbAdditionRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbAdditionRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbAdditionRequestAcknowledge	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbAdditionRequestAcknowledge	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbAdditionRequestReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbAdditionRequestReject	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbAdditionRequestReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbAdditionRequestReject	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbAdditionRequestReject	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbAdditionRequestReject	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbAdditionRequestReject	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbChangeConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbChangeConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbChangeConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbChangeConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbChangeConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbChangeConfirm	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbChangeConfirm	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbChangeRefuse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbChangeRefuse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbChangeRefuse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbChangeRefuse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbChangeRefuse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbChangeRefuse	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbChangeRefuse	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbChangeRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbChangeRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbChangeRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbChangeRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbChangeRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbChangeRequired	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbChangeRequired	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbModificationConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbModificationConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbModificationConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbModificationConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbModificationConfirm	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationConfirm	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbModificationRefuse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbModificationRefuse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbModificationRefuse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbModificationRefuse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRefuse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbModificationRefuse	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRefuse	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbModificationRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbModificationRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbModificationRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequest	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequest	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbModificationRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbModificationRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbModificationRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequestAcknowledge	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequestAcknowledge	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequestReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbModificationRequestReject	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbModificationRequestReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbModificationRequestReject	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequestReject	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequestReject	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequestReject	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbModificationRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbModificationRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbModificationRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbModificationRequired	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbModificationRequired	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbReconfigurationComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbReconfigurationComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbReconfigurationComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbReconfigurationComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReconfigurationComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbReconfigurationComplete	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReconfigurationComplete	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbReleaseConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbReleaseConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbReleaseConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbReleaseConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbReleaseConfirm	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseConfirm	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbReleaseRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbReleaseRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbReleaseRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbReleaseRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbReleaseRequest	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseRequest	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbReleaseRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbReleaseRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbReleaseRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbReleaseRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbReleaseRequestAcknowledge	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseRequestAcknowledge	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SgnbReleaseRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SgnbReleaseRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SgnbReleaseRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SgnbReleaseRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SgnbReleaseRequired	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SgnbReleaseRequired	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2SnStatusTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2SnStatusTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2SnStatusTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2SnStatusTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SnStatusTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2SnStatusTransfer	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2SnStatusTransfer	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2TraceStart	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2TraceStart	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2TraceStart	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2TraceStart	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2TraceStart	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2TraceStart	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2TraceStart	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpX2UeContextRelease	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpX2UeContextRelease	Asn1Message	msg_content	2	Payload	bytes		
+CuCpX2UeContextRelease	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpX2UeContextRelease	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpX2UeContextRelease	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpX2UeContextRelease	GlobalEnbId	plmn_identity	1	Payload	bytes		
+CuCpX2UeContextRelease	GlobalEnbId	enb_id	2	Payload	int64		
+CuCpXnActivityNotification	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnActivityNotification	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnActivityNotification	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnActivityNotification	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnActivityNotification	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnErrorIndicationCommon	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnErrorIndicationCommon	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnErrorIndicationCommon	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnErrorIndicationDedicated	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnErrorIndicationDedicated	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnErrorIndicationDedicated	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnErrorIndicationDedicated	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnErrorIndicationDedicated	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnErrorIndicationDedicated	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnErrorIndicationDedicated	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverCancel	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnHandoverCancel	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnHandoverCancel	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnHandoverCancel	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverCancel	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverCancel	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverCancel	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverPreparationFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnHandoverPreparationFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnHandoverPreparationFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnHandoverPreparationFailure	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverPreparationFailure	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverPreparationFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverPreparationFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnHandoverRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnHandoverRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnHandoverRequest	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverRequest	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnHandoverRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnHandoverRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnHandoverRequestAcknowledge	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverRequestAcknowledge	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnHandoverRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnHandoverRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnNgRanNodeConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnNgRanNodeConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnNgRanNodeConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnNgRanNodeConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnNgRanNodeConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnNgRanNodeConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnNgRanNodeConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnNgRanNodeConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnNgRanNodeConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnResetRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnResetRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnResetRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnResetResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnResetResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnResetResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnResourceStatusFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnResourceStatusFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnResourceStatusFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnResourceStatusRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnResourceStatusRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnResourceStatusRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnResourceStatusResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnResourceStatusResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnResourceStatusResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnResourceStatusUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnResourceStatusUpdate	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnResourceStatusUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnRetrieveUeContextFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnRetrieveUeContextFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnRetrieveUeContextFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnRetrieveUeContextFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnRetrieveUeContextFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnRetrieveUeContextRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnRetrieveUeContextRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnRetrieveUeContextRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnRetrieveUeContextRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnRetrieveUeContextRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnRetrieveUeContextResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnRetrieveUeContextResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnRetrieveUeContextResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnRetrieveUeContextResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnRetrieveUeContextResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnRrcTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnRrcTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnRrcTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnRrcTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnRrcTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeAdditionRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequest	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeAdditionRequest	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeAdditionRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeAdditionRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeAdditionRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeAdditionRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequestAcknowledge	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeAdditionRequestAcknowledge	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeAdditionRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeAdditionRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeAdditionRequestReject	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeAdditionRequestReject	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequestReject	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeAdditionRequestReject	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeAdditionRequestReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeAdditionRequestReject	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeAdditionRequestReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeChangeConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeChangeConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeChangeConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeChangeConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeChangeConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeChangeRefuse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeChangeRefuse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeChangeRefuse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeChangeRefuse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeChangeRefuse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeChangeRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeChangeRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeChangeRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeChangeRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeChangeRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationConfirm	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationConfirm	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeModificationConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeModificationConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeModificationRefuse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRefuse	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRefuse	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRefuse	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRefuse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeModificationRefuse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeModificationRefuse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeModificationRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequest	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequest	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeModificationRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeModificationRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeModificationRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequestAcknowledge	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequestAcknowledge	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeModificationRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeModificationRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeModificationRequestReject	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequestReject	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequestReject	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequestReject	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequestReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeModificationRequestReject	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeModificationRequestReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeModificationRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequired	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeModificationRequired	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeModificationRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeModificationRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeModificationRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeReconfigurationComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReconfigurationComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReconfigurationComplete	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReconfigurationComplete	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReconfigurationComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeReconfigurationComplete	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeReconfigurationComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeReleaseConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseConfirm	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseConfirm	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeReleaseConfirm	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeReleaseConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeReleaseReject	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseReject	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseReject	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseReject	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeReleaseReject	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeReleaseReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeReleaseRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseRequest	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseRequest	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeReleaseRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeReleaseRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeReleaseRequestAcknowledge	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseRequestAcknowledge	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseRequestAcknowledge	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseRequestAcknowledge	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseRequestAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeReleaseRequestAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeReleaseRequestAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSNodeReleaseRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseRequired	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSNodeReleaseRequired	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSNodeReleaseRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSNodeReleaseRequired	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSNodeReleaseRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnSnStatusTransfer	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSnStatusTransfer	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnSnStatusTransfer	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnSnStatusTransfer	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnSnStatusTransfer	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnSnStatusTransfer	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnSnStatusTransfer	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnUeContextRelease	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnUeContextRelease	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnUeContextRelease	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnUeContextRelease	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnUeContextRelease	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnUeContextRelease	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnUeContextRelease	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuCpXnXnuAddressIndication	GlobalGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnXnuAddressIndication	GlobalGnbId	gnb_id	2	Payload	int64		
+CuCpXnXnuAddressIndication	GlobalRemoteGnbId	plmn_identity	1	Payload	bytes		
+CuCpXnXnuAddressIndication	GlobalRemoteGnbId	gnb_id	2	Payload	int64		
+CuCpXnXnuAddressIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuCpXnXnuAddressIndication	Asn1Message	msg_content	2	Payload	bytes		
+CuCpXnXnuAddressIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuUpE1Reset	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuUpE1Reset	Asn1Message	msg_content	2	Payload	bytes		
+CuUpE1Reset	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+CuUpE1ResetAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+CuUpE1ResetAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+CuUpE1ResetAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1DeactivateTrace	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1DeactivateTrace	Asn1Message	msg_content	2	Payload	bytes		
+DuF1DeactivateTrace	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1DeactivateTrace	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1DeactivateTrace	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1GnbCuConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1GnbCuConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+DuF1GnbCuConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1GnbCuConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1GnbCuConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+DuF1GnbCuConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1GnbCuConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1GnbCuConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+DuF1GnbCuConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1GnbDuConfigurationUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1GnbDuConfigurationUpdate	Asn1Message	msg_content	2	Payload	bytes		
+DuF1GnbDuConfigurationUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1GnbDuConfigurationUpdateAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1GnbDuConfigurationUpdateAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+DuF1GnbDuConfigurationUpdateAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1GnbDuConfigurationUpdateFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1GnbDuConfigurationUpdateFailure	Asn1Message	msg_content	2	Payload	bytes		
+DuF1GnbDuConfigurationUpdateFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1Paging	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1Paging	Asn1Message	msg_content	2	Payload	bytes		
+DuF1Paging	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1PwsCancelRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1PwsCancelRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1PwsCancelRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1PwsCancelResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1PwsCancelResponse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1PwsCancelResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1PwsFailureIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1PwsFailureIndication	Asn1Message	msg_content	2	Payload	bytes		
+DuF1PwsFailureIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1PwsRestartIndication	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1PwsRestartIndication	Asn1Message	msg_content	2	Payload	bytes		
+DuF1PwsRestartIndication	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1Reset	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1Reset	Asn1Message	msg_content	2	Payload	bytes		
+DuF1Reset	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1ResetAcknowledge	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1ResetAcknowledge	Asn1Message	msg_content	2	Payload	bytes		
+DuF1ResetAcknowledge	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1ResourceStatusFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1ResourceStatusFailure	Asn1Message	msg_content	2	Payload	bytes		
+DuF1ResourceStatusFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1ResourceStatusRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1ResourceStatusRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1ResourceStatusRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1ResourceStatusResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1ResourceStatusResponse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1ResourceStatusResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1ResourceStatusUpdate	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1ResourceStatusUpdate	Asn1Message	msg_content	2	Payload	bytes		
+DuF1ResourceStatusUpdate	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1SetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1SetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+DuF1SetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1SetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1SetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1SetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1SetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1SetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1SetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1TraceStart	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1TraceStart	Asn1Message	msg_content	2	Payload	bytes		
+DuF1TraceStart	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1TraceStart	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1TraceStart	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationConfirm	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextModificationConfirm	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationConfirm	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextModificationConfirm	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextModificationConfirm	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextModificationFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextModificationFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextModificationFailure	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextModificationFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextModificationRefuse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextModificationRefuse	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationRefuse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextModificationRefuse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextModificationRefuse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextModificationRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextModificationRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextModificationRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextModificationRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextModificationRequired	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextModificationRequired	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationRequired	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextModificationRequired	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextModificationRequired	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextModificationResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextModificationResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextModificationResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextModificationResponse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextModificationResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextReleaseCommand	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextReleaseCommand	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextReleaseCommand	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextReleaseCommand	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextReleaseCommand	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextReleaseComplete	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextReleaseComplete	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextReleaseComplete	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextReleaseComplete	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextReleaseComplete	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextReleaseRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextReleaseRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextReleaseRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextReleaseRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextReleaseRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextSetupFailure	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextSetupFailure	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextSetupFailure	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextSetupFailure	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextSetupFailure	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextSetupRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextSetupRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1UeContextSetupResponse	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuF1UeContextSetupResponse	GlobalGnbId	gnb_id	2	Payload	int64		
+DuF1UeContextSetupResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1UeContextSetupResponse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1UeContextSetupResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1WriteReplaceWarningRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1WriteReplaceWarningRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuF1WriteReplaceWarningRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuF1WriteReplaceWarningResponse	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuF1WriteReplaceWarningResponse	Asn1Message	msg_content	2	Payload	bytes		
+DuF1WriteReplaceWarningResponse	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuRrcReestablishmentRequest	GlobalGnbId	plmn_identity	1	Payload	bytes		
+DuRrcReestablishmentRequest	GlobalGnbId	gnb_id	2	Payload	int64		
+DuRrcReestablishmentRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuRrcReestablishmentRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuRrcReestablishmentRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuRrcReject	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuRrcReject	Asn1Message	msg_content	2	Payload	bytes		
+DuRrcReject	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuRrcResumeRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuRrcResumeRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuRrcResumeRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		
+DuRrcSetupRequest	Asn1Message	msg_direction	1	Payload	enum MsgDirection		
+DuRrcSetupRequest	Asn1Message	msg_content	2	Payload	bytes		
+DuRrcSetupRequest	Asn1Message	protocol_name	3	Payload	repeated <enum ProtocolName>		

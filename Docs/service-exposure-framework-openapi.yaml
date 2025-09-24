@@ -1,0 +1,1286 @@
+#
+# COPYRIGHT Ericsson 2021
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+
+
+openapi: "3.0.3"
+info:
+  description: |
+    The Service Exposure APIs allow Administrators to manage its accessibility of REST APIs. The Service Exposure API V3 are accessible on the {eic-host}.
+  title: Service Exposure API V3
+  version: "3.13.2"
+tags:
+  - name: Onboard an API
+    description: Create an API defines the request URL for Onboarded App APIs.
+  - name: Update an API
+    description: Update the configurations of onboarded App API.
+  - name: Offboard an API
+    description: Offboarding an API removes all the associated endpoints, the binding plugins and configure plugin.
+servers:
+  - url: "https://{eic-host}/hub/apiprovisioning/v1/admin/v3"
+paths:
+  /apis:
+    post:
+      tags:
+        - "Onboard an API"
+      summary: "Create an API."
+      description: Create an API defines the request URL for Onboarded App APIs.
+      operationId: "onboardApi"
+      requestBody:
+        content:
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/OnboardRequest'
+            examples:
+              OnboardRequest:
+                $ref: '#/components/examples/OnboardRequest'
+        required: true
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/AppDetails'
+              examples:
+                OnboardResponse:
+                  $ref: '#/components/examples/OnboardResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        "429":
+          description: "Too Many Requests."
+        default:
+          description: "Internal Server Error."
+
+  /apis/{serviceCapabilityId}:
+    put:
+      summary: "Update an API."
+      description: Update the configurations of onboarded App API.
+      tags:
+        - "Update an API"
+      operationId: "updateConfiguration"
+      parameters:
+        - name: serviceCapabilityId
+          in: path
+          required: true
+          description: The serviceCapabilityId is the unique ID of API. It only accepts min 1 and max 100 characters of alpha, digit, '-', '', and '|', such as abcAbc123-|. **For example:** hello-world
+          style: simple
+          explode: true
+          schema:
+            type: string
+          examples:
+            queryByName:
+              value: hello-world
+      requestBody:
+        content:
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/UpdateRequest'
+            examples:
+              UpdateRequest:
+                $ref: '#/components/examples/UpdateRequest'
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/AppDetails'
+              examples:
+                UpdateResponse:
+                  $ref: '#/components/examples/UpdateResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "429":
+          description: "Too Many Requests."
+        default:
+          description: "Internal Server Error."
+    delete:
+      tags:
+        - "Offboard an API"
+      summary: "Offboard an API."
+      operationId: "offboardApi"
+      parameters:
+        - in: path
+          name: serviceCapabilityId
+          description: Use the serviceCapabilityId which is already created.
+          schema:
+            type: string
+          required: true
+          style: simple
+          explode: true
+          examples:
+            queryByName:
+              value: hello-world
+      responses:
+        "204":
+          description: "No Content."
+        "default":
+          description: "Internal Server Error."
+
+  /apis/{serviceCapabilityId}/endpoints:
+    post:
+      tags:
+        - "Onboard an API"
+      summary: "Create the endpoint."
+      description: |
+        Create an endpoint for serviceCapabilityId.
+        
+        Endpoint defines the server URL for the provider service.
+        
+        PrefixPath allows modification of the received request URL before forwarding the request to the provider App, for example, adding prefix to the requested resourcePath.
+        
+        For Example ,
+        <table border="1">
+        <tr>
+        <th><b>resourcePath</b></th>
+        <th>prefixPath</th>
+        <th>URL</th>
+        </tr>
+        <tr>
+        <td>resourcePath of Provider App API is /idm/usermgmt/v1/users</td>
+        <td> with no prefixPath</td>
+        <td>https://{eic-host}/hub/app/ericsson-usermgmt-service/usermgmt/v1/idm/usermgmt/v1/users.</br>
+
+         In this case the apiName and apiVersion ,that is, /usermgmt/v1, is getting repeated in the request URL.
+        </td>
+        <tr>
+        <td>resourcePath of Provider App API is /idm/usermgmt/v1/users. </br>
+         </br>
+        </td>
+        <td>Set prefixPath as /idm/usermgmt/v1/</td>
+        <td>The updated URL with SEF will be https://{eic-host}/hub/app/ericsson-usermgmt-service/usermgmt/v1/users.</br>
+
+         In this way repetition can be removed from the request URL.
+        </td>
+        </table>
+      operationId: "onboardEndpoint"
+      parameters:
+        - in: path
+          name: serviceCapabilityId
+          description: The unique id of the Onboard an API.</br>
+          schema:
+            type: string
+          required: true
+          style: form
+          explode: true
+          examples:
+            queryByName:
+              value: hello-world
+      requestBody:
+        required: true
+        content:
+          application/problem+json:
+            schema:
+              $ref: "#/components/schemas/OnboardEndpoint"
+            examples:
+              OnboardMtlsEndpoint:
+                $ref: '#/components/examples/OnboardMtlsEndpoint'
+              OnboardMtlsSelfEndpoint:
+                $ref: '#/components/examples/OnboardMtlsSelfEndpoint'
+              OnboardEndpoint:
+                $ref: '#/components/examples/OnboardEndpoint'
+
+      responses:
+        "201":
+          description: "Created."
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/AppDetailsEndpoint'
+              examples:
+                OnboardMtlsEndpointResponse:
+                  $ref: '#/components/examples/OnboardMtlsEndpointResponse'
+                OnboardMtlsSelfEndpointResponse:
+                  $ref: '#/components/examples/OnboardMtlsSelfEndpointResponse'
+                OnboardEndpointResponse:
+                  $ref: '#/components/examples/OnboardEndpointResponse'
+
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        default:
+          description: "Internal Server Error.."
+
+  /apis/{serviceCapabilityId}/endpoints/{endpointId}:
+    put:
+      tags:
+        - "Update an API"
+      summary: "Update the endpoint."
+      description: Update the configurations of endpoint associated with onboarded App APIs.
+      operationId: "updateApiEndpoint"
+      parameters:
+        - in: path
+          name: serviceCapabilityId
+          description: The unique id of the Onboard an API.
+          schema:
+            type: string
+          required: true
+          style: simple
+          explode: true
+          examples:
+            queryByName:
+              value: hello-world
+        - name: endpointId
+          in: path
+          required: true
+          description: The unique id of Onboarded API.
+          style: simple
+          explode: true
+          schema:
+            type: string
+          examples:
+            queryByprefix:
+              value: /endpoint
+      requestBody:
+        required: true
+        content:
+          application/problem+json:
+            schema:
+              $ref: "#/components/schemas/UpdateEndpoint"
+            examples:
+              UpdateMtlsEndpoint:
+                $ref: '#/components/examples/UpdateMtlsEndpoint'
+              UpdateMtlsSelfEndpoint:
+                $ref: '#/components/examples/UpdateMtlsSelfEndpoint'
+              UpdateEndpoint:
+                $ref: '#/components/examples/UpdateEndpoint'
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/AppDetailsEndpoint'
+              examples:
+                UpdateMtlsEndpointResponse:
+                  $ref: '#/components/examples/UpdateMtlsEndpointResponse'
+                UpdateMtlsSelfEndpointResponse:
+                  $ref: '#/components/examples/UpdateMtlsSelfEndpointResponse'
+                UpdateEndpointResponse:
+                  $ref: '#/components/examples/UpdateEndpointResponse'
+
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "409":
+          $ref: '#/components/responses/Conflict'
+        default:
+          description: "Internal Server Error."
+
+  /apis/{serviceCapabilityId}/phases/{phaseName}/plugin-list:
+    put:
+      tags:
+        - "Onboard an API"
+        - "Update an API"
+      summary: "Binding Plugin."
+      description: Override binding plugins for one {serviceCapabilityId} in {PhaseName}.
+      operationId: "overrideBindingPlugins"
+      parameters:
+        - in: path
+          name: serviceCapabilityId
+          description: The unique id of the create an API.
+          schema:
+            type: string
+          required: true
+          style: simple
+          explode: true
+          examples:
+            queryByName:
+              value: hello-world
+        - in: path
+          name: phaseName
+          description: Specify the phase to be applied for plugins.
+          schema:
+            type: string
+            enum: [ auth, protocol ]
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/problem+json:
+            schema:
+              $ref: "#/components/schemas/UpdatePluginList"
+            examples:
+              UpdatePluginlist:
+                $ref: '#/components/examples/UpdatePluginList'
+              Interceptor:
+                $ref: "#/components/examples/Interceptor"
+      responses:
+        "204":
+          description: "No Content."
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        default:
+          description: "Internal Server Error."
+
+  /apis/{serviceCapabilityId}/plugins/{pluginName}/configuration:
+    put:
+      tags:
+        - "Onboard an API"
+        - "Update an API"
+      summary: "Configure Plugin"
+      description: |
+        Update plugin configuration of the plugin already associated with onboarded serviceCapabilityId.
+        
+        **The headerFilterInterceptor** is used to add any additional headers to the request.
+        
+        **The extractTokenInterceptor** is used to extract access token from a session cookie received in the request from UI Apps.
+      operationId: "configurePlugin"
+      parameters:
+        - in: path
+          name: serviceCapabilityId
+          description: The unique id of Onboarded API.
+          schema:
+            type: string
+          required: true
+          style: simple
+          explode: true
+          examples:
+            queryByName:
+              value: hello-world
+        - in: path
+          name: pluginName
+          description: Specify the unique name of the plugin.
+          schema:
+            type: string
+          required: true
+          style: simple
+          explode: true
+          examples:
+            queryByName:
+              value: requestPartyTokenInterceptor
+      requestBody:
+        required: true
+        content:
+          application/problem+json:
+            schema:
+              $ref: "#/components/schemas/UpdateConfiguration"
+            examples:
+              UpdateExtractConfiguration:
+                $ref: '#/components/examples/UpdateExtractConfiguration'
+              HeaderFilterInterceptor:
+                $ref: "#/components/examples/HeaderFilterInterceptor"
+      responses:
+        "204":
+          description: "No Content."
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          description: "Internal Server Error."
+components:
+  schemas:
+    OnboardRequest:
+      type: object
+      properties:
+        serviceCapabilityId:
+          type: string
+          description: The serviceCapabilityId is the unique ID of API. The unique name of the API in API Proxy. It only accepts min 1 and max 100 characters of alpha, digit, '-', '', and '|', such as abcAbc123-| Pattern ^[a-zA-Z0-9_|-]{1,100}$
+        status:
+          type: string
+          description: Note that the API invocation can fail if the status is inactive. Default - inactive  Allowed - active┃inactive .**For example** active
+        description:
+          type: string
+          description: A short explanation of the API’s purpose
+        apiPrefix:
+          type: string
+          description: This is used to uniquely identifies the APIs. apiPrefix to follow below structure. If the same API is exposed by two different Apps, the apiPrefix must be /app/{vendorName-appName}. The appName is the name of the Provider App and the vendorName is provided by App Administrator. **For example - /app/{vendorName-appName}**.
+        apiName:
+          type: string
+          description: It is part of the URI structure. It must be mapped from App API provider specification. **For example- /api**.
+        apiVersion:
+          type: string
+          description: It is part of the URI structure, the apiVersion must be mapped from App API provider specification. **For example - /v1**.
+        apiDefinition:
+          type: array
+          description: A list of API operations.
+          items:
+            $ref: '#/components/schemas/apiDefinition'
+        sunsetDate:
+          type: string
+          format: date-time
+          description: The sunset date of API.
+        apiCategory:
+          type: string
+          description: The API hierarchy must match with pattern ^/APIGM(/[^/]+){0,2}$ **Examples - /APIGM/category/api**.
+        accessControl:
+          type: object
+          properties:
+            authentication:
+              type: object
+              description: How API Proxy authenticate client of the API.
+              properties:
+                scheme:
+                  type: string
+                  enum: [ auto, basic, oauth, none ]
+                  description: What authentication scheme to be applied to this API. Default - none Allowed - auto┃basic┃oauth┃none. Preferred scheme used is auto.
+            apiContentType:
+              type: object
+              description: The MIME type allowed to present in payload
+              properties:
+                consumes:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/consumes'
+            crossOriginResourceSharing:
+              type: object
+              properties:
+                allowedOrigin:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedOrigin'
+                allowedMethod:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedMethod'
+                allowedHeader:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedHeader'
+        serviceLevelAgreement:
+          type: object
+          description: Define a default Service Level Agreement by Administrator.
+          properties:
+            throttlingRate:
+              type: object
+              description: The maximum traffic rate (calls per second) is allowed for the API.
+              properties:
+                threshold:
+                  type: number
+                  description: This value is set by the App administrator by evaluating which is the maximum traffic rate (API requests per second) allowed for the API. When traffic rate is over threshold, API Proxy is triggered to throttling the traffic. If the value is set to -1, there are no enforcement on the behavior of the system. If the value is set to 0, all requests is rejected.
+        scopeMapping:
+          type: string
+          properties:
+            <any-key>:
+              items:
+                $ref: '#/components/schemas/scopeMapping'
+
+      required:
+        - serviceCapabilityId
+        - status
+        - apiPrefix
+        - apiName
+        - apiVersion
+        - apiDefinition
+        - apiCategory
+    scopeMapping:
+      type: string
+      description: The key is the OAuth scope, the value is the operation name in apiDefinition.
+    consumes:
+      type: string
+      description: A list of MIME types the API operation can consume. ⮕ [ The mime type definitions should be in compliance.
+    invalidParams:
+      type: object
+      properties:
+        param:
+          type: string
+          description: Attribute's name encoded as a JSON Pointer, or header's name.
+        reason:
+          type: string
+          description: A human-readable reason, e.g. "must be a positive integer".
+    pluginList:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Specify the unique name of the plugin.
+    allowedOrigin:
+      type: string
+      description: A list of allowed origin domains. Please Specify * if you want to allow all domains. ⮕ [ one of allowed origin domains. ]One of allowed origin domains.
+    allowedMethod:
+      type: string
+      enum: [ GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD ]
+      description: A list of allowed HTTP Methods for cross domain API calls. Allowed - GET┃POST┃PUT┃DELETE┃PATCH┃OPTIONS┃HEAD
+    allowedHeader:
+      type: string
+      description: A list of HTTP header fields allowed to appear in cross domain API calls. Please Specify * if you want to allow all headers.
+    methods:
+      type: string
+      enum: [ GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD ]
+    apiDefinition:
+      type: object
+      required:
+        - operationName
+        - urlPattern
+      properties:
+        operationName:
+          type: string
+          description: Name of the API operation. Unique string used to identify the operation. The id must be unique among all operations described in the API. The operationId value is case-sensitive.
+        urlPattern:
+          type: string
+          description: Define an unique pattern for the API. It is mapped from APIs of Provider API Specification. **For example - /hello**.
+        urlPatternType:
+          type: string
+          enum: [ uriTemplate, uriRegex ]
+          description: It is used to match the API, defined at urlPattern, to access the service . A URI template is a URI-like String that contains variables enclosed by braces ({}), which can be expanded to produce an actual URI. **For example - "urlPattern" - "/users", "urlPatternType" - "uriTemplate"**. For uriRegex, the regular expression patterns, to match a URL, depend on your specific needs. Since URLs can be in various forms, you have to write them to suit the way you expect the URL. **For example - "urlPattern"- "/idm/usermgmt/(.*)", "urlPatternType"- "uriRegex", **. Default - uriTemplate Allowed - uriTemplate┃uriRegex.
+        methods:
+          type: array
+          description: HTTP Method(s) will operate on the url defined by urlPattern,all methods are supported when this property is omitted. Allowed methods – GET┃POST┃DELETE┃PUT┃PATCH
+          items:
+            $ref: '#/components/schemas/methods'
+    OnboardEndpoint:
+      type: object
+      properties:
+        endpointId:
+          type: string
+          description: The unique name of the API in API Proxy.
+        serverUrl:
+          type: string
+          format: uri
+          description: Specify the protocol, host, and port of endpoint URI based on the Kubernetes® service details. The Server URI must be Fully Qualified Domain Name(FQDN). Format is [Protocol]://[Host]:[Port], for example, http://ip:port. In case of mTls communication serverUrl Format is https://service.namespace.domain:port.
+        prefixPath:
+          type: string
+          description: Specify the prefix segment between base path and resourcePath.
+        connection:
+          type: object
+          description: Include parameters related to connection with backend API endpoints.
+          properties:
+            httpResponseTimeout:
+              type: integer
+              description: The timeout in millis waiting for HTTP response Constraints. Min 1┃Max 1795000 | Default 10000.
+      required:
+        - endpointId
+        - serverUrl
+    UpdateRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ active, inactive ]
+          description: Note that the API invocation can fail if the status is inactive. Default - inactive  Allowed - active┃inactive . **For example** active
+        description:
+          type: string
+          description: A short explanation of the API’s purpose.
+        apiPrefix:
+          type: string
+          description: This is used to uniquely identify the APIs. apiPrefix to follow below structure. If the same API is exposed by two different Apps, the apiPrefix must be /app/{vendorName-appName}. The appName is name of the Provider App and the vendorName is provided by App Administrator. **For example - /app/{vendorName-appName}**.
+        apiName:
+          type: string
+          description: It is part of the URI structure. It must be mapped from App API provider specification.**For Example - /api**
+        apiVersion:
+          type: string
+          description: It is part of the URI structure, the apiVersion must be mapped from App API provider specification.**For example - /v1**.
+        apiDefinition:
+          type: array
+          description: A list of API Operations.
+          items:
+            $ref: '#/components/schemas/apiDefinition'
+        sunsetDate:
+          type: string
+          format: date-time
+          description: The sunset date of API.
+        apiCategory:
+          type: string
+          description: The API hierarchy must match with pattern ^/APIGM(/[^/]+){0,2}$ **Examples - /APIGM/category/api**.
+        accessControl:
+          type: object
+          properties:
+            authentication:
+              type: object
+              description: How API Proxy authenticate client of the API.
+              properties:
+                scheme:
+                  type: string
+                  enum: [ auto, basic, oauth, none ]
+                  description: What authentication scheme to be applied to this API. Default - none Allowed - auto┃basic┃oauth|none. Preferred scheme used is auto.
+            apiContentType:
+              type: object
+              description: The MIME type allowed to present in payload.
+              properties:
+                consumes:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/consumes'
+            crossOriginResourceSharing:
+              type: object
+              properties:
+                allowedOrigin:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedOrigin'
+                allowedMethod:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedMethod'
+                allowedHeader:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedHeader'
+        serviceLevelAgreement:
+          type: object
+          description: Define a default Service Level Agreement by Administrator.
+          properties:
+            throttlingRate:
+              type: object
+              description: The maximum traffic rate (calls per second) is allowed for the API.
+              properties:
+                threshold:
+                  type: number
+                  description: This value is set by the App administrator by evaluating which is the maximum traffic rate (API requests per second) allowed for the API. When traffic rate is over threshold, API Proxy is triggered to throttling the traffic. If the value is set to -1, there is no enforcement on the behavior of the system. If the value is set to 0, all requests are rejected.
+        scopeMapping:
+          type: string
+          properties:
+            <any-key>:
+              items:
+                $ref: '#/components/schemas/scopeMapping'
+      required:
+        - status
+        - apiPrefix
+        - apiName
+        - apiVersion
+        - apiDefinition
+        - apiCategory
+    UpdateEndpoint:
+      type: object
+      properties:
+        endpointId:
+          type: string
+          description: The unique name of the API in API Proxy.
+        serverUrl:
+          type: string
+          format: uri
+          description: Specify the protocol, host, and port of endpoint URI based on the Kubernetes service details. The Server URI must be Fully Qualified Domain Name(FQDN). Format is [Protocol]://[Host]:[Port], for example, http://ip:port. In case of mTls communication serverUrl Format is https://service.namespace.domain:port.
+        prefixPath:
+          type: string
+          description: Specify the prefix segment between base path and resourcePath.
+        connection:
+          type: object
+          description: Include parameters related to connection with backend API endpoints.
+          properties:
+            httpResponseTimeout:
+              type: integer
+              description: The timeout in millis waiting for HTTP response Constraints. Min 1┃Max 1795000 | Default 10000.
+      required:
+        - endpointId
+        - serverUrl
+    UpdateConfiguration:
+      type: object
+      properties:
+        configuration:
+          type: object
+          description: A json object, plugin does some operations according to this expression.
+      required:
+        - configuration
+    UpdatePluginList:
+      type: array
+      items:
+        $ref: '#/components/schemas/pluginList'
+    ProblemDetails:
+      type: object
+      properties:
+        title:
+          type: string
+          description: String providing an URI formatted.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+        invalidParams:
+          type: array
+          description: Description of invalid parameters, for a request rejected due to invalid parameters. **Min Items** 1
+          items:
+            $ref: '#/components/schemas/invalidParams'
+
+    ProblemDetailsNotFound:
+      type: object
+      properties:
+        title:
+          type: string
+          description: String providing an URI formatted.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+    AppDetails:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ active, inactive ]
+          description: Note that the API invocation can fail if the status is inactive. Default - inactive  Allowed - active┃inactive. **For example** active.
+        description:
+          type: string
+          description: A short explanation of the API’s purpose.
+        apiPrefix:
+          type: string
+          description: This is used to uniquely identify the APIs. The apiPrefix must have the following structure. If the same API is exposed by two different Apps, the apiPrefix must /app/{vendorName-appName}. The appName is the name of the Provider App and the vendorName is provided by App Administrator. **For example - /app/{vendorName-appName}**.
+        apiName:
+          type: string
+          description: It is part of the URI structure. It must be mapped from App API provider specification. **For example - /api**
+        apiVersion:
+          type: string
+          description: It is part of the URI structure, the apiVersion must be mapped from App API provider specification. **For example - /v1**
+        apiDefinition:
+          type: array
+          items:
+            $ref: '#/components/schemas/apiDefinition'
+        sunsetDate:
+          type: string
+          format: date-time
+          description: The sunset date of API.
+        apiCategory:
+          type: string
+          description: The API hierarchy must match with pattern ^/APIGM(/[^/]+){0,2}$ **Examples - /APIGM/category/api**
+        accessControl:
+          type: object
+          properties:
+            authentication:
+              type: object
+              description: How API Proxy authenticate client of the API.
+              properties:
+                scheme:
+                  type: string
+                  enum: [ auto, basic, oauth, none ]
+                  description: What authentication scheme to be applied to this API. Default - none Allowed - auto┃basic┃oauth|none. Preferred scheme used is auto.
+            apiContentType:
+              type: object
+              description: The MIME type allowed to present in payload.
+              properties:
+                consumes:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/consumes'
+            crossOriginResourceSharing:
+              type: object
+              properties:
+                allowedOrigin:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedOrigin'
+                allowedMethod:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedMethod'
+                allowedHeader:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/allowedHeader'
+        serviceLevelAgreement:
+          type: object
+          description: Define a default Service Level Agreement by Administrator.
+          properties:
+            throttlingRate:
+              type: object
+              description: The maximum traffic rate (calls per second) is allowed for the API.
+              properties:
+                threshold:
+                  type: number
+                  description: This value is set by the App administrator by evaluating which is the maximum traffic rate (API requests per second) allowed for the API. When traffic rate is over threshold, API Proxy is triggered to throttling the traffic. If the value is set to -1, there is no enforcement on the behavior of the system. If the value is set to 0, all requests are rejected.
+        scopeMapping:
+          type: string
+          properties:
+            <any-key>:
+              items:
+                $ref: '#/components/schemas/scopeMapping'
+        lastUpdatedTimestamp:
+          type: integer
+          description: Specifies the Unix® time stamp in ms when it is last modified.
+      required:
+        - status
+        - apiPrefix
+        - apiName
+        - apiVersion
+        - apiDefinition
+        - apiCategory
+    AppDetailsEndpoint:
+      type: object
+      properties:
+        endpointId:
+          type: string
+          description: The unique name of the API in API Proxy.
+        serverUrl:
+          type: string
+          format: uri
+          description: Specify the protocol, host, and port of endpoint URI based on the Kubernetes service details.The Server URI must be Fully Qualified Domain Name(FQDN). Format is [Protocol]://[Host]:[Port], for example, http://ip:port. In case of mTls communication serverUrl Format is https://service.namespace.domain:port.
+        prefixPath:
+          type: string
+          description: Specify the prefix segment between base path and resourcePath.
+        authentication:
+          type: object
+          properties:
+            authType:
+              type: string
+              enum: [ basic, none, digest, client_credentials ]
+              description: (authType) Specify the authentication type used by back-end API endpoints Default - none Allowed-  basic┃none┃digest┃client_credentials.
+        connection:
+          type: object
+          description: Include parameters related to connection with back-end API endpoints.
+          properties:
+            httpResponseTimeout:
+              type: integer
+              description: The timeout in millis waiting for HTTP response Constraints. Min 1┃Max 1795000 | Default 10000.
+            httpProtocol:
+              type: string
+              enum: [ HTTP1.1, HTTP2 ]
+              description: Default -  HTTP2 Allowed - HTTP1.1┃HTTP2
+            enableH2CPriorKnowledge:
+              type: boolean
+              description: Checks if --http2-prior-knowledge is enabled when it is connecting to HTTP2 endpoint. Default-false.
+        lastUpdatedTimestamp:
+          type: integer
+          description: Specifies the Unix timestamp in ms when it is last modified.
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            BadRequest:
+              $ref: '#/components/examples/BadRequest'
+    NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetailsNotFound'
+          examples:
+            NotFound:
+              $ref: '#/components/examples/NotFound'
+    Conflict:
+      description: Conflict.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetailsNotFound'
+          examples:
+            NotFound:
+              $ref: '#/components/examples/Conflict'
+    InternalServerError:
+      description: Internal Server Error.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetailsNotFound'
+          examples:
+            InternalServerError:
+              $ref: '#/components/examples/InternalServerError'
+
+  examples:
+    OnboardRequest:
+      value:
+        serviceCapabilityId: hello-world
+        status: active
+        description: This is the sample hello world api
+        apiPrefix: /app/ericsson-eric-ref-sdk-hello-world
+        apiName: api
+        apiVersion: v1
+        apiDefinition:
+          - operationName: /paths/resource/GET
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - GET
+          - operationName: /paths/resource/POST
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - POST
+          - operationName: /paths/resource/PUT
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PUT
+          - operationName: /paths/resource/DELETE
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - DELETE
+          - operationName: /paths/resource/PATCH
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PATCH
+        sunsetDate: "2026-11-14T15:59:59Z"
+        apiCategory: /APIGM/category/api
+        accessControl:
+          authentication:
+            scheme: auto
+          apiContentType:
+            consumes:
+              - application/problem+json
+          crossOriginResourceSharing:
+            allowedOrigin:
+              - "*"
+            allowedMethod:
+              - POST
+              - GET
+              - PUT
+            allowedHeader:
+              - "*"
+        serviceLevelAgreement:
+          throttlingRate:
+            threshold: 0
+        scopeMapping:
+          oauthScope1:
+            - /paths/resource1/GET
+
+    UpdateRequest:
+      summary: Update request body
+      value:
+        serviceCapabilityId: hello-world
+        status: active
+        description: This is the sample hello-world api
+        apiPrefix: /app/ericsson-eric-ref-sdk-hello-world
+        apiName: api
+        apiVersion: v1
+        apiDefinition:
+          - operationName: /paths/resource/GET
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - GET
+          - operationName: /paths/resource/POST
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - POST
+          - operationName: /paths/resource/PUT
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PUT
+          - operationName: /paths/resource/DELETE
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - DELETE
+          - operationName: /paths/resource/PATCH
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PATCH
+        sunsetDate: "2026-11-14T15:59:59Z"
+        apiCategory: /APIGM/category/api
+        accessControl:
+          authentication:
+            scheme: auto
+          apiContentType:
+            consumes:
+              - application/problem+json
+          crossOriginResourceSharing:
+            allowedOrigin:
+              - "*"
+            allowedMethod:
+              - POST
+              - GET
+              - PUT
+            allowedHeader:
+              - "*"
+        serviceLevelAgreement:
+          throttlingRate:
+            threshold: 10
+        scopeMapping:
+          oauthScope1:
+            - /paths/resource1/GET
+    OnboardMtlsEndpoint:
+      summary: Onboard mtls endpoint request body when PKI certificates are used
+      value:
+        endpointId: endpoint
+        serverUrl: https://eric-ref-sdk-hello-world.eic.ericsson.se:8050
+        connection:
+          httpResponseTimeout: 10000
+    OnboardMtlsSelfEndpoint:
+      summary: Onboard mtls endpoint request body openssl certificates are used
+      value:
+        endpointId: endpoint
+        serverUrl: https://eric-ref-sdk-hello-world.eic.svc.cluster.local:8050
+        connection:
+          httpResponseTimeout: 10000
+    OnboardEndpoint:
+      summary: Onboard endpoint request body when unsecure communication are used
+      value:
+        endpointId: endpoint
+        serverUrl: http://eric-ref-sdk-hello-world:8050
+        connection:
+          httpResponseTimeout: 10000
+
+    UpdateMtlsEndpoint:
+      summary: Update mtls endpoint request body when PKI certificates are used
+      value:
+        endpointId: endpoint
+        serverUrl: https://eric-ref-sdk-hello-world.eic.ericsson.se:8050
+        connection:
+          httpResponseTimeout: 10000
+    UpdateMtlsSelfEndpoint:
+      summary: Update mtls endpoint request body openssl certificates are used
+      value:
+        endpointId: endpoint
+        serverUrl: https://eric-ref-sdk-hello-world.eic.svc.cluster.local:8050
+        connection:
+          httpResponseTimeout: 10000
+    UpdateEndpoint:
+      summary: Update endpoint request body when unsecure communication are used
+      value:
+        endpointId: endpoint
+        serverUrl: http://eric-ref-sdk-hello-world:8050
+        connection:
+          httpResponseTimeout: 10000
+
+    UpdateExtractConfiguration:
+      summary: extractTokenInterceptor
+      value:
+        configSchemaVersion: v0
+        configuration:
+          tokenHeaderName: Authorization
+          enableTokenPropagation: false
+          tokenCookieFieldNames:
+            - eric.adp.authz.proxy.token
+    HeaderFilterInterceptor:
+      summary: headerFilterInterceptor
+      value:
+        configSchemaVersion: v0
+        configuration:
+          headerRewriteRules:
+            - conditions:
+                header: Set-Cookie
+                messageType:
+                  - request
+              operations:
+                - operationType: insert
+                  value: test
+                  position: head
+    UpdatePluginList:
+      summary: auth-plugin-list
+      value:
+        - name: extractTokenInterceptor
+        - name: requestPartyTokenInterceptor
+    Interceptor:
+      summary: protocol-plugin
+      value:
+        - name: headerFilterInterceptor
+
+    OnboardMtlsEndpointResponse:
+      summary: Onboard mtls endpoint response body when PKI certificates are used
+      value:
+        serverUrl: https://eric-ref-sdk-hello-world.eic.ericsson.se:8050
+        authentication:
+          authType: none
+        connection:
+          - httpResponseTimeout: 10000
+            httpProtocol: HTTP2
+            enableH2CPriorKnowledge: false
+        endpointType: Inbound
+        lastUpdatedTimestamp: 1712370138238
+    OnboardMtlsSelfEndpointResponse:
+      summary: Onboard mtls endpoint response body when openssl certificates are used
+      value:
+        serverUrl: https://eric-ref-sdk-hello-world.eic.svc.cluster.local:8050
+        authentication:
+          authType: none
+        connection:
+          - httpResponseTimeout: 10000
+            httpProtocol: HTTP2
+            enableH2CPriorKnowledge: false
+        endpointType: Inbound
+        lastUpdatedTimestamp: 1923570125638
+    OnboardEndpointResponse:
+      summary: Onboard endpoint response body when unsecure communication are used
+      value:
+        serverUrl: http://eric-ref-sdk-hello-world:8050
+        authentication:
+          authType: none
+        connection:
+          - httpResponseTimeout: 10000
+            httpProtocol: HTTP2
+            enableH2CPriorKnowledge: false
+        endpointType: Inbound
+        lastUpdatedTimestamp: 1712328710325
+    UpdateMtlsEndpointResponse:
+      summary: Update mtls endpoint response body when PKI certificates are used
+      value:
+        serverUrl: https://eric-ref-sdk-hello-world.eic.ericsson.se:8050
+        authentication:
+          authType: none
+        connection:
+          - httpResponseTimeout: 10000
+            httpProtocol: HTTP2
+            enableH2CPriorKnowledge: false
+        endpointType: Inbound
+        lastUpdatedTimestamp: 1712370138238
+    UpdateMtlsSelfEndpointResponse:
+      summary: Update mtls endpoint response body openssl certificates are used
+      value:
+        serverUrl: https://eric-ref-sdk-hello-world.eic.svc.cluster.local:8050
+        authentication:
+          authType: none
+        connection:
+          - httpResponseTimeout: 10000
+            httpProtocol: HTTP2
+            enableH2CPriorKnowledge: false
+        endpointType: Inbound
+        lastUpdatedTimestamp: 1824751139125
+    UpdateEndpointResponse:
+      summary: Update endpoint response body when unsecure communication are used
+      value:
+        serverUrl: http://eric-ref-sdk-hello-world:8050
+        authentication:
+          authType: none
+        connection:
+          - httpResponseTimeout: 10000
+            httpProtocol: HTTP2
+            enableH2CPriorKnowledge: false
+        endpointType: Inbound
+        lastUpdatedTimestamp: 1576472950
+
+    OnboardResponse:
+      summary: Onboard response body
+      value:
+        status: active
+        description: This is the sample hello-world api
+        apiPrefix: /app/ericsson-eric-ref-sdk-hello-world
+        apiName: api
+        apiVersion: v1
+        apiDefinition:
+          - operationName: /paths/resource/GET
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - GET
+          - operationName: /paths/resource/POST
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - POST
+          - operationName: /paths/resource/PUT
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PUT
+          - operationName: /paths/resource/DELETE
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - DELETE
+          - operationName: /paths/resource/PATCH
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PATCH
+        sunsetDate: "2026-11-14T15:59:59Z"
+        apiCategory: /APIGM/category/api
+        accessControl:
+          authentication:
+            scheme: auto
+          apiContentType:
+            consumes:
+              - application/problem+json
+          crossOriginResourceSharing:
+            allowedOrigin:
+              - "*"
+            allowedMethod:
+              - POST
+              - GET
+              - PUT
+            allowedHeader:
+              - "*"
+        serviceLevelAgreement:
+          throttlingRate:
+            threshold: 0
+        scopeMapping:
+          oauthScope1:
+            - /paths/resource1/GET
+        lastUpdatedTimestamp: 1567597891098
+
+    UpdateResponse:
+      summary: Updating response body
+      value:
+        status: active
+        description: This is the sample hello-world api
+        apiPrefix: /app/ericsson-eric-ref-sdk-hello-world
+        apiName: api1
+        apiVersion: v1
+        apiDefinition:
+          - operationName: /paths/resource/GET
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - GET
+          - operationName: /paths/resource/POST
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - POST
+          - operationName: /paths/resource/PUT
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PUT
+          - operationName: /paths/resource/DELETE
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - DELETE
+          - operationName: /paths/resource/PATCH
+            urlPattern: /hello
+            urlPatternType: uriRegex
+            methods:
+              - PATCH
+        sunsetDate: "2026-11-14T15:59:59Z"
+        apiCategory: /APIGM/category/api
+        accessControl:
+          authentication:
+            scheme: auto
+          apiContentType:
+            consumes:
+              - application/problem+json
+          crossOriginResourceSharing:
+            allowedOrigin:
+              - "*"
+            allowedMethod:
+              - POST
+              - GET
+              - PUT
+            allowedHeader:
+              - "*"
+        serviceLevelAgreement:
+          throttlingRate:
+            threshold: 10
+        scopeMapping:
+          oauthScope1:
+            - /paths/resource1/GET
+        lastUpdatedTimestamp: 1567597891098
+
+    BadRequest:
+      value:
+        title: Invalid parameter format
+        detail: The request contains parameter with invalid format.
+        invalidParams:
+          - param: methods
+            reason: Please provide a valid methods array, only accept 1 item
+    Conflict:
+      value:
+        title: Object already exist
+        detail: The service capability xxx already exist
+    NotFound:
+      value:
+        title: Object not found
+        detail: The service capability xxx not found
+    InternalServerError:
+      value:
+        title: Invalid config schema
+        detail: The config schema of plugin xxx is invalid, cannot handle related configuration operations

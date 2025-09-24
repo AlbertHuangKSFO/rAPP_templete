@@ -1,0 +1,19 @@
+#tosca_definitions_version: Metadata/Tosca.meta
+Description of an APP:
+    APPName: RAPP_NAME
+    APPVersion: 2.0.3-0
+    APPType: rApp
+AppComponentList:
+    - NameofComponent: RAPP_NAME
+      Version: 2.0.3-0
+      Path: OtherDefinitions/ASD/RAPP_NAMEASD.yaml
+      ArtefactType: ASD
+    - NameofComponent: RAPP_NAME-data-management
+      Version: 2.0.0
+      Path: OtherDefinitions/DataManagement
+      ArtefactType: DataManagement
+APPRoles:
+    - Name: TopologyInventory_Application_ReadOnly
+    - Name: NetworkConfiguration_Application_ReadOnly
+    - Name: Data_Management_Consumer_Application
+    - Name: SchemaRegistry_Consumer_Application_Operator

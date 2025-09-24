@@ -1,0 +1,268 @@
+PmEvent Name	Event Id	Event Type	Event Description and Trigger	STANDARDIZED or PROPRIETARY	Event Groups	Message Trace Depth (UE Trace)	Interface Classification (UE Trace)	DeprecatedSince	ReasonForDeprecation	Periodicity (seconds)	SupportedBands	SupportedDeployments	License	LimitationReason	EventStatus
+CuCpE1Reset	3272	CUCP	E1AP RESET message. See 3GPP TS 38.463.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpE1ResetAcknowledge	3273	CUCP	E1AP RESET ACKNOWLEDGE message. See 3GPP TS 38.463.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpF1DeactivateTrace	3110	UE	DEACTIVATE TRACE sent. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A		USED
+CuCpF1GnbCuConfigurationUpdate	3129	CUCP	GNB-CU CONFIGURATION UPDATE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA Low-Band/Mid-Band	USED
+CuCpF1GnbCuConfigurationUpdateAcknowledge	3130	CUCP	GNB-CU CONFIGURATION UPDATE ACKNOWLEDGE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA Low-Band/Mid-Band	USED
+CuCpF1GnbDuConfigurationUpdate	3132	CUCP	GNB-DU CONFIGURATION UPDATE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA Low-Band/Mid-Band	USED
+CuCpF1GnbCuConfigurationUpdateFailure	3131	CUCP	GNB-CU CONFIGURATION UPDATE FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA Low-Band/Mid-Band	USED
+CuCpF1GnbDuConfigurationUpdateAcknowledge	3133	CUCP	GNB-DU CONFIGURATION UPDATE ACKNOWLEDGE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA Low-Band/Mid-Band	USED
+CuCpF1GnbDuConfigurationUpdateFailure	3134	CUCP	GNB-DU CONFIGURATION UPDATE FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for all deployments	USED
+CuCpF1Paging	3213	CUCP	F1 PAGING sent. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpF1PwsCancelRequest	3288	CUCP	To observe the PWS F1 procedure, F1AP PWS CANCEL REQUEST in CU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpF1PwsCancelResponse	3289	CUCP	To observe the PWS F1 procedure, F1AP PWS CANCEL RESPONSE in CU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpF1PwsFailureIndication	3316	CUCP	To observe the PWS F1 procedure, F1AP PWS FAILURE INDICATION in CU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpF1PwsRestartIndication	3315	CUCP	To observe the PWS F1 procedure, F1AP PWS RESTART INDICATION in CU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpF1Reset	3135	CUCP	RESET message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not used in current deployments	USED
+CuCpF1ResetAcknowledge	3136	CUCP	RESET ACKNOWLEDGE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not used in current deployments	USED
+CuCpF1ResourceStatusFailure	3299	CUCP	RESOURCE STATUS FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpF1ResourceStatusRequest	3297	CUCP	RESOURCE STATUS REQUEST message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpF1ResourceStatusResponse	3298	CUCP	RESOURCE STATUS RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpF1ResourceStatusUpdate	3300	CUCP	RESOURCE STATUS UPDATE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpF1SetupFailure	3126	CUCP	SETUP FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpF1SetupRequest	3127	CUCP	SETUP REQUEST message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpF1SetupResponse	3128	CUCP	SETUP RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpF1TraceStart	3109	UE	TRACE START sent. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A		USED
+CuCpF1UeContextModificationConfirm	3156	UE	UE CONTEXT MODIFICATION CONFIRM message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpF1UeContextModificationFailure	3137	UE	UE CONTEXT MODIFICATION FAILURE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextModificationRefuse	3157	UE	UE CONTEXT MODIFICATION REFUSE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpF1UeContextModificationRequest	3138	UE	UE CONTEXT MODIFICATION REQUEST message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextModificationRequired	3158	UE	UE CONTEXT MODIFICATION REQUIRED message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpF1UeContextModificationResponse	3139	UE	UE CONTEXT MODIFICATION RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextReleaseCommand	3140	UE	UE CONTEXT RELEASE COMMAND message from gNodeB Central Unit. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextReleaseComplete	3141	UE	UE CONTEXT RELEASE COMPLETE message from gNodeB Distributed Unit. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextReleaseRequest	3142	UE	UE CONTEXT RELEASE REQUEST message from gNodeB Distributed Unit. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextSetupFailure	3123	UE	UE CONTEXT SETUP FAILURE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextSetupRequest	3124	UE	UE CONTEXT SETUP REQUEST message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1UeContextSetupResponse	3125	UE	UE CONTEXT SETUP RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+CuCpF1WriteReplaceWarningRequest	3290	CUCP	To observe the PWS F1 procedure, F1AP WRITE-REPLACE WARNING REQUEST in CUCP	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpF1WriteReplaceWarningResponse	3291	CUCP	To observe the PWS F1 procedure, F1AP WRITE-REPLACE WARNING RESPONSE in CU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgDeactivateTrace	3249	UE	DEACTIVATE TRACE message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA	N/A		USED
+CuCpNgAmfConfigurationUpdate	3163	CUCP	AMF CONFIGURATION UPDATE received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgAmfConfigurationUpdateAcknowledge	3164	CUCP	AMF CONFIGURATION UPDATE ACKNOWLEDGE sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgAmfConfigurationUpdateFailure	3165	CUCP	AMF CONFIGURATION UPDATE FAILURE sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgDownlinkNasTransport	3025	UE	DOWNLINK NAS TRANSPORT received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgDownlinkRanConfigurationTransfer	3201	CUCP	DOWNLINK RAN CONFIGURATION TRANSFER message received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgDownlinkRanStatusTransfer	3092	UE	DOWNLINK RAN STATUS TRANSFER received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgDownlinkUeAssociatedNrppaTransport	3215	UE	DOWNLINK UE ASSOCIATED NRPPA TRANSPORT message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA	N/A		USED
+CuCpNgErrorIndicationCommon	3026	CUCP	Common NGAP ERROR INDICATION sent or received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgErrorIndicationDedicated	3027	UE	Dedicated ERROR INDICATION sent or received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverCancel	3094	UE	HANDOVER CANCEL sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverCancelAcknowledge	3093	UE	HANDOVER CANCEL ACKNOWLEDGE received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverCommand	3095	UE	HANDOVER COMMAND received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverFailure	3096	UE	HANDOVER FAILURE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverNotify	3097	UE	HANDOVER NOTIFY sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverPreparationFailure	3098	UE	HANDOVER PREPARATION FAILURE received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverRequest	3100	UE	HANDOVER REQUEST received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverRequestAcknowledge	3099	UE	HANDOVER REQUEST ACKNOWLEDGE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgHandoverRequired	3101	UE	HANDOVER REQUIRED sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgInitialContextSetupFailure	3028	UE	INITIAL CONTEXT SETUP FAILURE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgInitialContextSetupRequest	3029	UE	INITIAL CONTEXT SETUP REQUEST received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgInitialContextSetupResponse	3030	UE	INITIAL CONTEXT SETUP RESPONSE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgInitialUeMessage	3031	UE	INITIAL UE MESSAGE sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgLocationReport	3252	UE	LOCATION REPORT message sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA	N/A		USED
+CuCpNgLocationReportingControl	3251	UE	LOCATION REPORTING CONTROL message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA	N/A		USED
+CuCpNgLocationReportingFailureIndication	3253	UE	LOCATION REPORTING FAILURE INDICATION message sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA	N/A		USED
+CuCpNgNasNonDeliveryIndication	3023	UE	NAS NON DELIVERY INDICATION sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPaging	3003	CUCP	PAGING received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPathSwitchRequest	3176	UE	NGAP PATH SWITCH REQUEST message sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPathSwitchRequestAcknowledge	3177	UE	NGAP PATH SWITCH REQUEST ACKNOWLEDGE message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPathSwitchRequestFailure	3178	UE	NGAP PATH SWITCH REQUEST FAILURE message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPduSessionResourceModifyConfirm	3174	UE	NGAP PDU SESSION RESOURCE MODIFY CONFIRM message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity	Not supported in High-Band SA	USED
+CuCpNgPduSessionResourceModifyIndication	3175	UE	NGAP PDU SESSION RESOURCE MODIFY INDICATION message sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity	Not supported in High-Band SA	USED
+CuCpNgPduSessionResourceModifyRequest	3078	UE	PDU SESSION RESOURCE MODIFY REQUEST received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPduSessionResourceModifyResponse	3079	UE	PDU SESSION RESOURCE MODIFY RESPONSE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPduSessionResourceNotify	3155	UE	PDU SESSION RESOURCE NOTIFY sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A	Status Preliminary	PRELIMINARY
+CuCpNgPduSessionResourceReleaseCommand	3080	UE	PDU SESSION RESOURCE RELEASE COMMAND received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPduSessionResourceReleaseResponse	3081	UE	PDU SESSION RESOURCE RELEASE RESPONSE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPduSessionResourceSetupRequest	3014	UE	PDU SESSION RESOURCE SETUP REQUEST received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPduSessionResourceSetupResponse	3015	UE	PDU SESSION RESOURCE SETUP RESPONSE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPwsCancelRequest	3118	CUCP	PWS CANCEL REQUEST message.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPwsCancelResponse	3119	CUCP	PWS CANCEL RESPONSE message. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPwsFailureIndication	3147	CUCP	PWS FAILURE INDICATION message. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgPwsRestartIndication	3120	CUCP	PWS RESTART INDICATION message. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgRanConfigurationUpdate	3152	CUCP	RAN CONFIGURATION UPDATE sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgRanConfigurationUpdateAcknowledge	3153	CUCP	RAN CONFIGURATION UPDATE ACKNOWLEDGE received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgRanConfigurationUpdateFailure	3154	CUCP	RAN CONFIGURATION UPDATE FAILURE received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgRerouteNasRequest	3090	UE	REROUTE NAS REQUEST received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Status Preliminary	PRELIMINARY
+CuCpNgReset	3032	CUCP	NG RESET received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgResetAcknowledge	3033	CUCP	NG RESET ACKNOWLEDGE sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgSetupFailure	3168	CUCP	NG SETUP FAILURE received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgSetupRequest	3166	CUCP	NG SETUP REQUEST sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgSetupResponse	3167	CUCP	NG SETUP RESPONSE received. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgTraceFailureIndication	3250	UE	TRACE FAILURE INDICATION message sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA	N/A	Not verified in High-Band	USED
+CuCpNgTraceStart	3248	UE	TRACE START message received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpNgUeContextModificationFailure	3111	UE	UE CONTEXT MODIFICATION FAILURE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeContextModificationRequest	3112	UE	UE CONTEXT MODIFICATION REQUEST received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeContextModificationResponse	3113	UE	UE CONTEXT MODIFICATION RESPONSE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeContextReleaseCommand	3034	UE	UE CONTEXT RELEASE COMMAND received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeContextReleaseComplete	3035	UE	UE CONTEXT RELEASE COMPLETE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeContextReleaseRequest	3036	UE	UE CONTEXT RELEASE REQUEST sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeRadioCapabilityCheckRequest	3006	UE	UE RADIO CAPABILITY CHECK REQUEST received. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeRadioCapabilityCheckResponse	3007	UE	UE RADIO CAPABILITY CHECK RESPONSE sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUeRadioCapabilityInfoIndication	3037	UE	UE RADIO CAPABILITY INFO INDICATION sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUplinkNasTransport	3038	UE	UPLINK NAS TRANSPORT sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUplinkRanConfigurationTransfer	3200	CUCP	UPLINK RAN CONFIGURATION TRANSFER message sent. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUplinkRanStatusTransfer	3102	UE	UPLINK RAN STATUS TRANSFER sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgUplinkUeAssociatedNrppaTransport	3216	UE	UPLINK UE ASSOCIATED NRPPA TRANSPORT message sent. See 3GPP TS 38.413.	STANDARDIZED		0,2,3,5	NG				Low-band, Mid-band	NR SA	N/A		USED
+CuCpNgWriteReplaceWarningRequest	3116	CUCP	WRITE-REPLACE WARNING REQUEST message. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpNgWriteReplaceWarningResponse	3117	CUCP	WRITE-REPLACE WARNING RESPONSE message. See 3GPP TS 38.413.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpPerUeMdtReport	3230	UE	M1 measurement received.	STANDARDIZED	MDT	0,2,3,5	UU			MdtCellProfileUeCfg::m1ReportInterval	Low-band, Mid-band, High-band	EN-DC, NR SA	LicenseKeyId: CXC4012564, LicenseMoId: NrMinimizationOfDriveTests, LicenseName: NR Minimization of Drive Tests		USED
+CuCpPerUeUcmReport	3331	UE	This event represents UE coverage measurement reports received from UE for a single frequency.	STANDARDIZED						UcmNrFreqRelProfile::reportConfigPeriodical{reportAmount}	Low-band, Mid-band, High-band	NR SA	N/A		USED
+CuCpRrcDlInformationTransfer	3041	UE	DLInformationTransfer sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcMeasurementReport	3005	UE	MeasurementReport received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcMobilityFromNrCommand	3161	UE	MobilityFromNRCommand sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcReconfiguration	3019	UE	RRCReconfiguration sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcReconfigurationComplete	3020	UE	RRCReconfigurationComplete received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcReestablishment	3226	UE	RRCReestablishment message sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcReestablishmentComplete	3227	UE	RRCReestablishmentComplete message received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcReestablishmentRequest	3228	UE	RRCReestablishmentRequest message received. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcReject	3043	UE	RRCReject sent. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcRelease	3044	UE	RRCRelease sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcResume	3223	UE	RRCResume message sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	LicenseKeyId: CXC4012550, LicenseMoId: RrcInactiveState, LicenseName: RRC Inactive State		USED
+CuCpRrcResumeComplete	3222	UE	RRCResumeComplete message. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	LicenseKeyId: CXC4012550, LicenseMoId: RrcInactiveState, LicenseName: RRC Inactive State		USED
+CuCpRrcResumeRequest	3225	UE	RRCResumeRequest message. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcScgFailureInformation	3199	UE	RRC SCGFailureInformation message received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpRrcSecurityModeCommand	3016	UE	SecurityModeCommand sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcSecurityModeComplete	3017	UE	SecurityModeComplete received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcSecurityModeFailure	3018	UE	SecurityModeFailure received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcSetup	3045	UE	RRCSetup sent. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcSetupComplete	3046	UE	RRCSetupComplete received. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcSetupRequest	3047	UE	RRCSetupRequest received. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcUeAssistanceInformation	3286	UE	RRC UEAssistanceInformation received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA	N/A		USED
+CuCpRrcUeCapabilityEnquiry	3039	UE	UECapabilityEnquiry sent. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcUeCapabilityInformation	3040	UE	UECapabilityInformation received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcUlDedicatedMessageSegment	3258	UE	ULDedicatedMessageSegment message received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA	N/A	Status Preliminary	PRELIMINARY
+CuCpRrcUlInformationTransfer	3042	UE	ULInformationTransfer received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpRrcUlInformationTransferMrdc	3263	UE	ULInformationTransferMRDC message received. See 3GPP TS 38.331.	STANDARDIZED		0,2,3,5	UU				Low-band, Mid-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpX2DeactivateTrace	3108	UE	DEACTIVATE TRACE received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	NR SA not supported.	USED
+CuCpX2EndcConfigurationTransfer	3106	CUCP	EN-DC CONFIGURATION TRANSFER sent or received. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2EndcConfigurationUpdate	3057	CUCP	EN-DC CONFIGURATION UPDATE sent or received. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2EndcConfigurationUpdateAcknowledge	3058	CUCP	EN-DC CONFIGURATION UPDATE ACKNOWLEDGE sent. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2EndcConfigurationUpdateFailure	3059	CUCP	EN-DC CONFIGURATION UPDATE FAILURE sent. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2EndcResourceStatusFailure	3341	CUCP	Standardized PM event to observe X2 EN-DC Resource Status Failure message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	EN-DC	N/A		USED
+CuCpX2EndcResourceStatusRequest	3339	CUCP	Standardized PM event to observe X2 EN-DC Resource Status Request message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	EN-DC	N/A		USED
+CuCpX2EndcResourceStatusResponse	3340	CUCP	Standardized PM event to observe X2 EN-DC Resource Status Response message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	EN-DC	N/A		USED
+CuCpX2EndcResourceStatusUpdate	3342	CUCP	Standardized PM event to observe X2 EN-DC Resource Status Update message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	EN-DC	N/A		USED
+CuCpX2EndcX2SetupFailure	3060	CUCP	EN-DC X2 SETUP FAILURE sent or received. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2EndcX2SetupRequest	3061	CUCP	EN-DC X2 SETUP REQUEST sent or received. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2EndcX2SetupResponse	3062	CUCP	EN-DC X2 SETUP RESPONSE sent or received. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2ErrorIndicationCommon	3348	CUCP	Common X2AP ERROR INDICATION message sent or received. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC	N/A		USED
+CuCpX2PartialResetConfirm	3302	CUCP	X2AP PARTIAL RESET CONFIRM message. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2PartialResetRequired	3303	CUCP	X2AP PARTIAL RESET REQUIRED message. See  3GPP TS 36.423	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2RrcTransfer	3054	UE	RRCTransfer sent or received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SecondaryRatDataUsageReport	3056	UE	SECONDARY RAT DATA USAGE REPORT sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbActivityNotification	3002	UE	SGNB ACTIVITY NOTIFICATION sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbAdditionRequest	3067	UE	SGNB ADDITION REQUEST received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbAdditionRequestAcknowledge	3068	UE	SGNB ADDITION REQUEST ACKNOWLEDGE sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbAdditionRequestReject	3069	UE	SGNB ADDITION REQUEST REJECT sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbChangeConfirm	3070	UE	SGNB CHANGE CONFIRM received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbChangeRefuse	3071	UE	SGNB CHANGE REFUSE received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbChangeRequired	3072	UE	SGNB CHANGE REQUIRED sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbModificationConfirm	3075	UE	SGNB MODIFICATION CONFIRM received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbModificationRefuse	3076	UE	SGNB MODIFICATION REFUSE message is received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbModificationRequest	3051	UE	SGNB MODIFICATION REQUEST received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbModificationRequestAcknowledge	3049	UE	SGNB MODIFICATION REQUEST ACKNOWLEDGE sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbModificationRequestReject	3050	UE	SGNB MODIFICATION REQUEST REJECT sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbModificationRequired	3077	UE	SGNB MODIFICATION REQUIRED sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbReconfigurationComplete	3082	UE	SGNB RECONFIGURATION COMPLETE received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbReleaseConfirm	3083	UE	SGNB RELEASE CONFIRM received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbReleaseRequest	3084	UE	SGNB RELEASE REQUEST received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbReleaseRequestAcknowledge	3085	UE	SGNB RELEASE REQUEST ACKNOWLEDGE sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SgnbReleaseRequired	3086	UE	SGNB RELEASE REQUIRED sent. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2SnStatusTransfer	3087	UE	SN STATUS TRANSFER sent or received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpX2TraceStart	3107	UE	TRACE START received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	NR SA not supported.	USED
+CuCpX2UeContextRelease	3088	UE	UE CONTEXT RELEASE received. See 3GPP TS 36.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	EN-DC, CR EN-DC	N/A		USED
+CuCpXnActivityNotification	3206	UE	XnAP ACTIVITY NOTIFICATION message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A	Status Preliminary	PRELIMINARY
+CuCpXnErrorIndicationCommon	3143	CUCP	Common XnAP ERROR INDICATION message sent or received. See 3GPP TS 38.423.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpXnErrorIndicationDedicated	3144	UE	Dedicated XnAP ERROR INDICATION message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpXnHandoverCancel	3179	UE	XnAP HANDOVER CANCEL message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnHandoverPreparationFailure	3182	UE	XnAP HANDOVER PREPARATION FAILURE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnHandoverRequest	3180	UE	XnAP HANDOVER REQUEST message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnHandoverRequestAcknowledge	3181	UE	XnAP HANDOVER REQUEST ACKNOWLEDGE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnNgRanNodeConfigurationUpdate	3010	CUCP	NG-RAN NODE CONFIGURATION UPDATE sent or received. See 3GPP TS 38.423.	STANDARDIZED							Low-band, Mid-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpXnNgRanNodeConfigurationUpdateAcknowledge	3008	CUCP	NG-RAN NODE CONFIGURATION UPDATE ACKNOWLEDGE sent or received. See 3GPP TS 38.423.	STANDARDIZED							Low-band, Mid-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpXnNgRanNodeConfigurationUpdateFailure	3009	CUCP	NG-RAN NODE CONFIGURATION UPDATE FAILURE sent or received. See 3GPP TS 38.423.	STANDARDIZED							Low-band, Mid-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+CuCpXnResetRequest	3304	CUCP	XnAP RESET REQUEST message. See 3GPP TS 38.423.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpXnResetResponse	3305	CUCP	XnAP RESET RESPONSE message. See 3GPP TS 38.423.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpXnResourceStatusFailure	3296	CUCP	Standardized PM event to observe Xn Resource Status Failure message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpXnResourceStatusRequest	3294	CUCP	Standardized PM event to observe Xn Resource Status Request message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpXnResourceStatusResponse	3293	CUCP	Standardized PM event to observe Xn Resource Status Response message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpXnResourceStatusUpdate	3295	CUCP	Standardized PM event to observe Xn Resource Status Update message sent or received by gNodeB.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+CuCpXnRetrieveUeContextFailure	3238	UE	Used for NR Standalone to monitor XnAP RETRIEVE UE CONTEXT FAILURE message. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnRetrieveUeContextRequest	3234	UE	Used for NR Standalone to monitor XnAP RETRIEVE UE CONTEXT REQUEST message. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnRetrieveUeContextResponse	3235	UE	Used for NR Standalone to monitor XnAP RETRIEVE UE CONTEXT RESPONSE message. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band	NR SA, CR NR SA	N/A		USED
+CuCpXnRrcTransfer	3267	UE	XnAP RRC TRANSFER message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeAdditionRequest	3183	UE	XnAP S-NODE ADDITION REQUEST message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeAdditionRequestAcknowledge	3184	UE	XnAP S-NODE ADDITION REQUEST ACKNOWLEDGE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeAdditionRequestReject	3185	UE	XnAP S-NODE ADDITION REQUEST REJECT message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeChangeConfirm	3264	UE	XnAP S-NODE CHANGE CONFIRM message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeChangeRefuse	3265	UE	XnAP S-NODE CHANGE REFUSE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeChangeRequired	3262	UE	XnAP S-NODE CHANGE REQUIRED message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeModificationConfirm	3243	UE	XnAP S-NODE MODIFICATION CONFIRM message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeModificationRefuse	3244	UE	XnAP S-NODE MODIFICATION REFUSE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeModificationRequest	3239	UE	XnAP S-NODE MODIFICATION REQUEST message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeModificationRequestAcknowledge	3240	UE	XnAP S-NODE MODIFICATION REQUEST ACKNOWLEDGE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeModificationRequestReject	3241	UE	XnAP S-NODE MODIFICATION REQUEST REJECT message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeModificationRequired	3242	UE	XnAP S-NODE MODIFICATION REQUIRED message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeReconfigurationComplete	3186	UE	XnAP S-NODE RECONFIGURATION COMPLETE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeReleaseConfirm	3187	UE	XnAP S-NODE RELEASE CONFIRM message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeReleaseReject	3188	UE	XnAP S-NODE RELEASE REJECT message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeReleaseRequest	3189	UE	XnAP S-NODE RELEASE REQUEST message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeReleaseRequestAcknowledge	3190	UE	XnAP S-NODE RELEASE REQUEST ACKNOWLEDGE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSNodeReleaseRequired	3191	UE	XnAP S-NODE RELEASE REQUIRED message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	LicenseKeyId: CXC4012582, LicenseMoId: NrNrDualConnectivity, LicenseName: NR-NR Dual Connectivity		USED
+CuCpXnSetupFailure	3011	CUCP	XN SETUP FAILURE sent. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band	EN-DC, NR SA, CR NR SA	N/A		USED
+CuCpXnSetupRequest	3012	CUCP	XN SETUP REQUEST sent. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band	EN-DC, NR SA, CR NR SA	N/A		USED
+CuCpXnSetupResponse	3013	CUCP	XN SETUP RESPONSE sent. See 3GPP TS 36.423.	STANDARDIZED							Low-band, Mid-band	EN-DC, NR SA, CR NR SA	N/A		USED
+CuCpXnSnStatusTransfer	3192	UE	XnAP SN STATUS TRANSFER message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpXnUeContextRelease	3193	UE	XnAP UE CONTEXT RELEASE message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuCpXnXnuAddressIndication	3194	UE	XnAP Xn-U ADDRESS INDICATION message sent or received. See 3GPP TS 38.423.	STANDARDIZED		0,2,3,5	X2_XN				Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+CuUpE1Reset	4014	CUUP	RESET message. See 3GPP TS 38.463	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A	Not supported in HB SA	USED
+CuUpE1ResetAcknowledge	4015	CUUP	RESET ACKNOWLEDGE message. See 3GPP TS 38.463	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A	Not supported in HB SA	USED
+DuF1DeactivateTrace	2015	UE	Monitors DEACTIVATE TRACE message.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not supported in HB SA	USED
+DuF1GnbCuConfigurationUpdate	2026	DU	GNB CU CONFIGURATION UPDATE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1GnbCuConfigurationUpdateAcknowledge	2024	DU	GNB CU CONFIGURATION UPDATE ACKNOWLEDGE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1GnbCuConfigurationUpdateFailure	2025	DU	GNB CU CONFIGURATION UPDATE FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1GnbDuConfigurationUpdate	2029	DU	GNB DU CONFIGURATION UPDATE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1GnbDuConfigurationUpdateAcknowledge	2027	DU	GNB DU CONFIGURATION UPDATE ACKNOWLEDGE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1GnbDuConfigurationUpdateFailure	2028	DU	GNB DU CONFIGURATION UPDATE FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for all deployments	USED
+DuF1Paging	2058	DU	PAGING message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA, CR NR SA	N/A		USED
+DuF1PwsCancelRequest	2081	DU	Monitors the PWS Cancel Request procedure in DU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Not supported in MSRBS	USED
+DuF1PwsCancelResponse	2082	DU	Monitors the PWS Cancel Respons procedure in DU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Not supported in MSRBS	USED
+DuF1PwsFailureIndication	2087	DU	Monitors the PWS Failure Indication procedure in DU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Not supported in MSRBS	USED
+DuF1PwsRestartIndication	2088	DU	Monitors the PWS Restart Indication procedure in DU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Not supported in MSRBS.	USED
+DuF1Reset	2031	DU	RESET message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not used in current deployments	USED
+DuF1ResetAcknowledge	2030	DU	RESET ACKNOWLEDGE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not used in current deployments	USED
+DuF1ResourceStatusFailure	2085	DU	RESOURCE STATUS FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	CR NR SA deployment not supported	USED
+DuF1ResourceStatusRequest	2083	DU	RESOURCE STATUS REQUEST message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	CR NR SA deployment not supported	USED
+DuF1ResourceStatusResponse	2084	DU	RESOURCE STATUS RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	CR NR SA deployment not supported	USED
+DuF1ResourceStatusUpdate	2086	DU	RESOURCE STATUS UPDATE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	CR NR SA deployment not supported	USED
+DuF1SetupFailure	2039	DU	SETUP FAILURE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1SetupRequest	2019	DU	SETUP REQUEST message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1SetupResponse	2020	DU	SETUP RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED							Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A	Not verified for NR SA	USED
+DuF1TraceStart	2014	UE	Monitors TRACE START message.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not supported in HB SA	USED
+DuF1UeContextModificationConfirm	2043	UE	UE CONTEXT MODIFICATION CONFIRM message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not supported in HB SA	USED
+DuF1UeContextModificationFailure	2032	UE	UE CONTEXT MODIFICATION FAILURE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextModificationRefuse	2044	UE	UE CONTEXT MODIFICATION REFUSE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not supported in HB SA	USED
+DuF1UeContextModificationRequest	2033	UE	UE CONTEXT MODIFICATION REQUEST message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextModificationRequired	2045	UE	UE CONTEXT MODIFICATION REQUIRED message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not supported in HB SA	USED
+DuF1UeContextModificationResponse	2034	UE	UE CONTEXT MODIFICATION RESPONSE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextReleaseCommand	2035	UE	UE CONTEXT RELEASE COMMAND message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextReleaseComplete	2036	UE	UE CONTEXT RELEASE COMPLETE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextReleaseRequest	2037	UE	UE CONTEXT RELEASE REQUEST message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextSetupFailure	2021	UE	UE CONTEXT SETUP FAILURE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextSetupRequest	2022	UE	UE CONTEXT SETUP REQUEST message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1UeContextSetupResponse	2023	UE	UE CONTEXT SETUP FAILURE message. See 3GPP TS 38.473.	STANDARDIZED		0,2,3,5	F1				Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	Not verified for NR SA	USED
+DuF1WriteReplaceWarningRequest	2079	DU	Monitors the PWS WRITE-REPLACE WARNING REQUEST in DU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Not supported in MSRBS	USED
+DuF1WriteReplaceWarningResponse	2080	DU	Monitors the PWS WRITE-REPLACE WARNING RESPONSE in DU.	STANDARDIZED							Low-band, Mid-band	NR SA, CR NR SA	N/A	Not supported in MSRBS	USED
+DuRrcReestablishmentRequest	2061	UE	Applied only when RRCReestablishmentRequest message is ignored by DU because of Baseband connection intensity control or Baseband MP load control indicating OVERLOAD state. Never sent to CUCP. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+DuRrcReject	2041	UE	Applied only when RRCReject message is sent by DU because of Baseband connection intensity control. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+DuRrcResumeRequest	2060	UE	Only applicable when RRCResumeRequest message is rejected by gNodeB-DU because of Baseband connection intensity control or Baseband MP load control indicating OVERLOAD or VERY HIGH state. Never sent to gNodeB-CU-CP. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band	NR SA	N/A		USED
+DuRrcSetupRequest	2040	UE	Applied only when RRCSetupRequest is rejected by DU because of Baseband connection intensity control. Never sent to CUCP. See 3GPP TS 38.331.	STANDARDIZED							Low-band, Mid-band, High-band	NR SA	N/A		USED
+DuPerRadioUeMeasurement	2004	UE	Periodic measurements of UE radio environment.	STANDARDIZED	CCTR	1,2	UU			1	Low-band, Mid-band, High-band	EN-DC, NR SA	N/A	High-band not ready	USED
+DuPerUeRbTrafficRep	2008	UE	Periodic measurements of Radio Bearer (RB) traffic.	STANDARDIZED	CCTR	1,2	UU			1	Low-band, Mid-band, High-band	EN-DC, NR SA	N/A		USED
+DuPerUeRbTrafficRepAggr10	2067	UE	Time-aggregated periodic measurements of Radio Bearer (RB) traffic. Time interval is 10 s.	STANDARDIZED						10	Low-band, Mid-band, High-band	EN-DC, NR SA	N/A		USED
+DuPerUeRbTrafficRepAggr60	2065	UE	Time aggregated periodic measurements of Radio Bearer (RB) traffic.	STANDARDIZED						60	Low-band, Mid-band, High-band	EN-DC, NR SA	LicenseKeyId: CXC4012601, LicenseMoId: AggregatedPmEvents, LicenseName: Aggregated Pm Events		USED
+DuPerUeTrafficRep	2001	UE	Periodic measurements of UE traffic.	STANDARDIZED	CCTR	1,2	UU			1	Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+DuPerUeTrafficRepAggr10	2068	UE	Time-aggregated periodic measurements of UE traffic. Time interval is 10 s.	STANDARDIZED						10	Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	N/A		USED
+DuPerUeTrafficRepAggr60	2066	UE	Time aggregated periodic measurements of UE traffic.	STANDARDIZED						60	Low-band, Mid-band, High-band	EN-DC, NR SA, CR EN-DC, CR NR SA	LicenseKeyId: CXC4012601, LicenseMoId: AggregatedPmEvents, LicenseName: Aggregated Pm Events		USED

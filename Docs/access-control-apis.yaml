@@ -1,0 +1,560 @@
+openapi: "3.0.2"
+info:
+  title: Access Control API
+  description: RBAC Access Control API allows creating and deleting RBAC policy.<br>
+
+  version: "1.0.0"
+tags:
+  - name: Add RBAC Configuration
+    description: Add RBAC Configuration with roles resources policies and permissions
+  - name: Remove RBAC Configuration
+    description: Remove RBAC Configuration with roles resources policies and permissions
+
+servers:
+  - url: "https://{eic-host}"
+paths:
+  /idm/rolemgmt/v1/extapp/rbac:
+    post:
+      tags:
+        - Roles
+      summary: Add roles and RBAC Policy
+      description: Add RBAC Configuration creates the roles, resources, policies and permissions
+      operationId: createExtAppRbac
+      requestBody:
+        required: true
+        description: Payload including the roles and authorizations required for RBAC configuration
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RbacRequest"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RbacResponse"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 400 BAD_REQUEST
+                message: Bad request error message
+                details: Bad request error details
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 401
+                message: Unauthorized error message
+                details: Unauthorized error details
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 409
+                message: Conflict error message
+                details: Conflict error details
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 500
+                message: Internal Server Error
+                details: Internal Server Error occurred
+    delete:
+      tags:
+        - Roles
+      summary: Remove roles and RBAC Policy.
+      description: Remove RBAC Configuration deletes the roles, resources, policies and permissions.
+      operationId: deleteExtAppRbac
+      requestBody:
+        description: Payload including the roles,resources, policies and permissions objects required for RBAC configuration.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RbacDeleteRequest"
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 401
+                message: Unauthorized error message
+                details: Unauthorized error details
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 404
+                message: Not found error message
+                details: Not found error details
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+              example:
+                status: 500
+                message: Internal Server Error
+                details: Internal Server Error occurred
+components:
+  schemas:
+    ErrorMessage:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: error code.
+          readOnly: true
+        userMessage:
+          type: string
+          description: User Message.
+          readOnly: true
+        developerMessage:
+          type: string
+          description: Developer message.
+          readOnly: true
+        errorData:
+          type: array
+          description: Additional error information.
+          items:
+            type: string
+    RbacRequest:
+      type: object
+      required:
+        - tenant
+        - roles
+        - authorization
+      properties:
+        tenant:
+          type: string
+          description: Tenant name only accept the master tenant
+          example: master
+        roles:
+          type: array
+          description: RBAC Roles and attributes will be configured under roles array
+          uniqueItems: true
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/RbacRole"
+            nullable: false
+        authorization:
+          type: object
+          required:
+            - resources
+            - policies
+            - scopes
+          properties:
+            resources:
+              type: array
+              uniqueItems: true
+              minItems: 1
+              items:
+                $ref: "#/components/schemas/Resources"
+            policies:
+              type: array
+              uniqueItems: true
+              minItems: 1
+              items:
+                $ref: "#/components/schemas/Policies"
+              example:
+                - name: Is extApp_rapp_1
+                  type: role
+                  logic: POSITIVE
+                  decisionStrategy: UNANIMOUS
+                  config:
+                    role: "[{\"id\":\"ExtApp_Role_rApp\",\"required\":false}]"
+                - name: ExtApp_Role_Permission_rApp_1
+                  type: scope
+                  logic: POSITIVE
+                  decisionStrategy: AFFIRMATIVE
+                  config:
+                    resources: "[\"extApp_rapp\"]"
+                    scopes: "[\"GET\"]"
+                    applyPolicies: "[\"Is extApp_rapp_1\"]"
+            scopes:
+              type: array
+              uniqueItems: true
+              minItems: 1
+              items:
+                $ref: "#/components/schemas/Scopes"
+              example: ['GET','POST','PATCH','PUT','DELETE']
+    RbacRole:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Role name
+          example: ExtApp_Role_rApp
+        attributes:
+          type: object
+          $ref: "#/components/schemas/Attributes"
+    Attributes:
+      type: object
+      properties:
+        domain:
+          type: array
+          items:
+            type: string
+            description: ExtApp is only value accepted for attribute domain.
+            example: ExtApp
+        type:
+          type: array
+          items:
+            type: string
+            description: External is only value accepted for attribute type.
+            example: external
+    Resources:
+      type: object
+      required:
+        - name
+        - type
+        - ownerManagedAccess
+        - uris
+        - scopes
+      properties:
+        name:
+          type: string
+          description: Resource name.
+          example: extApp_resource
+        type:
+          type: string
+          description: Resource type
+          example: urn:eo:resources:extrapp
+        ownerManagedAccess:
+          type: boolean
+          description: owner managed access
+          example: false
+        attributes:
+          type: object
+          $ref: "#/components/schemas/ResourceAttributes"
+        uris:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            description: Resource uri only accept unique uri endpoint.
+          example: /hello
+        scopes:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/Scopes"
+    ResourceAttributes:
+      type: object
+      properties:
+        domain:
+          type: array
+          items:
+            type: string
+          example: ExtApp
+    Scopes:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Scope Name.
+          example: GET
+    Policies:
+      type: object
+      required:
+        - name
+        - type
+        - logic
+        - decisionStrategy
+        - config
+      properties:
+        name:
+          type: string
+          description: Policy Name.
+        type:
+          type: string
+          description: Policy type
+        logic:
+          type: string
+          description: Policy logic, recommended to be used is POSITIVE
+        decisionStrategy:
+          type: string
+          description: Policy decisionStrategy recommended to be used is UNANIMOUS
+        config:
+          type: object
+          $ref: "#/components/schemas/Config"
+    Config:
+      type: object
+      properties:
+        roles:
+          type: string
+          description: Requested roles to Add RBAC policy will be configured in config roles
+          example: ExtApp_Role_rApp
+        resources:
+          type: string
+          description: Requested resources to Add RBAC policy will be configured in config resources
+          example:
+        scopes:
+          type: string
+          description: Requested scopes to Add RBAC policy will be configured in config scopes
+          example:
+        applyPolicies:
+          type: string
+          description: Requested policies to Add RBAC policy will be configured in config applyPolicies
+          example:
+    RbacResponse:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/RbacRoleResponse"
+        authorization:
+          type: object
+          properties:
+            resources:
+              type: array
+              items:
+                $ref: "#/components/schemas/ResponseResources"
+            policies:
+              type: array
+              items:
+                $ref: "#/components/schemas/ResponsePolicies"
+            scopes:
+              type: array
+              items:
+                $ref: "#/components/schemas/ResponseScopes"
+    RbacRoleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Role identifier
+        name:
+          type: string
+          description: Role name
+        attributes:
+          type: object
+          $ref: "#/components/schemas/ResponseAttributes"
+    ResponseAttributes:
+      type: object
+      properties:
+        domain:
+          type: array
+          items:
+            type: string
+        type:
+          type: array
+          items:
+            type: string
+    ResourceResponseAttributes:
+      type: object
+      properties:
+        domain:
+          type: array
+          items:
+            type: string
+    ResponseResources:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Resource identifier
+        name:
+          type: string
+          description: Resource name.
+        type:
+          type: string
+          description: Resource type name
+        ownerManagedAccess:
+          type: boolean
+          description: Owner access
+        attributes:
+          type: object
+          $ref: "#/components/schemas/ResourceResponseAttributes"
+        uris:
+          type: array
+          items:
+            type: string
+        scopes:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResponseScopes"
+    ResponseRoleAttributes:
+      type: object
+      properties:
+        domain:
+          type: array
+          items:
+            type: string
+    ResponsePolicies:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Policy identifier
+        name:
+          type: string
+        type:
+          type: string
+        logic:
+          type: string
+        decisionStrategy:
+          type: string
+        config:
+          type: object
+          $ref: "#/components/schemas/ResponseConfig"
+    ResponseScopes:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Scope identifier
+        name:
+          type: string
+    ResponseConfig:
+      type: object
+      properties:
+        roles:
+          type: string
+        resources:
+          type: string
+        scopes:
+          type: string
+        applyPolicies:
+          type: string
+    RbacDeleteRequest:
+      type: object
+      properties:
+        tenant:
+          type: string
+          description: Tenant name only accept the master tenant
+          example: master
+        roles:
+          type: array
+          description: RBAC Roles and attribute will be configured under roles array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/RbacDeleteRole"
+            nullable: false
+        authorization:
+          type: object
+          properties:
+            resources:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: "#/components/schemas/RbacDeleteResources"
+            policies:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: "#/components/schemas/RbacDeletePolicies"
+              example:
+                - name: Is extApp_rapp_1
+                  type: role
+                  logic: POSITIVE
+                  decisionStrategy: UNANIMOUS
+                  config:
+                    role: "[{\"id\":\"ExtApp_Role_rApp\",\"required\":false}]"
+                - name: ExtApp_Role_Permission_rApp_1
+                  type: scope
+                  logic: POSITIVE
+                  decisionStrategy: AFFIRMATIVE
+                  config:
+                    resources: "[\"extApp_rapp\"]"
+                    scopes: "[\"GET\"]"
+                    applyPolicies: "[\"Is extApp_rapp_1\"]"
+            scopes:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: "#/components/schemas/Scopes"
+              example: ['GET','POST','PATCH','PUT','DELETE']
+    RbacDeleteRole:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Role Name
+          example: ExtApp_Role_rApp_1
+        attributes:
+          type: object
+          $ref: "#/components/schemas/Attributes"
+    RbacDeleteResources:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Resource name.
+          example: extApp_resource
+        type:
+          type: string
+          description: Resource type
+          example: urn:eo:resources:extrapp
+        ownerManagedAccess:
+          type: boolean
+          description: Owner managed access
+          example: false
+        attributes:
+          type: object
+          $ref: "#/components/schemas/Attributes"
+        uris:
+          type: array
+          items:
+            type: string
+            description: Resource uri only accept the unique uri endpoint.
+          example: /hello
+        scopes:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/Scopes"
+    RbacDeletePolicies:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Policy name
+        type:
+          type: string
+          description: Policy type
+        logic:
+          type: string
+          description: Policy logic
+        decisionStrategy:
+          type: string
+          description: Policy decision strategy
+        config:
+          type: object
+          $ref: "#/components/schemas/Config"
