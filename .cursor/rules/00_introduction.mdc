@@ -1,0 +1,21 @@
+---
+alwaysApply: false
+---
+
+An rApp is a software application designed to run on the Radio Access Network (RAN) infrastructure, specifically within frameworks like the RAN Intelligent Controller (RIC). The primary purpose of an rApp is to enhance and automate RAN operations by enabling fine-grained control, optimization, and customization of network resources and behavior.
+
+Core Functionality: Explain that rApps leverage data and analytics to perform specific network functions. 
+
+## Key functionalities
+- RAN Automation: Automating complex and repetitive tasks such as network configuration, monitoring, and fault management to reduce operational complexity and costs.
+
+- Resource Optimization: Dynamically managing and allocating radio resources (like spectrum and power) in real-time to improve network efficiency, capacity, and performance. This includes implementing advanced Quality of Service (QoS) enforcement for different network slices.
+
+- Service Assurance: Ensuring that Service-Level Agreements (SLAs) for diverse 5G use cases (e.g., enhanced Mobile Broadband, mission-critical communications, massive IoT) are consistently met by monitoring performance indicators and proactively adjusting network parameters.
+
+- Energy Efficiency: Implementing intelligent algorithms to optimize energy consumption across the network based on traffic load and other conditions.
+
+- Architectural Context: Describe where rApps fit within the 5G architecture. They are a key component of the Open RAN (O-RAN) and Cloud RAN ecosystems. Mention their interaction with the Non-Real-Time RIC (for policy and machine learning model training) and the Near-Real-Time RIC (for control loops with response times greater than 10 milliseconds).
+
+## Technical Characteristics
+Mention that rApps are often developed as microservices, are cloud-native in design, and use standardized interfaces to ensure interoperability within a multi-vendor RAN environment."

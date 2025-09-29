@@ -1,0 +1,61 @@
+---
+decription: Docs Location
+alwaysApply: true
+---
+
+The API Endpoint is locateed at ./Docs.
+The Example Application is located at ./Example_Application. This example shows you a few aspect below:
+
+---Need to be filled---
+
+```
+.
+├── Docs
+│   ├── access-control-apis.yaml
+│   ├── api-guide-for-messagebus.yaml
+│   ├── app-lcm-api-v3.yaml
+│   ├── app-onboarding-api-v2.yaml
+│   ├── bulk-data-discovery-openapi.yaml
+│   ├── data_access_configuration_api.yaml
+│   ├── data-access-notification-endpoint.yaml
+│   ├── data-registration-api.yaml
+│   ├── dme-types-discovery-r1-api.yaml
+│   ├── kpi-calculation-apis-v1.yaml
+│   ├── kpi-calculation-query-service-apis.yaml
+│   ├── network-configuration-api.yaml
+│   ├── NRPMCompoundTypes.csv
+│   ├── NRPMEventEnum.csv
+│   ├── NRPMEvents.csv
+│   ├── NRPMEventsFormat.csv
+│   ├── ran-oam-cm-api.yaml
+│   ├── service-exposure-framework-openapi.yaml
+│   └── topology-inventory-api.yaml
+├── Example_Application
+│   ├── charts
+│   ├── csar
+│   ├── DeveloperGuide.md
+│   ├── Dockerfile-template
+│   ├── InstantiateTherAPP.md
+│   ├── Introduction
+│   ├── libs
+│   ├── network_data_template_app
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── set_rapp_name.sh
+│   ├── test_requirements.txt
+│   ├── tests
+│   ├── UserGuide.md
+│   └── version
+└── template
+    ├── charts
+    ├── csar
+    ├── Dockerfile
+    ├── get_templete.sh
+    ├── libs
+    ├── README.md
+    ├── requirements.txt
+    ├── set_rapp_name.sh
+    └── src
+```
+
+Each move, you need to consider the docs or refer the example application.
